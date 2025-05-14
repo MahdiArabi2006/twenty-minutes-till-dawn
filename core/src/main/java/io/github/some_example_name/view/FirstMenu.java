@@ -81,7 +81,7 @@ public class FirstMenu extends Menu{
 
     @Override
     public void hide() {
-
+        stage.clear();
     }
 
     @Override

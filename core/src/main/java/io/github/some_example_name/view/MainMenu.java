@@ -1,6 +1,16 @@
 package io.github.some_example_name.view;
 
 public class MainMenu extends Menu{
+    private static MainMenu instance;
+
+    private MainMenu(){}
+
+    public static MainMenu getInstance(){
+        if (instance==null) instance = new MainMenu();
+        return instance;
+    }
+
+
     @Override
     public void show() {
 
