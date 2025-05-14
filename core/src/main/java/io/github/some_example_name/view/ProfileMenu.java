@@ -1,6 +1,14 @@
 package io.github.some_example_name.view;
 
 public class ProfileMenu extends Menu{
+    private static ProfileMenu instance;
+
+    private ProfileMenu(){}
+
+    public static ProfileMenu getInstance(){
+        if (instance==null) instance = new ProfileMenu();
+        return instance;
+    }
     @Override
     public void show() {
 

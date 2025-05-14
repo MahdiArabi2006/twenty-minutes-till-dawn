@@ -2,13 +2,13 @@ package io.github.some_example_name.model;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-import java.awt.*;
 
 public class User {
     private String username;
     private String password;
     private final String answerSecurityQuestion;
     private final Image avatar;
+    private int score;
 
     public User(String username, String password, String answerSecurityQuestion,Image avatar) {
         this.username = username;
@@ -39,5 +39,13 @@ public class User {
 
     public Image getAvatar() {
         return avatar;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 }
