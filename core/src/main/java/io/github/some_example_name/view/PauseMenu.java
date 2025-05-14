@@ -1,14 +1,16 @@
 package io.github.some_example_name.view;
 
-public class PauseMenu extends Menu{
+public class PauseMenu extends Menu {
     private static PauseMenu instance;
 
-    private PauseMenu(){}
+    private PauseMenu() {
+    }
 
-    public static PauseMenu getInstance(){
+    public static PauseMenu getInstance() {
         if (instance==null) instance = new PauseMenu();
         return instance;
     }
+
     @Override
     public void show() {
 

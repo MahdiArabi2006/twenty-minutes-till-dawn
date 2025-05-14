@@ -9,7 +9,7 @@ import io.github.some_example_name.view.MainMenu;
 public class LoginMenuController {
     private final LoginMenu view;
 
-    public LoginMenuController(LoginMenu view){
+    public LoginMenuController(LoginMenu view) {
         this.view = view;
     }
 
@@ -17,23 +17,23 @@ public class LoginMenuController {
         return view;
     }
 
-    public void forgetPassword(){
+    public void forgetPassword() {
         String username = view.getUsername().getText();
-        if (username.isEmpty()){
+        if (username.isEmpty()) {
             view.showError("please enter your username");
             return;
         }
         User user = getUser(username.trim());
-        if (user == null){
+        if (user==null) {
             view.showError("this username is not exist");
             return;
         }
         String answer = view.getAnswer().getText();
-        if (!user.getAnswerSecurityQuestion().equals(answer)){
+        if (!user.getAnswerSecurityQuestion().equals(answer)) {
             view.showError("your answer is wrong");
             return;
         }
-        if (!isPasswordStrong(view.getNewPassword().getText())){
+        if (!isPasswordStrong(view.getNewPassword().getText())) {
             view.showError("use a strong password");
             return;
         }
@@ -41,36 +41,35 @@ public class LoginMenuController {
         view.getForgetPasswordDialog().hide();
     }
 
-    public void login(String username, String password){
-        if (username.isEmpty() || password.isEmpty()){
+    public void login(String username, String password) {
+        if (username.isEmpty() || password.isEmpty()) {
             view.showError("please enter your username and password");
             return;
         }
         User user = getUser(username.trim());
-        if (user == null){
+        if (user==null) {
             view.showError("this username is not exist");
-        }
-        else if (!isPasswordCorrect(user,password.trim())){
+        } else if (!isPasswordCorrect(user, password.trim())) {
             view.showError("this password is false");
-        }
-        else {
+        } else {
             App.setLoggedInUser(user);
             Main.getInstance().setScreen(MainMenu.getInstance());
         }
     }
 
-    private User getUser(String username){
+    private User getUser(String username) {
         for (User user : App.getUsers()) {
-            if (username.equals(user.getUsername())){
+            if (username.equals(user.getUsername())) {
                 return user;
             }
         }
         return null;
     }
 
-    private boolean isPasswordCorrect(User user,String password){
+    private boolean isPasswordCorrect(User user, String password) {
         return user.getPassword().equals(password);
     }
+
     private boolean isPasswordStrong(String password) {
         return password.matches("^(?=.*[A-Z])(?=.*\\d)(?=.*[()*&^%$#@]).{8,}$");
     }

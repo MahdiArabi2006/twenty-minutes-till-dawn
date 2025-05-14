@@ -15,7 +15,7 @@ import io.github.some_example_name.model.GameAsset;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FirstMenu extends Menu{
+public class FirstMenu extends Menu {
     private static FirstMenu instance;
     private final List<TextButton> textButtonList = new ArrayList<>();
     private final Stage stage;
@@ -23,18 +23,18 @@ public class FirstMenu extends Menu{
     private final Image background;
     private final FirstMenuController controller = new FirstMenuController(this);
 
-    private FirstMenu(){
+    private FirstMenu() {
         this.stage = new Stage(new ScreenViewport());
         this.table = new Table(GameAsset.getMenuSkin());
         Texture backgroundTexture = new Texture(Gdx.files.internal("background.png"));
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.background = new Image(backgroundTexture);
         textButtonList.add(new TextButton("Login", GameAsset.getMenuSkin()));
-        textButtonList.add(new TextButton("Sign up",GameAsset.getMenuSkin()));
-        textButtonList.add(new TextButton("Exit Game",GameAsset.getMenuSkin()));
+        textButtonList.add(new TextButton("Sign up", GameAsset.getMenuSkin()));
+        textButtonList.add(new TextButton("Exit Game", GameAsset.getMenuSkin()));
     }
 
-    public static FirstMenu getInstance(){
+    public static FirstMenu getInstance() {
         if (instance==null) instance = new FirstMenu();
         return instance;
     }

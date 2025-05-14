@@ -8,9 +8,10 @@ public class App {
     private static final List<User> users = new ArrayList<>();
     private static User loggedInUser = null;
 
-    private App(){}
+    private App() {
+    }
 
-    public static App getInstance(){
+    public static App getInstance() {
         if (instance==null) instance = new App();
         return instance;
     }

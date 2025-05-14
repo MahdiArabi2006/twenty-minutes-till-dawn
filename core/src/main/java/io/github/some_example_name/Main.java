@@ -10,7 +10,9 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.some_example_name.view.FirstMenu;
 import io.github.some_example_name.view.RegisterMenu;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
+/**
+ * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
+ */
 public class Main extends Game {
     private SpriteBatch batch;
     private static Main instance;

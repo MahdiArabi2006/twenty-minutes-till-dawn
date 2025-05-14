@@ -1,36 +1,30 @@
 package io.github.some_example_name.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.some_example_name.Main;
-import io.github.some_example_name.controller.LoginMenuController;
 import io.github.some_example_name.controller.MainMenuController;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.GameAsset;
 
-public class MainMenu extends Menu{
+public class MainMenu extends Menu {
     private static MainMenu instance;
     private final MainMenuController controller = new MainMenuController(this);
     private final Stage stage;
-    private final TextButton settingButton,profileButton,preGameButton,
-        scoreBoardButton, talentButton,continueLastGameButton,logoutButton;
-    private Label errorLabel;
+    private final TextButton settingButton, profileButton, preGameButton,
+        scoreBoardButton, talentButton, continueLastGameButton, logoutButton;
     private final Table table1;
     private final Table table2;
     private final Image background;
 
-    private MainMenu(){
+    private MainMenu() {
         this.stage = new Stage(new ScreenViewport());
         this.table1 = new Table();
         this.table2 = new Table();
@@ -42,13 +36,11 @@ public class MainMenu extends Menu{
         this.scoreBoardButton = new TextButton("score board menu", GameAsset.getMenuSkin());
         this.talentButton = new TextButton("talent menu", GameAsset.getMenuSkin());
         this.profileButton = new TextButton("profile menu", GameAsset.getMenuSkin());
-        this.continueLastGameButton = new TextButton("continue last game",GameAsset.getMenuSkin());
-        this.logoutButton = new TextButton("logout",GameAsset.getMenuSkin());
-        errorLabel = new Label("", GameAsset.getMenuSkin());
-        errorLabel.setColor(Color.RED);
+        this.continueLastGameButton = new TextButton("continue last game", GameAsset.getMenuSkin());
+        this.logoutButton = new TextButton("logout", GameAsset.getMenuSkin());
     }
 
-    public static MainMenu getInstance(){
+    public static MainMenu getInstance() {
         if (instance==null) instance = new MainMenu();
         return instance;
     }
@@ -60,7 +52,9 @@ public class MainMenu extends Menu{
         setupUI();
     }
 
-    private void setupUI(){
+    private void setupUI() {
+        table1.clear();
+        table2.clear();
         table1.setFillParent(true);
         table1.defaults().pad(10).width(600).height(40);
         table1.align(Align.topRight);
@@ -120,12 +114,9 @@ public class MainMenu extends Menu{
         table2.setFillParent(true);
         table2.defaults().pad(10).width(300).height(40);
         table2.align(Align.topLeft);
-        Image avatarImage = App.getLoggedInUser().getAvatar();
-
-        avatarImage.setSize(270, 313);
-        table2.add(avatarImage).size(270,313).padBottom(20).row();
-        table2.add(new Label("username: " +  App.getLoggedInUser().getUsername(), GameAsset.getMenuSkin())).colspan(2).row();
-        table2.add(new Label("score: " + App.getLoggedInUser().getScore(),GameAsset.getMenuSkin()));
+        table2.add(App.getLoggedInUser().getAvatar()).size(270, 313).padBottom(20).row();
+        table2.add(new Label("username: " + App.getLoggedInUser().getUsername(), GameAsset.getMenuSkin())).colspan(2).row();
+        table2.add(new Label("score: " + App.getLoggedInUser().getScore(), GameAsset.getMenuSkin()));
 
         background.setFillParent(true);
         stage.addActor(background);

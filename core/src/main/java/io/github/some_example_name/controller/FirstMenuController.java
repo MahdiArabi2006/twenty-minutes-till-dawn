@@ -11,18 +11,16 @@ public class FirstMenuController {
     private final FirstMenu view;
 
 
-    public FirstMenuController(FirstMenu menu){
+    public FirstMenuController(FirstMenu menu) {
         this.view = menu;
     }
 
-    public void handleInput(){
-        if (view.getTextButtonList().get(0).isPressed()){
+    public void handleInput() {
+        if (view.getTextButtonList().get(0).isPressed()) {
             Main.getInstance().setScreen(LoginMenu.getInstance());
-        }
-        else if (view.getTextButtonList().get(1).isPressed()){
+        } else if (view.getTextButtonList().get(1).isPressed()) {
             Main.getInstance().setScreen(RegisterMenu.getInstance());
-        }
-        else if (view.getTextButtonList().get(2).isPressed()){
+        } else if (view.getTextButtonList().get(2).isPressed()) {
             Gdx.app.exit();
         }
     }

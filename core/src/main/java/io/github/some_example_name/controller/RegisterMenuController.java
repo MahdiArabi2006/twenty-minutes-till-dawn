@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.model.App;
+import io.github.some_example_name.model.GameAsset;
 import io.github.some_example_name.model.User;
 import io.github.some_example_name.view.FirstMenu;
 import io.github.some_example_name.view.Menu;
@@ -27,9 +28,7 @@ public class RegisterMenuController {
         } else if (!isPasswordStrong(password)) {
             view.showError("use a strong password");
         } else {
-            Texture avatarTexture = getRandomAvatar();
-            avatarTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-            Image image = new Image(avatarTexture);
+            Image image = getRandomAvatar();
             User user = new User(username.trim(), password.trim(), answer.trim(), image);
             App.getUsers().add(user);
             view.showSuccessMessage("you sign up successfully");
@@ -54,9 +53,9 @@ public class RegisterMenuController {
         return password.matches("^(?=.*[A-Z])(?=.*\\d)(?=.*[()*&^%$#@]).{8,}$");
     }
 
-    private Texture getRandomAvatar() {
+    private Image getRandomAvatar() {
         Random random = new Random();
-        int index = random.nextInt(Math.abs(random.nextInt()) % 12);
-        return new Texture(Gdx.files.internal("avatars/" + index + ".png"));
+        int index = random.nextInt(Math.abs(random.nextInt()) % GameAsset.getAvatars().size());
+        return GameAsset.getAvatars().get(index);
     }
 }

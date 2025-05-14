@@ -1,14 +1,16 @@
 package io.github.some_example_name.view;
 
-public class TalentMenu extends Menu{
+public class TalentMenu extends Menu {
     private static TalentMenu instance;
 
-    private TalentMenu(){}
+    private TalentMenu() {
+    }
 
-    public static TalentMenu getInstance(){
+    public static TalentMenu getInstance() {
         if (instance==null) instance = new TalentMenu();
         return instance;
     }
+
     @Override
     public void show() {
 

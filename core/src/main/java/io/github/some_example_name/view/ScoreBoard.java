@@ -1,14 +1,16 @@
 package io.github.some_example_name.view;
 
-public class ScoreBoard extends Menu{
+public class ScoreBoard extends Menu {
     private static ScoreBoard instance;
 
-    private ScoreBoard(){}
+    private ScoreBoard() {
+    }
 
-    public static ScoreBoard getInstance(){
+    public static ScoreBoard getInstance() {
         if (instance==null) instance = new ScoreBoard();
         return instance;
     }
+
     @Override
     public void show() {
 

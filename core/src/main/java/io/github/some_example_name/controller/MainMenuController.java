@@ -8,11 +8,11 @@ import io.github.some_example_name.view.MainMenu;
 public class MainMenuController {
     private final MainMenu view;
 
-    public MainMenuController(MainMenu view){
+    public MainMenuController(MainMenu view) {
         this.view = view;
     }
 
-    public void logout(){
+    public void logout() {
         App.setLoggedInUser(null);
         Main.getInstance().setScreen(FirstMenu.getInstance());
     }

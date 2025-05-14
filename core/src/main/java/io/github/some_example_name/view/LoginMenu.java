@@ -15,14 +15,14 @@ import io.github.some_example_name.Main;
 import io.github.some_example_name.controller.LoginMenuController;
 import io.github.some_example_name.model.GameAsset;
 
-public class LoginMenu extends Menu{
+public class LoginMenu extends Menu {
     private static LoginMenu instance;
     private final LoginMenuController controller = new LoginMenuController(this);
     private final Stage stage;
     private final TextButton loginButton;
     private final TextButton backButton;
     private final TextButton forgetPasswordButton;
-    private final TextField username,password;
+    private final TextField username, password;
     private TextField answer;
     private TextField newPassword;
     private final Dialog forgetPasswordDialog;
@@ -30,16 +30,16 @@ public class LoginMenu extends Menu{
     private final Table table;
     private final Image background;
 
-    private LoginMenu(){
+    private LoginMenu() {
         this.stage = new Stage(new ScreenViewport());
         this.table = new Table();
         Texture backgroundTexture = new Texture(Gdx.files.internal("background2.jpg"));
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.background = new Image(backgroundTexture);
-        this.loginButton = new TextButton("login",GameAsset.getMenuSkin());
-        this.backButton = new TextButton("back",GameAsset.getMenuSkin());
-        this.forgetPasswordButton = new TextButton("forget password",GameAsset.getMenuSkin());
-        this.forgetPasswordDialog = new Dialog("forget password",GameAsset.getMenuSkin());
+        this.loginButton = new TextButton("login", GameAsset.getMenuSkin());
+        this.backButton = new TextButton("back", GameAsset.getMenuSkin());
+        this.forgetPasswordButton = new TextButton("forget password", GameAsset.getMenuSkin());
+        this.forgetPasswordDialog = new Dialog("forget password", GameAsset.getMenuSkin());
         username = createTextField("username");
         password = createPasswordField("password");
         errorLabel = new Label("", GameAsset.getMenuSkin());
@@ -60,7 +60,7 @@ public class LoginMenu extends Menu{
         return field;
     }
 
-    public static LoginMenu getInstance(){
+    public static LoginMenu getInstance() {
         if (instance==null) instance = new LoginMenu();
         return instance;
     }
@@ -75,7 +75,7 @@ public class LoginMenu extends Menu{
 
     private void setupForgetPasswordDialog() {
         answer = new TextField("your favorite movie", GameAsset.getMenuSkin());
-        newPassword = new TextField("new password",GameAsset.getMenuSkin());
+        newPassword = new TextField("new password", GameAsset.getMenuSkin());
         TextButton submitButton = new TextButton("confirm", GameAsset.getMenuSkin());
         TextButton cancelButton = new TextButton("cancel", GameAsset.getMenuSkin());
 
@@ -97,13 +97,13 @@ public class LoginMenu extends Menu{
         cancelButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                 forgetPasswordDialog.hide();
+                forgetPasswordDialog.hide();
             }
         });
     }
 
-    public void setupUI(){
-        Table table = new Table();
+    public void setupUI() {
+        table.clear();
         table.setFillParent(true);
         table.defaults().pad(10).width(300).height(40);
         table.align(Align.topLeft);
@@ -118,7 +118,7 @@ public class LoginMenu extends Menu{
         loginButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                controller.login(username.getText(),password.getText());
+                controller.login(username.getText(), password.getText());
             }
         });
         table.add(forgetPasswordButton).align(Align.center).width(450).height(100);

@@ -1,11 +1,12 @@
 package io.github.some_example_name.view;
 
-public class SettingMenu extends Menu{
+public class SettingMenu extends Menu {
     private static SettingMenu instance;
 
-    private SettingMenu(){}
+    private SettingMenu() {
+    }
 
-    public static SettingMenu getInstance(){
+    public static SettingMenu getInstance() {
         if (instance==null) instance = new SettingMenu();
         return instance;
     }
