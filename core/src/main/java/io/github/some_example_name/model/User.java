@@ -2,13 +2,13 @@ package io.github.some_example_name.model;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-
 public class User {
     private String username;
     private String password;
     private final String answerSecurityQuestion;
     private Image avatar;
     private int score;
+    private Game lastGame;
 
     public User(String username, String password, String answerSecurityQuestion, Image avatar) {
         this.username = username;
@@ -51,5 +51,13 @@ public class User {
 
     public void setAvatar(Image avatar) {
         this.avatar = avatar;
+    }
+
+    public Game getLastGame() {
+        return lastGame;
+    }
+
+    public void setLastGame(Game lastGame) {
+        this.lastGame = lastGame;
     }
 }

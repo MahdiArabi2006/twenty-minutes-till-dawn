@@ -183,20 +183,6 @@ public class LoginMenu extends Menu {
         ));
     }
 
-    public void showSuccessMessage(String message) {
-        Label successLabel = new Label(message, GameAsset.getMenuSkin());
-        successLabel.setColor(Color.GREEN);
-
-        successLabel.addAction(Actions.sequence(
-            Actions.alpha(0),
-            Actions.fadeIn(1f),
-            Actions.delay(2f),
-            Actions.fadeOut(1f)
-        ));
-
-        stage.addActor(successLabel);
-    }
-
     public TextButton getLoginButton() {
         return loginButton;
     }

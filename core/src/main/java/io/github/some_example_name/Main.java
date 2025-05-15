@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.some_example_name.view.FirstMenu;
+import io.github.some_example_name.view.GameView;
 import io.github.some_example_name.view.RegisterMenu;
 
 /**
