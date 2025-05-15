@@ -1,6 +1,7 @@
 package io.github.some_example_name.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -92,6 +94,13 @@ public class ProfileMenu extends Menu {
             }
             count++;
         }
+        TextButton chooseFileButton = new TextButton("Select File From System", GameAsset.getMenuSkin());
+        chooseFileButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                openFileChooser();
+            }
+        });
         TextButton cancelButton = new TextButton("Cancel", GameAsset.getMenuSkin());
         cancelButton.addListener(new ClickListener() {
             @Override
@@ -102,6 +111,7 @@ public class ProfileMenu extends Menu {
         changeAvatarDialog.getContentTable().add(avatarTable).pad(20);
         changeAvatarDialog.getButtonTable().defaults().pad(10);
         changeAvatarDialog.button(cancelButton);
+        changeAvatarDialog.button(chooseFileButton);
     }
 
     private void setupDeleteAccountDialog() {
@@ -231,6 +241,57 @@ public class ProfileMenu extends Menu {
         background.setFillParent(true);
         stage.addActor(background);
         stage.addActor(table);
+    }
+
+    private void openFileChooser() {
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("choose avatar");
+//        fileChooser.setSelectionMode(FileChooser.SelectionMode.FILES);
+//        fileChooser.setFileTypeFilter(new FileChooser.FileTypeFilter("png", "jpg", "jpeg"));
+//
+//        fileChooser.setListener(new FileChooser.Listener() {
+//            @Override
+//            public void selected(Array<FileHandle> files) {
+//                if (files.size > 0) {
+//                    handleSelectedFile(files.first());
+//                }
+//            }
+//
+//            @Override
+//            public void canceled() {
+//                Gdx.app.log("FileChooser", "canceled choose file");
+//            }
+//        });
+//
+//        fileChooser.show(stage);
+    }
+
+    private void handleSelectedFile(FileHandle file) {
+        try {
+            if (!file.extension().matches("png|jpg|jpeg")) {
+                showError("invalid format");
+                return;
+            }
+
+            if (file.length() > 2 * 1024 * 1024) { // 2MB
+                showError("choose a smaller file");
+                return;
+            }
+            Texture texture = new Texture(file);
+            texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            FileHandle userAvatarsDir = Gdx.files.local("user_avatars/");
+            if (!userAvatarsDir.exists()) {
+                userAvatarsDir.mkdirs();
+            }
+            String newFileName = "avatar_" + System.currentTimeMillis() + ".png";
+            file.copyTo(userAvatarsDir.child(newFileName));
+            Image customAvatar = new Image(texture);
+            controller.changeAvatar(customAvatar);
+            changeAvatarDialog.hide();
+        } catch (Exception e) {
+            showError("can not load file");
+            Gdx.app.error("AvatarUpload", "Error processing image", e);
+        }
     }
 
     @Override
