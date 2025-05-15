@@ -1,19 +1,19 @@
 package io.github.some_example_name.model;
 
 public class Game {
-    private final int totalTime;
+    private final GameTimer gameTimer;
     private final Player player;
 
-    public Game(int totalTime, Player player) {
-        this.totalTime = totalTime;
+    public Game(GameTimer gameTimer, Player player) {
+        this.gameTimer = gameTimer;
         this.player = player;
-    }
-
-    public int getTotalTime() {
-        return totalTime;
     }
 
     public Player getPlayer() {
         return player;
+    }
+
+    public GameTimer getGameTimer() {
+        return gameTimer;
     }
 }

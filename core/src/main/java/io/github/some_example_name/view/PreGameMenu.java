@@ -37,7 +37,7 @@ public class PreGameMenu extends Menu {
     private Integer time;
 
     private PreGameMenu() {
-        this.stage = new Stage(new ScreenViewport());
+        this.stage = new Stage(Main.getInstance().getViewport(), Main.getInstance().getBatch());
         this.table = new Table();
         Texture backgroundTexture = new Texture(Gdx.files.internal("background5.png"));
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);

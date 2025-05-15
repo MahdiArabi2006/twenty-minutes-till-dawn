@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.github.some_example_name.Main;
 import io.github.some_example_name.controller.FirstMenuController;
 import io.github.some_example_name.model.GameAsset;
 
@@ -24,7 +25,7 @@ public class FirstMenu extends Menu {
     private final FirstMenuController controller = new FirstMenuController(this);
 
     private FirstMenu() {
-        this.stage = new Stage(new ScreenViewport());
+        this.stage = new Stage(Main.getInstance().getViewport(), Main.getInstance().getBatch());
         this.table = new Table(GameAsset.getMenuSkin());
         Texture backgroundTexture = new Texture(Gdx.files.internal("background.png"));
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);

@@ -1,7 +1,6 @@
 package io.github.some_example_name.model;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Player {
@@ -13,18 +12,19 @@ public class Player {
     private float y;
     private float time;
     private float health;
+    private float lastReloadWeapon;
     private final CollisionRectangle playerCollisionRectangle;
-    private boolean isPlayerIdle = true;
-    private boolean isPlayerRunning;
 
     public Player(User user, Character character, WeaponType weaponType) {
         this.user = user;
         this.character = character;
         this.weapon = new Weapon(weaponType);
         this.playerSprite = character.getSprite();
-        playerSprite.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
+        this.x = Gdx.graphics.getWidth() / 2f;
+        this.y = Gdx.graphics.getHeight() / 2f;
+        playerSprite.setPosition(this.x, this.y);
         playerSprite.setSize(playerSprite.getWidth() * 3, playerSprite.getHeight() * 3);
-        playerCollisionRectangle = new CollisionRectangle((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2,
+        playerCollisionRectangle = new CollisionRectangle(this.x, this.y,
             playerSprite.getWidth() * 3, playerSprite.getHeight() * 3);
     }
 
@@ -80,27 +80,19 @@ public class Player {
         this.health = health;
     }
 
-    public boolean isPlayerIdle() {
-        return isPlayerIdle;
-    }
-
-    public void setPlayerIdle(boolean playerIdle) {
-        isPlayerIdle = playerIdle;
-    }
-
-    public boolean isPlayerRunning() {
-        return isPlayerRunning;
-    }
-
-    public void setPlayerRunning(boolean playerRunning) {
-        isPlayerRunning = playerRunning;
-    }
-
     public Weapon getWeapon() {
         return weapon;
     }
 
     public Character getCharacter() {
         return character;
+    }
+
+    public float getLastReloadWeapon() {
+        return lastReloadWeapon;
+    }
+
+    public void setLastReloadWeapon(float lastReloadWeapon) {
+        this.lastReloadWeapon = lastReloadWeapon;
     }
 }

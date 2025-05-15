@@ -36,7 +36,7 @@ public class ProfileMenu extends Menu {
     private final Image background;
 
     private ProfileMenu() {
-        this.stage = new Stage(new ScreenViewport());
+        this.stage = new Stage(Main.getInstance().getViewport(), Main.getInstance().getBatch());
         this.table = new Table();
         Texture backgroundTexture = new Texture(Gdx.files.internal("background2.jpg"));
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);

@@ -15,7 +15,7 @@ public class GameView implements Screen, InputProcessor {
     private Stage stage;
 
     private GameView() {
-        this.stage = new Stage(new ScreenViewport());
+        this.stage = new Stage(Main.getInstance().getViewport(), Main.getInstance().getBatch());
     }
 
     public static GameView getInstance() {
@@ -79,7 +79,7 @@ public class GameView implements Screen, InputProcessor {
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
         Main.getInstance().getBatch().begin();
-        controller.updateGame();
+        controller.updateGame(delta);
         Main.getInstance().getBatch().end();
         stage.act(delta);
         stage.draw();

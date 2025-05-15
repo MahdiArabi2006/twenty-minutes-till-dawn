@@ -55,7 +55,7 @@ public class RegisterMenuController {
 
     private Image getRandomAvatar() {
         Random random = new Random();
-        int index = random.nextInt(Math.abs(random.nextInt()) % GameAsset.getAvatars().size());
+        int index = random.nextInt(Math.abs(random.nextInt(1,100)) % GameAsset.getAvatars().size());
         return GameAsset.getAvatars().get(index);
     }
 }

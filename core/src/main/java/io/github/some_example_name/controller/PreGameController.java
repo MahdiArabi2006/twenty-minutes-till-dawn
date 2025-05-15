@@ -3,6 +3,7 @@ package io.github.some_example_name.controller;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.Game;
+import io.github.some_example_name.model.GameTimer;
 import io.github.some_example_name.model.Player;
 import io.github.some_example_name.view.GameView;
 import io.github.some_example_name.view.PreGameMenu;
@@ -28,7 +29,9 @@ public class PreGameController {
             return;
         }
         Player player = new Player(App.getLoggedInUser(), view.getCharacter(), view.getWeaponType());
-        Game game = new Game(view.getTime(), player);
+        GameTimer gameTimer = new GameTimer(view.getTime() * 60)  ;
+        gameTimer.start();
+        Game game = new Game(gameTimer, player);
         App.getLoggedInUser().setLastGame(game);
         Main.getInstance().setScreen(GameView.getInstance());
     }

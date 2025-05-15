@@ -1,21 +1,26 @@
 package io.github.some_example_name.controller;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.model.App;
-import io.github.some_example_name.model.Player;
 
 public class WorldController {
     private final Texture backgroundTexture;
+    private final BitmapFont font;
 
     public WorldController() {
         this.backgroundTexture = new Texture("background3.png");
+        this.font = new BitmapFont();
+        this.font.getData().setScale(2);
+        this.font.setColor(Color.WHITE);
     }
 
     public void update() {
-        Player player = App.getLoggedInUser().getLastGame().getPlayer();
-        float backgroundX = player.getX();
-        float backgroundY = player.getY();
-        Main.getInstance().getBatch().draw(backgroundTexture, backgroundX, backgroundY);
+        Main.getInstance().getBatch().draw(backgroundTexture, 0, 0);
+        String time = App.getLoggedInUser().getLastGame().getGameTimer().getFormattedTime();
+        font.draw(Main.getInstance().getBatch(), time, 20, Gdx.graphics.getHeight());
     }
 }

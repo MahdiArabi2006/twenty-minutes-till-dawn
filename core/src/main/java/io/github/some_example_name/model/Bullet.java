@@ -5,26 +5,27 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Bullet {
-    private Texture texture = GameAsset.bulletTexture;
-    private Sprite sprite = new Sprite(texture);
+    private Sprite sprite;
     private int damage = 5;
     private int x;
     private int y;
+    private final int x_weapon;
+    private final int y_weapon;
 
-    public Bullet(int x, int y) {
-        sprite.setSize(20, 20);
+    public Bullet(int x, int y,Weapon weapon) {
         this.x = x;
         this.y = y;
-        sprite.setX((float) Gdx.graphics.getWidth() / 2);
-        sprite.setY((float) Gdx.graphics.getHeight() / 2);
+        this.sprite = new Sprite(weapon.getWeaponType().getBulletTexture());
+        sprite.setSize(20, 20);
+        sprite.setX(weapon.getWeaponSprite().getX());
+        sprite.setY(weapon.getWeaponSprite().getY());
+        this.x_weapon = (int) weapon.getWeaponSprite().getX();
+        this.y_weapon = (int) weapon.getWeaponSprite().getY();
     }
 
-    public Texture getTexture() {
-        return texture;
-    }
-
-    public void setTexture(Texture texture) {
-        this.texture = texture;
+    public boolean isOutOfScreen(){
+        return this.getSprite().getX() < 0 || this.getSprite().getX() > Gdx.graphics.getWidth() ||
+            this.getSprite().getY() < 0 || this.getSprite().getY() > Gdx.graphics.getHeight();
     }
 
     public Sprite getSprite() {
@@ -57,5 +58,13 @@ public class Bullet {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public int getX_weapon() {
+        return x_weapon;
+    }
+
+    public int getY_weapon() {
+        return y_weapon;
     }
 }

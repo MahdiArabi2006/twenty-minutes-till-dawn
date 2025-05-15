@@ -1,5 +1,7 @@
 package io.github.some_example_name.controller;
 
+import io.github.some_example_name.model.App;
+import io.github.some_example_name.model.GameTimer;
 import io.github.some_example_name.view.GameView;
 
 public class GameController {
@@ -16,13 +18,29 @@ public class GameController {
         return view;
     }
 
-    public void updateGame() {
+    public void updateGame(float delta) {
         if (view!=null) {
             worldController.update();
             playerController.update();
             weaponController.update();
+            updateTime(delta);
         }
     }
+
+
+    public void updateTime(float delta) {
+        GameTimer gameTimer = App.getLoggedInUser().getLastGame().getGameTimer();
+        if (gameTimer.isRunning() && gameTimer.getRemainingTime() > 0) {
+            gameTimer.setRemainingTime(gameTimer.getRemainingTime() - delta);
+            if (gameTimer.getRemainingTime() <= 0) {
+                gameTimer.setRemainingTime(0);
+                gameTimer.setRunning(false);
+                handleGameOver();
+            }
+        }
+    }
+
+    public void handleGameOver(){}
 
     public WeaponController getWeaponController() {
         return weaponController;

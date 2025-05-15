@@ -25,7 +25,7 @@ public class MainMenu extends Menu {
     private final Image background;
 
     private MainMenu() {
-        this.stage = new Stage(new ScreenViewport());
+        this.stage = new Stage(Main.getInstance().getViewport(), Main.getInstance().getBatch());
         this.table1 = new Table();
         this.table2 = new Table();
         Texture backgroundTexture = new Texture(Gdx.files.internal("background2.jpg"));
