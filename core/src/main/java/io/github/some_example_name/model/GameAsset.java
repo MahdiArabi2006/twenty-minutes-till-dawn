@@ -71,6 +71,15 @@ public class GameAsset {
     public static final Texture shotgunTexture = new Texture("weapon/shotgun/T_DualShotgun_Gun.png");
     public static final Texture revolverTexture = new Texture("weapon/revolver/RevolverStill.png");
     public static final Texture bulletTexture = new Texture("weapon/bullet.png");
+    public static final Texture treeTexture = new Texture("enemy/tree/T_TreeMonster_2.png");
+    public static final Animation<Texture> tentacleWalk = new Animation<>(0.1f, new Texture("enemy/tentacle/walk/T_TentacleEnemy_0.png"),
+        new Texture("enemy/tentacle/walk/T_TentacleEnemy_1.png"), new Texture("enemy/tentacle/walk/T_TentacleEnemy_2.png"),
+        new Texture("enemy/tentacle/walk/T_TentacleEnemy_3.png"));
+    public static final Animation<Texture> eyeBatWalk = new Animation<>(0.1f, new Texture("enemy/eyebat/walk/T_EyeBat_0.png"),
+        new Texture("enemy/eyebat/walk/T_EyeBat_1.png"), new Texture("enemy/eyebat/walk/T_EyeBat_2.png"));
+    public static final Animation<Texture> elderWalk = new Animation<>(0.1f, new Texture("enemy/elder/walk/BrainMonster_0.png"),
+        new Texture("enemy/elder/walk/BrainMonster_1.png"), new Texture("enemy/elder/walk/BrainMonster_2.png")
+        , new Texture("enemy/elder/walk/BrainMonster_3.png"));
 
     public static Skin getMenuSkin() {
         return menuSkin;

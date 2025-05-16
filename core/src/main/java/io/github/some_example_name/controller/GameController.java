@@ -9,6 +9,7 @@ public class GameController {
     private final WeaponController weaponController = new WeaponController();
     private final PlayerController playerController = new PlayerController();
     private final WorldController worldController = new WorldController();
+    private final EnemyController enemyController = new EnemyController();
 
     public GameController(GameView view) {
         this.view = view;
@@ -23,6 +24,7 @@ public class GameController {
             worldController.update();
             playerController.update();
             weaponController.update();
+            enemyController.update();
             updateTime(delta);
         }
     }

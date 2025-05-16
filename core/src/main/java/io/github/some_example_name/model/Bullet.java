@@ -12,15 +12,15 @@ public class Bullet {
     private final int x_weapon;
     private final int y_weapon;
 
-    public Bullet(int x, int y,Weapon weapon) {
+    public Bullet(int x, int y,int x_weapon,int y_weapon,Weapon weapon) {
         this.x = x;
         this.y = y;
         this.sprite = new Sprite(weapon.getWeaponType().getBulletTexture());
         sprite.setSize(20, 20);
         sprite.setX(weapon.getWeaponSprite().getX());
         sprite.setY(weapon.getWeaponSprite().getY());
-        this.x_weapon = (int) weapon.getWeaponSprite().getX();
-        this.y_weapon = (int) weapon.getWeaponSprite().getY();
+        this.x_weapon = x_weapon;
+        this.y_weapon = y_weapon;
     }
 
     public boolean isOutOfScreen(){

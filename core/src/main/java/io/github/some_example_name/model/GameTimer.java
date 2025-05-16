@@ -40,4 +40,8 @@ public class GameTimer {
     public void setRunning(boolean running) {
         isRunning = running;
     }
+
+    public float getCountdownDuration() {
+        return countdownDuration;
+    }
 }

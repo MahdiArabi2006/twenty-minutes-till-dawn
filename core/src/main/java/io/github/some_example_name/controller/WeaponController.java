@@ -48,7 +48,7 @@ public class WeaponController {
         }
         Vector3 worldCoords = new Vector3(x, y, 0);
         Main.getInstance().getViewport().unproject(worldCoords);
-        bullets.add(new Bullet((int) worldCoords.x, (int) worldCoords.y,weapon));
+        bullets.add(new Bullet((int) worldCoords.x, (int) worldCoords.y, (int) weapon.getWeaponSprite().getX(), (int) weapon.getWeaponSprite().getY(),weapon));
         weapon.setAmmo(weapon.getAmmo() - 1);
     }
 
