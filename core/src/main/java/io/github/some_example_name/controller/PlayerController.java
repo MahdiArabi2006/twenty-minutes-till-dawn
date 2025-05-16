@@ -5,9 +5,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import io.github.some_example_name.Main;
+import io.github.some_example_name.model.Ability;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.Player;
 import io.github.some_example_name.model.Seed;
+
+import java.util.Random;
 
 public class PlayerController {
     public void update() {
@@ -19,6 +22,7 @@ public class PlayerController {
 
         handlePlayerInput();
         handlePlayerCollision();
+        handlePlayerAbility();
     }
 
 
@@ -47,10 +51,50 @@ public class PlayerController {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.R)){
             player.setLastReloadWeapon(App.getLoggedInUser().getLastGame().getGameTimer().getRemainingTime());
-            player.getWeapon().resetAmmo();
+            player.resetAmmo();
         }
     }
 
+    private void handlePlayerAbility(){
+        Player player = App.getLoggedInUser().getLastGame().getPlayer();
+        if (player.getAbility() != null){
+            if (player.getAbility().equals(Ability.VITALITY)){
+                player.setMaxHP(player.getCharacter().getHP() + 1);
+            }
+            if (player.getAbility().equals(Ability.PROJECTILE_INCREASE)){
+                player.setProjectile(player.getWeapon().getWeaponType().getProjectile() + 1);
+            }
+            if (player.getAbility().equals(Ability.AMMO_INCREASE)){
+                player.setMaxAmmo(player.getWeapon().getWeaponType().getAmmoMax() + 5);
+            }
+            if (player.getAbility().equals(Ability.SPEEDY)){
+                player.setTimeAbilityBegin(player.getTimeAbilityBegin() + Gdx.graphics.getDeltaTime());
+                if (player.getTimeAbilityBegin() <= 10){
+                    player.setSpeed(player.getCharacter().getSpeed() * 2);
+                }
+                else {
+                    player.setSpeed(player.getCharacter().getSpeed());
+                    player.changeAbility(null);
+                }
+            }
+            if (player.getAbility().equals(Ability.DAMAGER)){
+                player.setTimeAbilityBegin(player.getTimeAbilityBegin() + Gdx.graphics.getDeltaTime());
+                if (player.getTimeAbilityBegin() <= 10){
+                    player.setDamage((int) (player.getWeapon().getWeaponType().getDamage() * 1.25));
+                }
+                else {
+                    player.setDamage(player.getWeapon().getWeaponType().getDamage());
+                    player.changeAbility(null);
+                }
+            }
+        }
+    }
+
+    public static void handleUpdateLevel(){
+        Player player = App.getLoggedInUser().getLastGame().getPlayer();
+        Random random = new Random();
+        player.changeAbility(Ability.values()[random.nextInt(0,4)]);
+    }
 
     private void idleAnimation() {
         Player player = App.getLoggedInUser().getLastGame().getPlayer();

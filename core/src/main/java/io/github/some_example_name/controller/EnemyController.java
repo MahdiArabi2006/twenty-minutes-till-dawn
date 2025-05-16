@@ -46,7 +46,7 @@ public class EnemyController {
         Player player = App.getLoggedInUser().getLastGame().getPlayer();
         eyeBat.setShootTimer(eyeBat.getShootTimer() + Gdx.graphics.getDeltaTime());
         if (eyeBat.getShootTimer() > 3f) {
-            Bullet bullet = new Bullet((int) player.getX(), (int) player.getY(), (int) eyeBat.getSprite().getX(), (int) eyeBat.getSprite().getY(), player.getWeapon(), true);
+            Bullet bullet = new Bullet((int) player.getX(), (int) player.getY(), (int) eyeBat.getSprite().getX(), (int) eyeBat.getSprite().getY(), player.getWeapon(), player,true);
             bullet.getSprite().setPosition(eyeBat.getSprite().getX(), eyeBat.getSprite().getY());
             eyeBat.getBullets().add(bullet);
             eyeBat.setShootTimer(0);

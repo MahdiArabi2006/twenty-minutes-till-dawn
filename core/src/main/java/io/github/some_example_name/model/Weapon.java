@@ -36,8 +36,4 @@ public class Weapon {
     public WeaponType getWeaponType() {
         return weaponType;
     }
-
-    public void resetAmmo(){
-        this.ammo = weaponType.getAmmoMax();
-    }
 }

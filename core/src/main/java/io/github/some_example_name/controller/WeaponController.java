@@ -40,13 +40,14 @@ public class WeaponController {
 
     public void handleWeaponShoot(int x, int y) {
         Weapon weapon = App.getLoggedInUser().getLastGame().getPlayer().getWeapon();
+        Player player = App.getLoggedInUser().getLastGame().getPlayer();
         if (weapon.getAmmo() <= 0 || !finishReloading()){
             return;
         }
         Vector3 worldCoords = new Vector3(x, y, 0);
         Main.getInstance().getViewport().unproject(worldCoords);
-        for (int i = 0; i < weapon.getWeaponType().getProjectile(); i++) {
-            bullets.add(new Bullet((int) worldCoords.x, (int) worldCoords.y, (int) weapon.getWeaponSprite().getX(), (int) weapon.getWeaponSprite().getY(),weapon,false));
+        for (int i = 0; i < player.getProjectile(); i++) {
+            bullets.add(new Bullet((int) worldCoords.x, (int) worldCoords.y, (int) weapon.getWeaponSprite().getX(), (int) weapon.getWeaponSprite().getY(),weapon,player,false));
         }
         weapon.setAmmo(weapon.getAmmo() - 1);
     }

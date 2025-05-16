@@ -13,14 +13,14 @@ public class Bullet {
     private final int x_weapon;
     private final int y_weapon;
 
-    public Bullet(int x, int y,int x_weapon,int y_weapon,Weapon weapon,boolean isEyeBatShoot) {
+    public Bullet(int x, int y,int x_weapon,int y_weapon,Weapon weapon,Player player,boolean isEyeBatShoot) {
         this.x = x;
         this.y = y;
         if (isEyeBatShoot){
             this.damage = 1;
         }
         else {
-            this.damage = weapon.getWeaponType().getDamage();
+            this.damage = player.getDamage();
         }
         this.sprite = new Sprite(weapon.getWeaponType().getBulletTexture());
         sprite.setSize(20, 20);
