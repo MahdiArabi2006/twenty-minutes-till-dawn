@@ -8,14 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.controller.MainMenuController;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.GameAsset;
 
 public class MainMenu extends Menu {
-    private static MainMenu instance;
     private final MainMenuController controller = new MainMenuController(this);
     private final Stage stage;
     private final TextButton settingButton, profileButton, preGameButton,
@@ -24,7 +22,7 @@ public class MainMenu extends Menu {
     private final Table table2;
     private final Image background;
 
-    private MainMenu() {
+    public MainMenu() {
         this.stage = new Stage(Main.getInstance().getViewport(), Main.getInstance().getBatch());
         this.table1 = new Table();
         this.table2 = new Table();
@@ -39,12 +37,6 @@ public class MainMenu extends Menu {
         this.continueLastGameButton = new TextButton("continue last game", GameAsset.getMenuSkin());
         this.logoutButton = new TextButton("logout", GameAsset.getMenuSkin());
     }
-
-    public static MainMenu getInstance() {
-        if (instance==null) instance = new MainMenu();
-        return instance;
-    }
-
 
     @Override
     public void show() {
@@ -63,14 +55,14 @@ public class MainMenu extends Menu {
         settingButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Main.getInstance().setScreen(SettingMenu.getInstance());
+                Main.getInstance().setScreen(new SettingMenu());
             }
         });
         table1.add(profileButton).align(Align.right).width(450).height(100);
         profileButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Main.getInstance().setScreen(ProfileMenu.getInstance());
+                Main.getInstance().setScreen(new ProfileMenu());
             }
         });
         table1.row();
@@ -78,14 +70,14 @@ public class MainMenu extends Menu {
         preGameButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Main.getInstance().setScreen(PreGameMenu.getInstance());
+                Main.getInstance().setScreen(new PreGameMenu());
             }
         });
         table1.add(talentButton).align(Align.right).width(450).height(100);
         talentButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Main.getInstance().setScreen(TalentMenu.getInstance());
+                Main.getInstance().setScreen(new TalentMenu());
             }
         });
         table1.row();
@@ -93,7 +85,7 @@ public class MainMenu extends Menu {
         scoreBoardButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Main.getInstance().setScreen(ScoreBoard.getInstance());
+                Main.getInstance().setScreen(new ScoreBoard());
             }
         });
         table1.add(continueLastGameButton).align(Align.right).width(450).height(100);

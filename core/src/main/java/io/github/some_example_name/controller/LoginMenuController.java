@@ -53,7 +53,7 @@ public class LoginMenuController {
             view.showError("this password is false");
         } else {
             App.setLoggedInUser(user);
-            Main.getInstance().setScreen(MainMenu.getInstance());
+            Main.getInstance().setScreen(new MainMenu());
         }
     }
 

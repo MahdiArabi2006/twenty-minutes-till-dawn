@@ -16,7 +16,6 @@ import io.github.some_example_name.controller.LoginMenuController;
 import io.github.some_example_name.model.GameAsset;
 
 public class LoginMenu extends Menu {
-    private static LoginMenu instance;
     private final LoginMenuController controller = new LoginMenuController(this);
     private final Stage stage;
     private final TextButton loginButton;
@@ -30,7 +29,7 @@ public class LoginMenu extends Menu {
     private final Table table;
     private final Image background;
 
-    private LoginMenu() {
+    public LoginMenu() {
         this.stage = new Stage(Main.getInstance().getViewport(), Main.getInstance().getBatch());
         this.table = new Table();
         Texture backgroundTexture = new Texture(Gdx.files.internal("background2.jpg"));
@@ -59,12 +58,6 @@ public class LoginMenu extends Menu {
         field.setPasswordCharacter('•');
         return field;
     }
-
-    public static LoginMenu getInstance() {
-        if (instance==null) instance = new LoginMenu();
-        return instance;
-    }
-
 
     @Override
     public void show() {
@@ -132,7 +125,7 @@ public class LoginMenu extends Menu {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Main.getInstance().setScreen(FirstMenu.getInstance());
+                Main.getInstance().setScreen(new FirstMenu());
             }
         });
 

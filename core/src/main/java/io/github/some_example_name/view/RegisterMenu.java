@@ -17,7 +17,6 @@ import io.github.some_example_name.controller.RegisterMenuController;
 import io.github.some_example_name.model.GameAsset;
 
 public class RegisterMenu extends Menu {
-    private static RegisterMenu instance;
     private final RegisterMenuController controller = new RegisterMenuController(this);
     private final Stage stage;
     private final TextButton registerButton;
@@ -29,7 +28,7 @@ public class RegisterMenu extends Menu {
     private final Image background;
 
 
-    private RegisterMenu() {
+    public RegisterMenu() {
         this.stage = new Stage(Main.getInstance().getViewport(), Main.getInstance().getBatch());
         this.table = new Table();
         Texture backgroundTexture = new Texture(Gdx.files.internal("background2.jpg"));
@@ -43,11 +42,6 @@ public class RegisterMenu extends Menu {
         password = createPasswordField("password");
         errorLabel = new Label("", GameAsset.getMenuSkin());
         errorLabel.setColor(Color.RED);
-    }
-
-    public static RegisterMenu getInstance() {
-        if (instance==null) instance = new RegisterMenu();
-        return instance;
     }
 
     @Override
@@ -87,7 +81,7 @@ public class RegisterMenu extends Menu {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Main.getInstance().setScreen(FirstMenu.getInstance());
+                Main.getInstance().setScreen(new FirstMenu());
             }
         });
 

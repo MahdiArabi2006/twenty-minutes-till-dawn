@@ -23,7 +23,6 @@ import io.github.some_example_name.model.GameAsset;
 import io.github.some_example_name.model.WeaponType;
 
 public class PreGameMenu extends Menu {
-    private static PreGameMenu instance;
     private final PreGameController controller = new PreGameController(this);
     private final Stage stage;
     private final TextButton heroSelectionButton, weaponSelectionButton, startGameButton, backButton;
@@ -36,7 +35,7 @@ public class PreGameMenu extends Menu {
     private WeaponType weaponType;
     private Integer time;
 
-    private PreGameMenu() {
+    public PreGameMenu() {
         this.stage = new Stage(Main.getInstance().getViewport(), Main.getInstance().getBatch());
         this.table = new Table();
         Texture backgroundTexture = new Texture(Gdx.files.internal("background5.png"));
@@ -51,11 +50,6 @@ public class PreGameMenu extends Menu {
         errorLabel = new Label("", GameAsset.getMenuSkin());
         errorLabel.setColor(Color.RED);
         this.selectBoxTime = new SelectBox<>(GameAsset.getMenuSkin());
-    }
-
-    public static PreGameMenu getInstance() {
-        if (instance==null) instance = new PreGameMenu();
-        return instance;
     }
 
     @Override
@@ -188,7 +182,7 @@ public class PreGameMenu extends Menu {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Main.getInstance().setScreen(MainMenu.getInstance());
+                Main.getInstance().setScreen(new MainMenu());
             }
         });
 

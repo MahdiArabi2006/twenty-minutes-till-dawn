@@ -38,7 +38,7 @@ public class ProfileMenuController {
         App.getUsers().remove(App.getLoggedInUser());
         App.setLoggedInUser(null);
         view.getDeleteAccountDialog().hide();
-        Main.getInstance().setScreen(FirstMenu.getInstance());
+        Main.getInstance().setScreen(new FirstMenu());
     }
 
     public void changeAvatar(Image avatar) {

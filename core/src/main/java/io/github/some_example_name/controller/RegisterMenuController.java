@@ -32,7 +32,7 @@ public class RegisterMenuController {
             User user = new User(username.trim(), password.trim(), answer.trim(), image);
             App.getUsers().add(user);
             view.showSuccessMessage("you sign up successfully");
-            Main.getInstance().setScreen(FirstMenu.getInstance());
+            Main.getInstance().setScreen(new FirstMenu());
         }
     }
 

@@ -17,14 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FirstMenu extends Menu {
-    private static FirstMenu instance;
     private final List<TextButton> textButtonList = new ArrayList<>();
     private final Stage stage;
     private final Table table;
     private final Image background;
     private final FirstMenuController controller = new FirstMenuController(this);
 
-    private FirstMenu() {
+    public FirstMenu() {
         this.stage = new Stage(Main.getInstance().getViewport(), Main.getInstance().getBatch());
         this.table = new Table(GameAsset.getMenuSkin());
         Texture backgroundTexture = new Texture(Gdx.files.internal("background.png"));
@@ -33,11 +32,6 @@ public class FirstMenu extends Menu {
         textButtonList.add(new TextButton("Login", GameAsset.getMenuSkin()));
         textButtonList.add(new TextButton("Sign up", GameAsset.getMenuSkin()));
         textButtonList.add(new TextButton("Exit Game", GameAsset.getMenuSkin()));
-    }
-
-    public static FirstMenu getInstance() {
-        if (instance==null) instance = new FirstMenu();
-        return instance;
     }
 
     @Override

@@ -14,6 +14,6 @@ public class MainMenuController {
 
     public void logout() {
         App.setLoggedInUser(null);
-        Main.getInstance().setScreen(FirstMenu.getInstance());
+        Main.getInstance().setScreen(new FirstMenu());
     }
 }

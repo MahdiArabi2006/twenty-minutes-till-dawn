@@ -33,6 +33,6 @@ public class PreGameController {
         gameTimer.start();
         Game game = new Game(gameTimer, player);
         App.getLoggedInUser().setLastGame(game);
-        Main.getInstance().setScreen(GameView.getInstance());
+        Main.getInstance().setScreen(new GameView());
     }
 }

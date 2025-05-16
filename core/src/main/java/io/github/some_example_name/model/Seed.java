@@ -11,7 +11,7 @@ public class Seed {
     public Seed(float x, float y) {
         this.sprite = new Sprite(new Texture("enemy/T_EyeBat_EM_1.png"));
         this.sprite.setPosition(x, y);
-        this.collisionRectangle = new CollisionRectangle(x, y,this.sprite.getWidth(),this.sprite.getHeight());
+        this.collisionRectangle = new CollisionRectangle(x, y, (float) (this.sprite.getWidth() * 0.5), (float) (this.sprite.getHeight() * 0.5));
     }
 
     public CollisionRectangle getCollisionRectangle() {

@@ -39,7 +39,7 @@ public class Main extends Game {
         viewport = new FitViewport(1920, 1080, camera); // اندازه مناسب برای بازی
         viewport.apply(); // فعال‌سازی ویوپورت
         batch = new SpriteBatch();
-        instance.setScreen(FirstMenu.getInstance());
+        instance.setScreen(new FirstMenu());
     }
 
     @Override

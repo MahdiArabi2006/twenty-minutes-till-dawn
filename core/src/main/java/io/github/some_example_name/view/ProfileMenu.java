@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileMenu extends Menu {
-    private static ProfileMenu instance;
     private final ProfileMenuController controller = new ProfileMenuController(this);
     private final Stage stage;
     private final TextButton changeUsernameButton, changePasswordButton,
@@ -35,7 +34,7 @@ public class ProfileMenu extends Menu {
     private final Table table;
     private final Image background;
 
-    private ProfileMenu() {
+    public ProfileMenu() {
         this.stage = new Stage(Main.getInstance().getViewport(), Main.getInstance().getBatch());
         this.table = new Table();
         Texture backgroundTexture = new Texture(Gdx.files.internal("background2.jpg"));
@@ -54,11 +53,6 @@ public class ProfileMenu extends Menu {
         this.changePasswordDialog = new Dialog("change password", GameAsset.getMenuSkin());
         errorLabel = new Label("", GameAsset.getMenuSkin());
         errorLabel.setColor(Color.RED);
-    }
-
-    public static ProfileMenu getInstance() {
-        if (instance==null) instance = new ProfileMenu();
-        return instance;
     }
 
     @Override
@@ -233,7 +227,7 @@ public class ProfileMenu extends Menu {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Main.getInstance().setScreen(MainMenu.getInstance());
+                Main.getInstance().setScreen(new MainMenu());
             }
         });
         table.add(errorLabel).colspan(2).height(20).row();

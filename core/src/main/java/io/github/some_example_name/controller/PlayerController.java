@@ -9,6 +9,7 @@ import io.github.some_example_name.model.Ability;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.Player;
 import io.github.some_example_name.model.Seed;
+import io.github.some_example_name.view.PauseMenu;
 
 import java.util.Random;
 
@@ -52,6 +53,36 @@ public class PlayerController {
         if (Gdx.input.isKeyPressed(Input.Keys.R)){
             player.setLastReloadWeapon(App.getLoggedInUser().getLastGame().getGameTimer().getRemainingTime());
             player.resetAmmo();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.P)){
+            reduceTime();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.L)){
+            increaseLevel();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.O)){
+            increaseHealth();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.Q)){
+            Main.getInstance().setScreen(new PauseMenu());
+        }
+    }
+
+    private void reduceTime(){
+        if (App.getLoggedInUser().getLastGame().getGameTimer().getRemainingTime() >= 60){
+            App.getLoggedInUser().getLastGame().getGameTimer().setRemainingTime(App.getLoggedInUser().getLastGame().getGameTimer().getRemainingTime() - 60);
+        }
+    }
+
+    private void increaseLevel(){
+        Player player = App.getLoggedInUser().getLastGame().getPlayer();
+        player.setXP(player.getXP() + 20);
+    }
+
+    private void increaseHealth(){
+        Player player = App.getLoggedInUser().getLastGame().getPlayer();
+        if (player.getHealth() < player.getMaxHP()){
+            player.setHealth(player.getMaxHP());
         }
     }
 

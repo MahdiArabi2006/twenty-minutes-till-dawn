@@ -17,9 +17,9 @@ public class FirstMenuController {
 
     public void handleInput() {
         if (view.getTextButtonList().get(0).isPressed()) {
-            Main.getInstance().setScreen(LoginMenu.getInstance());
+            Main.getInstance().setScreen(new LoginMenu());
         } else if (view.getTextButtonList().get(1).isPressed()) {
-            Main.getInstance().setScreen(RegisterMenu.getInstance());
+            Main.getInstance().setScreen(new RegisterMenu());
         } else if (view.getTextButtonList().get(2).isPressed()) {
             Gdx.app.exit();
         }
