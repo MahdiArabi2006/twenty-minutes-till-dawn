@@ -12,12 +12,14 @@ public class Player {
     private float y;
     private float time;
     private float health;
+    private float XP;
     private float lastReloadWeapon;
     private final CollisionRectangle playerCollisionRectangle;
 
     public Player(User user, Character character, WeaponType weaponType) {
         this.user = user;
         this.character = character;
+        this.health = character.getHP();
         this.weapon = new Weapon(weaponType);
         this.playerSprite = character.getSprite();
         this.x = Gdx.graphics.getWidth() / 2f;
@@ -72,6 +74,10 @@ public class Player {
         return character.getSpeed();
     }
 
+    public void resetHealth(){
+        this.health = this.character.getHP();
+    }
+
     public float getHealth() {
         return health;
     }
@@ -94,5 +100,13 @@ public class Player {
 
     public void setLastReloadWeapon(float lastReloadWeapon) {
         this.lastReloadWeapon = lastReloadWeapon;
+    }
+
+    public float getXP() {
+        return XP;
+    }
+
+    public void setXP(float XP) {
+        this.XP = XP;
     }
 }

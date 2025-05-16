@@ -42,7 +42,7 @@ public class GameController {
         }
     }
 
-    public void handleGameOver(){}
+    public static void handleGameOver(){}
 
     public WeaponController getWeaponController() {
         return weaponController;

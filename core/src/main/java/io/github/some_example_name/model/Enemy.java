@@ -15,4 +15,7 @@ public interface Enemy {
     float getTime();
     void setTime(float time);
     Animation<Texture> getWalk();
+    CollisionRectangle getCollisionRectangle();
+    float getHealth();
+    void setHealth(float health);
 }

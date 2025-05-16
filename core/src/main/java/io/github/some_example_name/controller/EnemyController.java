@@ -14,30 +14,46 @@ public class EnemyController {
         for (Enemy enemy : App.getLoggedInUser().getLastGame().getEnemies()) {
             enemy.getSprite().draw(Main.getInstance().getBatch());
         }
+        for (Seed seed : App.getLoggedInUser().getLastGame().getSeeds()) {
+            seed.getSprite().draw(Main.getInstance().getBatch());
+        }
         spawnEnemy();
         for (Enemy enemy : App.getLoggedInUser().getLastGame().getEnemies()) {
-            if (!(enemy instanceof Tree)){
+            if (!(enemy instanceof Tree)) {
                 moveEnemy(enemy);
+                handleCollisionEnemyAndPlayer();
             }
-            if (enemy instanceof EyeBat){
+            if (enemy instanceof EyeBat) {
                 shootEyeBat((EyeBat) enemy);
                 updateBullets((EyeBat) enemy);
             }
         }
     }
 
-    private void shootEyeBat(EyeBat eyeBat){
+    private void handleCollisionEnemyAndPlayer() {
+        Player player = App.getLoggedInUser().getLastGame().getPlayer();
+        for (Enemy enemy : App.getLoggedInUser().getLastGame().getEnemies()) {
+            if (player.getPlayerCollisionRectangle().collidesWith(enemy.getCollisionRectangle())) {
+                player.setHealth(player.getHealth() - 1);
+                if (player.getHealth() <= 0) {
+                    GameController.handleGameOver();
+                }
+            }
+        }
+    }
+
+    private void shootEyeBat(EyeBat eyeBat) {
         Player player = App.getLoggedInUser().getLastGame().getPlayer();
         eyeBat.setShootTimer(eyeBat.getShootTimer() + Gdx.graphics.getDeltaTime());
-        if (eyeBat.getShootTimer() > 3f){
-            Bullet bullet = new Bullet((int) player.getX(), (int) player.getY(), (int) eyeBat.getSprite().getX(), (int) eyeBat.getSprite().getY(),player.getWeapon());
-            bullet.getSprite().setPosition(eyeBat.getSprite().getX(),eyeBat.getSprite().getY());
+        if (eyeBat.getShootTimer() > 3f) {
+            Bullet bullet = new Bullet((int) player.getX(), (int) player.getY(), (int) eyeBat.getSprite().getX(), (int) eyeBat.getSprite().getY(), player.getWeapon(), true);
+            bullet.getSprite().setPosition(eyeBat.getSprite().getX(), eyeBat.getSprite().getY());
             eyeBat.getBullets().add(bullet);
             eyeBat.setShootTimer(0);
         }
     }
 
-    private void moveEnemy(Enemy enemy){
+    private void moveEnemy(Enemy enemy) {
         Player player = App.getLoggedInUser().getLastGame().getPlayer();
         Vector2 direction = new Vector2(
             player.getPlayerSprite().getX() - enemy.getSprite().getX(),
@@ -46,7 +62,8 @@ public class EnemyController {
 
         enemy.getSprite().setX(enemy.getSprite().getX() + direction.x);
         enemy.getSprite().setY(enemy.getSprite().getY() + direction.y);
-        walkAnimation(enemy,enemy.getWalk());
+        enemy.getCollisionRectangle().move(enemy.getSprite().getX(),enemy.getSprite().getY());
+        walkAnimation(enemy, enemy.getWalk());
     }
 
     private void updateBullets(EyeBat eyeBat) {
@@ -59,6 +76,20 @@ public class EnemyController {
 
             b.getSprite().setX(b.getSprite().getX() + direction.x * 5);
             b.getSprite().setY(b.getSprite().getY() + direction.y * 5);
+            b.getCollisionRectangle().move(b.getSprite().getX(), b.getSprite().getY());
+            handleCollision(b);
+        }
+        eyeBat.getBullets().removeIf(Bullet::isDestroyed);
+    }
+
+    private void handleCollision(Bullet bullet) {
+        Player player = App.getLoggedInUser().getLastGame().getPlayer();
+        if (bullet.getCollisionRectangle().collidesWith(player.getPlayerCollisionRectangle())) {
+            player.setHealth(player.getHealth() - bullet.getDamage());
+            bullet.setDestroyed(true);
+            if (player.getHealth() <= 0) {
+                GameController.handleGameOver();
+            }
         }
     }
 
@@ -144,7 +175,7 @@ public class EnemyController {
         }
     }
 
-    private void walkAnimation(Enemy enemy,Animation<Texture> walk){
+    private void walkAnimation(Enemy enemy, Animation<Texture> walk) {
         enemy.getSprite().setRegion(walk.getKeyFrame(enemy.getTime()));
 
         if (!walk.isAnimationFinished(enemy.getTime())) {

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.Player;
+import io.github.some_example_name.model.Seed;
 
 public class PlayerController {
     public void update() {
@@ -17,6 +18,7 @@ public class PlayerController {
         idleAnimation();
 
         handlePlayerInput();
+        handlePlayerCollision();
     }
 
 
@@ -24,18 +26,22 @@ public class PlayerController {
         Player player = App.getLoggedInUser().getLastGame().getPlayer();
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             player.setY(player.getY() + player.getSpeed());
+            player.getPlayerCollisionRectangle().move(player.getX(), player.getY());
             walkAnimation();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             player.setX(player.getX() + player.getSpeed());
+            player.getPlayerCollisionRectangle().move(player.getX(), player.getY());
             walkAnimation();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             player.setY(player.getY() - player.getSpeed());
+            player.getPlayerCollisionRectangle().move(player.getX(), player.getY());
             walkAnimation();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             player.setX(player.getX() - player.getSpeed());
+            player.getPlayerCollisionRectangle().move(player.getX(), player.getY());
             walkAnimation();
             player.getPlayerSprite().flip(true, false);
         }
@@ -74,5 +80,16 @@ public class PlayerController {
         }
 
         animation.setPlayMode(Animation.PlayMode.LOOP);
+    }
+
+    private void handlePlayerCollision(){
+        Player player = App.getLoggedInUser().getLastGame().getPlayer();
+        for (Seed seed : App.getLoggedInUser().getLastGame().getSeeds()) {
+            if (seed.getCollisionRectangle().collidesWith(player.getPlayerCollisionRectangle())){
+                player.setXP(player.getXP() + 3);
+                seed.setPicked(true);
+            }
+        }
+        App.getLoggedInUser().getLastGame().getSeeds().removeIf(Seed::isPicked);
     }
 }

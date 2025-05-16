@@ -1,17 +1,14 @@
 package io.github.some_example_name.controller;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import io.github.some_example_name.Main;
-import io.github.some_example_name.model.App;
-import io.github.some_example_name.model.Bullet;
-import io.github.some_example_name.model.Player;
-import io.github.some_example_name.model.Weapon;
+import io.github.some_example_name.model.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class WeaponController {
@@ -48,7 +45,9 @@ public class WeaponController {
         }
         Vector3 worldCoords = new Vector3(x, y, 0);
         Main.getInstance().getViewport().unproject(worldCoords);
-        bullets.add(new Bullet((int) worldCoords.x, (int) worldCoords.y, (int) weapon.getWeaponSprite().getX(), (int) weapon.getWeaponSprite().getY(),weapon));
+        for (int i = 0; i < weapon.getWeaponType().getProjectile(); i++) {
+            bullets.add(new Bullet((int) worldCoords.x, (int) worldCoords.y, (int) weapon.getWeaponSprite().getX(), (int) weapon.getWeaponSprite().getY(),weapon,false));
+        }
         weapon.setAmmo(weapon.getAmmo() - 1);
     }
 
@@ -62,6 +61,24 @@ public class WeaponController {
 
             b.getSprite().setX(b.getSprite().getX() + direction.x * 5);
             b.getSprite().setY(b.getSprite().getY() + direction.y * 5);
+            b.getCollisionRectangle().move(b.getSprite().getX(),b.getSprite().getY());
+            handleCollision(b);
+        }
+        bullets.removeIf(Bullet::isDestroyed);
+    }
+
+    private void handleCollision(Bullet bullet){
+        Iterator<Enemy> enemyIterator = App.getLoggedInUser().getLastGame().getEnemies().iterator();
+        while (enemyIterator.hasNext()) {
+            Enemy enemy = enemyIterator.next();
+            if (bullet.getCollisionRectangle().collidesWith(enemy.getCollisionRectangle())) {
+                enemy.setHealth(enemy.getHealth() - bullet.getDamage());
+                bullet.setDestroyed(true);
+                if (enemy.getHealth() <= 0) {
+                    enemyIterator.remove();
+                    App.getLoggedInUser().getLastGame().getSeeds().add(new Seed(enemy.getSprite().getX(),enemy.getSprite().getY()));
+                }
+            }
         }
     }
 

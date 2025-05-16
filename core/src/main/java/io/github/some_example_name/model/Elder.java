@@ -6,14 +6,23 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Elder implements Enemy{
     private final Animation<Texture> elderWalk;
+    private final Sprite sprite;
+    private final CollisionRectangle collisionRectangle;
     private float time;
     private int x;
     private int y;
     private final int HP;
+    private float health;
 
-    public Elder() {
+    public Elder(int x,int y) {
+        this.x = x;
+        this.y = y;
         this.elderWalk = GameAsset.elderWalk;
+        this.sprite = new Sprite(new Texture("enemy/elder/walk/BrainMonster_0.png"));
+        this.sprite.setPosition(x,y);
+        this.collisionRectangle = new CollisionRectangle(this.x,this.y,this.sprite.getWidth(),this.sprite.getHeight());
         this.HP = 400;
+        this.health = this.HP;
     }
 
     public Animation<Texture> getElderWalk() {
@@ -56,7 +65,7 @@ public class Elder implements Enemy{
 
     @Override
     public Sprite getSprite() {
-        return null;
+        return this.sprite;
     }
 
     @Override
@@ -72,5 +81,17 @@ public class Elder implements Enemy{
     @Override
     public Animation<Texture> getWalk() {
         return this.elderWalk;
+    }
+
+    public CollisionRectangle getCollisionRectangle() {
+        return collisionRectangle;
+    }
+
+    public float getHealth() {
+        return health;
+    }
+
+    public void setHealth(float health) {
+        this.health = health;
     }
 }

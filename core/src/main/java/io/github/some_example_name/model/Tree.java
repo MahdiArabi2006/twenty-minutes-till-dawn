@@ -8,15 +8,19 @@ public class Tree implements Enemy{
     private int x;
     private int y;
     private float time;
+    private float health;
     private final Texture treeTexture;
+    private final CollisionRectangle collisionRectangle;
     private final Sprite Sprite;
 
     public Tree(int x, int y) {
         this.x = x;
         this.y = y;
+        this.health = 5;
         this.treeTexture = GameAsset.treeTexture;
         this.Sprite = new Sprite(treeTexture);
         this.Sprite.setPosition(x,y);
+        this.collisionRectangle = new CollisionRectangle(this.x,this.y,this.Sprite.getWidth(),this.Sprite.getHeight());
     }
 
     public Texture getTreeTexture() {
@@ -62,5 +66,17 @@ public class Tree implements Enemy{
     @Override
     public Animation<Texture> getWalk() {
         return null;
+    }
+
+    public CollisionRectangle getCollisionRectangle() {
+        return collisionRectangle;
+    }
+
+    public float getHealth() {
+        return health;
+    }
+
+    public void setHealth(float health) {
+        this.health = health;
     }
 }

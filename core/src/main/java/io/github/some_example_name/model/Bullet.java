@@ -1,47 +1,42 @@
 package io.github.some_example_name.model;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Bullet {
-    private Sprite sprite;
-    private int damage = 5;
+    private final Sprite sprite;
+    private final CollisionRectangle collisionRectangle;
+    private final int damage;
+    private boolean isDestroyed;
     private int x;
     private int y;
     private final int x_weapon;
     private final int y_weapon;
 
-    public Bullet(int x, int y,int x_weapon,int y_weapon,Weapon weapon) {
+    public Bullet(int x, int y,int x_weapon,int y_weapon,Weapon weapon,boolean isEyeBatShoot) {
         this.x = x;
         this.y = y;
+        if (isEyeBatShoot){
+            this.damage = 1;
+        }
+        else {
+            this.damage = weapon.getWeaponType().getDamage();
+        }
         this.sprite = new Sprite(weapon.getWeaponType().getBulletTexture());
         sprite.setSize(20, 20);
         sprite.setX(weapon.getWeaponSprite().getX());
         sprite.setY(weapon.getWeaponSprite().getY());
+        this.collisionRectangle = new CollisionRectangle(this.x,this.y,this.sprite.getWidth(),this.sprite.getHeight());
         this.x_weapon = x_weapon;
         this.y_weapon = y_weapon;
-    }
-
-    public boolean isOutOfScreen(){
-        return this.getSprite().getX() < 0 || this.getSprite().getX() > Gdx.graphics.getWidth() ||
-            this.getSprite().getY() < 0 || this.getSprite().getY() > Gdx.graphics.getHeight();
     }
 
     public Sprite getSprite() {
         return sprite;
     }
 
-    public void setSprite(Sprite sprite) {
-        this.sprite = sprite;
-    }
-
     public int getDamage() {
         return damage;
-    }
-
-    public void setDamage(int damage) {
-        this.damage = damage;
     }
 
     public int getX() {
@@ -66,5 +61,17 @@ public class Bullet {
 
     public int getY_weapon() {
         return y_weapon;
+    }
+
+    public CollisionRectangle getCollisionRectangle() {
+        return collisionRectangle;
+    }
+
+    public boolean isDestroyed() {
+        return isDestroyed;
+    }
+
+    public void setDestroyed(boolean destroyed) {
+        isDestroyed = destroyed;
     }
 }

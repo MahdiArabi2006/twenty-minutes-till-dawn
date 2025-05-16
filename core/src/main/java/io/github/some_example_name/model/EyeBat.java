@@ -10,12 +10,14 @@ import java.util.List;
 public class EyeBat implements Enemy{
     private final Animation<Texture> eyeBatWalk;
     private final Sprite sprite;
+    private final CollisionRectangle collisionRectangle;
     private float shootTimer = 0;;
     private final List<Bullet> bullets = new ArrayList<>();
     private float time;
     private int x;
     private int y;
     private final int HP;
+    private float health;
 
     public EyeBat(int x, int y) {
         this.x = x;
@@ -23,7 +25,9 @@ public class EyeBat implements Enemy{
         this.eyeBatWalk = GameAsset.eyeBatWalk;
         this.sprite = new Sprite(new Texture("enemy/eyebat/walk/T_EyeBat_0.png"));
         this.sprite.setPosition(x,y);
+        this.collisionRectangle = new CollisionRectangle(this.x,this.y,this.sprite.getWidth(),this.sprite.getHeight());
         this.HP = 50;
+        this.health = this.HP;
     }
 
     public Animation<Texture> getWalk() {
@@ -89,5 +93,17 @@ public class EyeBat implements Enemy{
 
     public void setShootTimer(float shootTimer) {
         this.shootTimer = shootTimer;
+    }
+
+    public CollisionRectangle getCollisionRectangle() {
+        return collisionRectangle;
+    }
+
+    public float getHealth() {
+        return health;
+    }
+
+    public void setHealth(float health) {
+        this.health = health;
     }
 }

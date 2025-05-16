@@ -11,6 +11,7 @@ public class Game {
     private final GameTimer gameTimer;
     private final Player player;
     private final List<Enemy> enemies = new ArrayList<>();
+    private final List<Seed> seeds = new ArrayList<>();
     private float lastSpawnTentacle = 0;
     private float lastSpawnEyeBat = 0;
 
@@ -84,5 +85,9 @@ public class Game {
             }
         }
         return true;
+    }
+
+    public List<Seed> getSeeds() {
+        return seeds;
     }
 }
