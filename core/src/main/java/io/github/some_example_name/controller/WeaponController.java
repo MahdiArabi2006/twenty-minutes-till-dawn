@@ -41,13 +41,13 @@ public class WeaponController {
     public void handleWeaponShoot(int x, int y) {
         Weapon weapon = App.getLoggedInUser().getLastGame().getPlayer().getWeapon();
         Player player = App.getLoggedInUser().getLastGame().getPlayer();
-        if (weapon.getAmmo() <= 0 || !finishReloading()){
+        if (weapon.getAmmo() <= 0 || !finishReloading()) {
             return;
         }
         Vector3 worldCoords = new Vector3(x, y, 0);
         Main.getInstance().getViewport().unproject(worldCoords);
         for (int i = 0; i < player.getProjectile(); i++) {
-            bullets.add(new Bullet((int) worldCoords.x, (int) worldCoords.y, (int) weapon.getWeaponSprite().getX(), (int) weapon.getWeaponSprite().getY(),weapon,player,false));
+            bullets.add(new Bullet((int) worldCoords.x, (int) worldCoords.y, (int) weapon.getWeaponSprite().getX(), (int) weapon.getWeaponSprite().getY(), weapon, player, false));
         }
         weapon.setAmmo(weapon.getAmmo() - 1);
     }
@@ -56,34 +56,33 @@ public class WeaponController {
         for (Bullet b : bullets) {
             b.getSprite().draw(Main.getInstance().getBatch());
             Vector2 direction = new Vector2(
-                 b.getX() - b.getX_weapon(),
-                 b.getY() - b.getY_weapon()
+                b.getX() - b.getX_weapon(),
+                b.getY() - b.getY_weapon()
             ).nor();
 
             b.getSprite().setX(b.getSprite().getX() + direction.x * 5);
             b.getSprite().setY(b.getSprite().getY() + direction.y * 5);
-            b.getCollisionRectangle().move(b.getSprite().getX(),b.getSprite().getY());
+            b.getCollisionRectangle().move(b.getSprite().getX(), b.getSprite().getY());
             handleCollision(b);
         }
         bullets.removeIf(Bullet::isDestroyed);
     }
 
-    private void handleCollision(Bullet bullet){
-        Iterator<Enemy> enemyIterator = App.getLoggedInUser().getLastGame().getEnemies().iterator();
-        while (enemyIterator.hasNext()) {
-            Enemy enemy = enemyIterator.next();
+    private void handleCollision(Bullet bullet) {
+        for (Enemy enemy : App.getLoggedInUser().getLastGame().getEnemies()) {
             if (bullet.getCollisionRectangle().collidesWith(enemy.getCollisionRectangle())) {
                 enemy.setHealth(enemy.getHealth() - bullet.getDamage());
                 bullet.setDestroyed(true);
                 if (enemy.getHealth() <= 0) {
-                    enemyIterator.remove();
-                    App.getLoggedInUser().getLastGame().getSeeds().add(new Seed(enemy.getSprite().getX(),enemy.getSprite().getY()));
+                    enemy.setDying(true);
+                    enemy.setDeathTimer(enemy.getDeathDuration());
+                    App.getLoggedInUser().getLastGame().getPlayer().setKillNumber(App.getLoggedInUser().getLastGame().getPlayer().getKillNumber() + 1);
                 }
             }
         }
     }
 
-    private boolean finishReloading(){
+    private boolean finishReloading() {
         Weapon weapon = App.getLoggedInUser().getLastGame().getPlayer().getWeapon();
         Player player = App.getLoggedInUser().getLastGame().getPlayer();
         float now = App.getLoggedInUser().getLastGame().getGameTimer().getRemainingTime();

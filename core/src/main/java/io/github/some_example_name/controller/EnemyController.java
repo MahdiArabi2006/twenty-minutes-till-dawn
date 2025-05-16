@@ -12,7 +12,28 @@ import java.util.Random;
 public class EnemyController {
     public void update() {
         for (Enemy enemy : App.getLoggedInUser().getLastGame().getEnemies()) {
-            enemy.getSprite().draw(Main.getInstance().getBatch());
+            if (enemy.isDying()) {
+                enemy.setDeathTimer(enemy.getDeathTimer() - Gdx.graphics.getDeltaTime());
+                float progress = 1f - (enemy.getDeathTimer() / enemy.getDeathDuration());
+                float alpha = 1f - progress;
+                float scale = 1f + progress * 0.5f;
+                float shake = (float) Math.sin(progress * 50) * 3f;
+                Main.getInstance().getBatch().setColor(1, 0.4f, 0.4f, alpha);
+                enemy.getSprite().setScale(scale);
+                enemy.getSprite().setX(enemy.getX() + shake);
+                enemy.getSprite().draw(Main.getInstance().getBatch());
+                enemy.getSprite().setX(enemy.getX());
+                enemy.getSprite().setScale(1f);
+                Main.getInstance().getBatch().setColor(1, 1, 1, 1);
+
+                if (enemy.getDeathTimer() <= 0f) {
+                    App.getLoggedInUser().getLastGame().getEnemies().remove(enemy);
+                    App.getLoggedInUser().getLastGame().getSeeds().add(new Seed(enemy.getSprite().getX(), enemy.getSprite().getY()));
+                    break;
+                }
+            } else {
+                enemy.getSprite().draw(Main.getInstance().getBatch());
+            }
         }
         for (Seed seed : App.getLoggedInUser().getLastGame().getSeeds()) {
             seed.getSprite().draw(Main.getInstance().getBatch());
@@ -21,23 +42,29 @@ public class EnemyController {
         for (Enemy enemy : App.getLoggedInUser().getLastGame().getEnemies()) {
             if (!(enemy instanceof Tree)) {
                 moveEnemy(enemy);
-                handleCollisionEnemyAndPlayer();
             }
             if (enemy instanceof EyeBat) {
                 shootEyeBat((EyeBat) enemy);
                 updateBullets((EyeBat) enemy);
             }
+            handleCollisionEnemyAndPlayer();
         }
     }
 
     private void handleCollisionEnemyAndPlayer() {
         Player player = App.getLoggedInUser().getLastGame().getPlayer();
+        if (player.isDamaged()) {
+            return;
+        }
         for (Enemy enemy : App.getLoggedInUser().getLastGame().getEnemies()) {
             if (player.getPlayerCollisionRectangle().collidesWith(enemy.getCollisionRectangle())) {
                 player.setHealth(player.getHealth() - 1);
+                player.setDamaged(true);
+                player.setDamageTimer(3f);
                 if (player.getHealth() <= 0) {
                     GameController.handleGameOver();
                 }
+                break;
             }
         }
     }
@@ -46,7 +73,7 @@ public class EnemyController {
         Player player = App.getLoggedInUser().getLastGame().getPlayer();
         eyeBat.setShootTimer(eyeBat.getShootTimer() + Gdx.graphics.getDeltaTime());
         if (eyeBat.getShootTimer() > 3f) {
-            Bullet bullet = new Bullet((int) player.getX(), (int) player.getY(), (int) eyeBat.getSprite().getX(), (int) eyeBat.getSprite().getY(), player.getWeapon(), player,true);
+            Bullet bullet = new Bullet((int) player.getX(), (int) player.getY(), (int) eyeBat.getSprite().getX(), (int) eyeBat.getSprite().getY(), player.getWeapon(), player, true);
             bullet.getSprite().setPosition(eyeBat.getSprite().getX(), eyeBat.getSprite().getY());
             eyeBat.getBullets().add(bullet);
             eyeBat.setShootTimer(0);
@@ -62,7 +89,9 @@ public class EnemyController {
 
         enemy.getSprite().setX(enemy.getSprite().getX() + direction.x);
         enemy.getSprite().setY(enemy.getSprite().getY() + direction.y);
-        enemy.getCollisionRectangle().move(enemy.getSprite().getX(),enemy.getSprite().getY());
+        enemy.setX((int) (enemy.getSprite().getX() + direction.x));
+        enemy.setY((int) (enemy.getSprite().getY() + direction.y));
+        enemy.getCollisionRectangle().move(enemy.getSprite().getX(), enemy.getSprite().getY());
         walkAnimation(enemy, enemy.getWalk());
     }
 
@@ -84,8 +113,13 @@ public class EnemyController {
 
     private void handleCollision(Bullet bullet) {
         Player player = App.getLoggedInUser().getLastGame().getPlayer();
+        if (player.isDamaged()) {
+            return;
+        }
         if (bullet.getCollisionRectangle().collidesWith(player.getPlayerCollisionRectangle())) {
-            player.setHealth(player.getHealth() - bullet.getDamage());
+            player.setHealth(player.getHealth() - 1);
+            player.setDamaged(true);
+            player.setDamageTimer(3f);
             bullet.setDestroyed(true);
             if (player.getHealth() <= 0) {
                 GameController.handleGameOver();

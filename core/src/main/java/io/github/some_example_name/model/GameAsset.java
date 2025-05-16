@@ -1,16 +1,49 @@
 package io.github.some_example_name.model;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameAsset {
-    public static final Skin menuSkin = new Skin(Gdx.files.internal("skin/pixthulhu-ui.json"));
+    private static BitmapFont customFont;
+    public static Skin menuSkin;
+
+    static {
+        loadResources();
+    }
+
+    private static void loadResources() {
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
+            Gdx.files.internal("LiberationSans.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter param =
+            new FreeTypeFontGenerator.FreeTypeFontParameter();
+        param.size = 30;
+        param.color = Color.WHITE;
+        param.borderWidth = 1;
+        param.borderColor = Color.BLACK;
+        customFont = generator.generateFont(param);
+        generator.dispose();
+        menuSkin = new Skin(Gdx.files.internal("skin/pixthulhu-ui.json"));
+        menuSkin.add("default-font", customFont);
+        setFontForAllStyles();
+    }
+
+    private static void setFontForAllStyles() {
+        menuSkin.get(Label.LabelStyle.class).font = customFont;
+        menuSkin.get(TextButton.TextButtonStyle.class).font = customFont;
+        menuSkin.get(TextField.TextFieldStyle.class).font = customFont;
+        menuSkin.get(SelectBox.SelectBoxStyle.class).font = customFont;
+    }
+
     public static final List<Image> avatars = createAvatars();
     public static final Animation<Texture> scarletIdle = new Animation<>(0.1f, new Texture("Idle/scarlet/0.png"),
         new Texture("Idle/scarlet/1.png"), new Texture("Idle/scarlet/2.png"),
@@ -98,5 +131,18 @@ public class GameAsset {
             avatars.add(image);
         }
         return avatars;
+    }
+
+    public static void setCustomCursor() {
+        Pixmap pixmap = new Pixmap(Gdx.files.internal("T_Cursor.png"));
+        int xHotspot = pixmap.getWidth() / 2;
+        int yHotspot = pixmap.getHeight() / 2;
+        Cursor cursor = Gdx.graphics.newCursor(pixmap, xHotspot, yHotspot);
+        Gdx.graphics.setCursor(cursor);
+        pixmap.dispose();
+    }
+
+    public static void resetToDefault() {
+        Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
     }
 }

@@ -7,13 +7,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.controller.GameController;
+import io.github.some_example_name.model.GameAsset;
 
 public class GameView implements Screen, InputProcessor {
     private final GameController controller = new GameController(this);
-    private Stage stage;
+    private static Stage stage;
 
     public GameView() {
-        this.stage = new Stage(Main.getInstance().getViewport(), Main.getInstance().getBatch());
+        stage = new Stage(Main.getInstance().getViewport(), Main.getInstance().getBatch());
     }
 
     @Override
@@ -66,6 +67,7 @@ public class GameView implements Screen, InputProcessor {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(this);
+        GameAsset.setCustomCursor();
     }
 
     @Override
@@ -95,7 +97,7 @@ public class GameView implements Screen, InputProcessor {
 
     @Override
     public void hide() {
-
+        GameAsset.resetToDefault();
     }
 
     @Override

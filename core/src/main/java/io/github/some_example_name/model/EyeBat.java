@@ -7,12 +7,16 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EyeBat implements Enemy{
+public class EyeBat implements Enemy {
     private final Animation<Texture> eyeBatWalk;
     private final Sprite sprite;
     private final CollisionRectangle collisionRectangle;
-    private float shootTimer = 0;;
+    private float shootTimer = 0;
+    ;
     private final List<Bullet> bullets = new ArrayList<>();
+    private boolean isDying = false;
+    private float deathTimer = 0f;
+    private final float deathDuration = 0.5f;
     private float time;
     private int x;
     private int y;
@@ -24,8 +28,8 @@ public class EyeBat implements Enemy{
         this.y = y;
         this.eyeBatWalk = GameAsset.eyeBatWalk;
         this.sprite = new Sprite(new Texture("enemy/eyebat/walk/T_EyeBat_0.png"));
-        this.sprite.setPosition(x,y);
-        this.collisionRectangle = new CollisionRectangle(this.x,this.y,this.sprite.getWidth(),this.sprite.getHeight());
+        this.sprite.setPosition(x, y);
+        this.collisionRectangle = new CollisionRectangle(this.x, this.y, this.sprite.getWidth(), this.sprite.getHeight());
         this.HP = 50;
         this.health = this.HP;
     }
@@ -105,5 +109,25 @@ public class EyeBat implements Enemy{
 
     public void setHealth(float health) {
         this.health = health;
+    }
+
+    public boolean isDying() {
+        return isDying;
+    }
+
+    public void setDying(boolean dying) {
+        isDying = dying;
+    }
+
+    public float getDeathTimer() {
+        return deathTimer;
+    }
+
+    public void setDeathTimer(float deathTimer) {
+        this.deathTimer = deathTimer;
+    }
+
+    public float getDeathDuration() {
+        return deathDuration;
     }
 }

@@ -14,8 +14,11 @@ public class Player {
     private int speed;
     private int damage;
     private Ability ability;
+    private int killNumber;
     private int level = 1;
     private float timeAbilityBegin;
+    private float damageTimer = 0;
+    private boolean isDamaged = false;
     private float x;
     private float y;
     private float time;
@@ -41,7 +44,7 @@ public class Player {
         playerSprite.setPosition(this.x, this.y);
         playerSprite.setSize(playerSprite.getWidth() * 3, playerSprite.getHeight() * 3);
         playerCollisionRectangle = new CollisionRectangle(this.x, this.y,
-            playerSprite.getWidth() * 3, playerSprite.getHeight() * 3);
+            playerSprite.getWidth() * 0.5f, playerSprite.getHeight() * 0.5f);
     }
 
     public User getUser() {
@@ -88,7 +91,7 @@ public class Player {
         return this.speed;
     }
 
-    public void resetHealth(){
+    public void resetHealth() {
         this.health = this.character.getHP();
     }
 
@@ -122,7 +125,6 @@ public class Player {
 
     public void setXP(float XP) {
         this.XP = XP;
-        updateLevel();
     }
 
     public Ability getAbility() {
@@ -170,7 +172,7 @@ public class Player {
     }
 
 
-    public void resetAmmo(){
+    public void resetAmmo() {
         this.weapon.setAmmo(this.maxAmmo);
     }
 
@@ -186,13 +188,13 @@ public class Player {
         this.damage = damage;
     }
 
-    public void changeAbility(Ability ability){
+    public void changeAbility(Ability ability) {
         this.timeAbilityBegin = 0;
         resetPlayerAbility();
         this.ability = ability;
     }
 
-    private void resetPlayerAbility(){
+    private void resetPlayerAbility() {
         this.maxHP = this.character.getHP();
         this.projectile = this.weapon.getWeaponType().getProjectile();
         this.maxAmmo = this.weapon.getWeaponType().getAmmoMax();
@@ -200,10 +202,35 @@ public class Player {
         this.damage = this.weapon.getWeaponType().getDamage();
     }
 
-    private void updateLevel(){
-        if (this.level * 20 <= this.XP){
+    public void updateLevel() {
+        if (this.level * 20 <= this.XP) {
             PlayerController.handleUpdateLevel();
             this.level += 1;
+            this.XP = 0;
         }
+    }
+
+    public int getKillNumber() {
+        return killNumber;
+    }
+
+    public void setKillNumber(int killNumber) {
+        this.killNumber = killNumber;
+    }
+
+    public float getDamageTimer() {
+        return damageTimer;
+    }
+
+    public void setDamageTimer(float damageTimer) {
+        this.damageTimer = damageTimer;
+    }
+
+    public boolean isDamaged() {
+        return isDamaged;
+    }
+
+    public void setDamaged(boolean damaged) {
+        isDamaged = damaged;
     }
 }

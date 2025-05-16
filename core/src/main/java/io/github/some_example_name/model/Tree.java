@@ -4,11 +4,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class Tree implements Enemy{
+public class Tree implements Enemy {
     private int x;
     private int y;
     private float time;
     private float health;
+    private boolean isDying = false;
+    private float deathTimer = 0f;
+    private final float deathDuration = 0.5f;
     private final Texture treeTexture;
     private final CollisionRectangle collisionRectangle;
     private final Sprite Sprite;
@@ -19,8 +22,8 @@ public class Tree implements Enemy{
         this.health = 5;
         this.treeTexture = GameAsset.treeTexture;
         this.Sprite = new Sprite(treeTexture);
-        this.Sprite.setPosition(x,y);
-        this.collisionRectangle = new CollisionRectangle(this.x,this.y,this.Sprite.getWidth(),this.Sprite.getHeight());
+        this.Sprite.setPosition(x, y);
+        this.collisionRectangle = new CollisionRectangle(this.x, this.y, this.Sprite.getWidth(), this.Sprite.getHeight());
     }
 
     public Texture getTreeTexture() {
@@ -43,11 +46,11 @@ public class Tree implements Enemy{
         this.y = y;
     }
 
-    public int getWidth(){
+    public int getWidth() {
         return this.treeTexture.getWidth();
     }
 
-    public int getHeight(){
+    public int getHeight() {
         return this.treeTexture.getHeight();
     }
 
@@ -78,5 +81,25 @@ public class Tree implements Enemy{
 
     public void setHealth(float health) {
         this.health = health;
+    }
+
+    public float getDeathTimer() {
+        return deathTimer;
+    }
+
+    public void setDeathTimer(float deathTimer) {
+        this.deathTimer = deathTimer;
+    }
+
+    public boolean isDying() {
+        return isDying;
+    }
+
+    public void setDying(boolean dying) {
+        isDying = dying;
+    }
+
+    public float getDeathDuration() {
+        return deathDuration;
     }
 }

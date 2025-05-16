@@ -32,6 +32,11 @@ public class Main extends Game {
         return batch;
     }
 
+    public void centerCameraOnPlayer(float playerX, float playerY) {
+        camera.position.set(playerX, playerY, 0);
+        camera.update();
+    }
+
     @Override
     public void create() {
         instance = this;
@@ -58,7 +63,7 @@ public class Main extends Game {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height,true);
+        viewport.update(width, height, true);
     }
 
     public Viewport getViewport() {

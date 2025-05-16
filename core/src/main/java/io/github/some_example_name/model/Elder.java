@@ -4,23 +4,26 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class Elder implements Enemy{
+public class Elder implements Enemy {
     private final Animation<Texture> elderWalk;
     private final Sprite sprite;
     private final CollisionRectangle collisionRectangle;
+    private boolean isDying = false;
+    private float deathTimer = 0f;
+    private final float deathDuration = 0.5f;
     private float time;
     private int x;
     private int y;
     private final int HP;
     private float health;
 
-    public Elder(int x,int y) {
+    public Elder(int x, int y) {
         this.x = x;
         this.y = y;
         this.elderWalk = GameAsset.elderWalk;
         this.sprite = new Sprite(new Texture("enemy/elder/walk/BrainMonster_0.png"));
-        this.sprite.setPosition(x,y);
-        this.collisionRectangle = new CollisionRectangle(this.x,this.y,this.sprite.getWidth(),this.sprite.getHeight());
+        this.sprite.setPosition(x, y);
+        this.collisionRectangle = new CollisionRectangle(this.x, this.y, this.sprite.getWidth(), this.sprite.getHeight());
         this.HP = 400;
         this.health = this.HP;
     }
@@ -93,5 +96,25 @@ public class Elder implements Enemy{
 
     public void setHealth(float health) {
         this.health = health;
+    }
+
+    public boolean isDying() {
+        return isDying;
+    }
+
+    public void setDying(boolean dying) {
+        isDying = dying;
+    }
+
+    public float getDeathTimer() {
+        return deathTimer;
+    }
+
+    public void setDeathTimer(float deathTimer) {
+        this.deathTimer = deathTimer;
+    }
+
+    public float getDeathDuration() {
+        return deathDuration;
     }
 }
