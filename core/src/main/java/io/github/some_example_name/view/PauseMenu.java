@@ -50,6 +50,10 @@ public class PauseMenu extends Menu {
         table.setFillParent(true);
         table.defaults().pad(10).width(300).height(40);
         table.align(Align.topLeft);
+        Label title = new Label("Pause Menu", GameAsset.getMenuSkin(), "title");
+        title.setAlignment(Align.center);
+        table.add(title).colspan(2).right().padTop(40).padLeft(300).padBottom(50).row();
+
         table.add(new Label("cheat codes: ",GameAsset.getMenuSkin())).row();
         table.add(new Label("reduce time a minute :     p",GameAsset.getMenuSkin())).row();
         table.add(new Label("increase player level :    l",GameAsset.getMenuSkin())).row();
@@ -64,7 +68,6 @@ public class PauseMenu extends Menu {
             table1.add(new Image(App.getLoggedInUser().getLastGame().getPlayer().getAbility().getTexture())).size(270,313).padBottom(20).row();
             table1.add(new Label(App.getLoggedInUser().getLastGame().getPlayer().getAbility().getName(),GameAsset.getMenuSkin()));
         }
-
 
         table2.clear();
         table2.setFillParent(true);

@@ -202,6 +202,10 @@ public class ProfileMenu extends Menu {
         table.defaults().pad(10).width(600).height(40);
         table.align(Align.center);
 
+        Label title = new Label("Profile", GameAsset.getMenuSkin(), "title");
+        title.setAlignment(Align.center);
+        table.add(title).colspan(2).center().padTop(40).padBottom(50).row();
+
         table.add(changeAvatarButton).align(Align.left).width(450).height(100);
         changeAvatarButton.addListener(new ClickListener() {
             @Override

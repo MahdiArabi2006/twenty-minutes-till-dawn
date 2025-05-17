@@ -148,6 +148,7 @@ public class SettingMenu extends Menu {
             }
         });
 
+        table.add(new Label("Setting Menu",GameAsset.getMenuSkin(),"title")).padRight(150).row();
         table.add(musicToggle).row();
         table.add(new Label("Music Volume", GameAsset.getMenuSkin())).row();
         table.add(musicVolumeSlider).row();

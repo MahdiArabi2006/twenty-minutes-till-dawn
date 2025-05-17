@@ -56,7 +56,10 @@ public class RegisterMenu extends Menu {
         table.defaults().pad(10).width(300).height(40);
         table.align(Align.topLeft);
 
-        table.add(new Label("Sign Up", GameAsset.getMenuSkin())).colspan(2).row();
+        Label title = new Label("Sign Up", GameAsset.getMenuSkin(), "title");
+        title.setAlignment(Align.right);
+        table.add(title).colspan(2).center().padTop(40).padBottom(30).row();
+
         table.add(new Label("username: ", GameAsset.getMenuSkin())).right();
         table.add(username).width(400).height(70).pad(5).row();
         table.add(new Label("password: ", GameAsset.getMenuSkin())).right();
