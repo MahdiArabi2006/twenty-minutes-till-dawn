@@ -55,6 +55,7 @@ public class MainMenu extends Menu {
         settingButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 Main.getInstance().setScreen(new SettingMenu());
             }
         });
@@ -62,6 +63,7 @@ public class MainMenu extends Menu {
         profileButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 Main.getInstance().setScreen(new ProfileMenu());
             }
         });
@@ -70,6 +72,7 @@ public class MainMenu extends Menu {
         preGameButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 Main.getInstance().setScreen(new PreGameMenu(false));
             }
         });
@@ -77,6 +80,7 @@ public class MainMenu extends Menu {
         talentButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 Main.getInstance().setScreen(new TalentMenu());
             }
         });
@@ -85,6 +89,7 @@ public class MainMenu extends Menu {
         scoreBoardButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 Main.getInstance().setScreen(new ScoreBoard());
             }
         });
@@ -92,6 +97,7 @@ public class MainMenu extends Menu {
         continueLastGameButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
             }
         });
         table1.row();
@@ -99,6 +105,7 @@ public class MainMenu extends Menu {
         logoutButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 controller.logout();
             }
         });

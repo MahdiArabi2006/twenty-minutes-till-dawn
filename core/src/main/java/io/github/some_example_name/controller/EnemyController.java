@@ -29,6 +29,12 @@ public class EnemyController {
                 if (enemy.getDeathTimer() <= 0f) {
                     App.getLoggedInUser().getLastGame().getEnemies().remove(enemy);
                     App.getLoggedInUser().getLastGame().getSeeds().add(new Seed(enemy.getSprite().getX(), enemy.getSprite().getY()));
+                    if (enemy instanceof EyeBat){
+                        if (App.isEnableSFX()) GameAsset.batDied.play(1f);
+                    }
+                    else {
+                        if (App.isEnableSFX()) GameAsset.monsterDied.play(1f);
+                    }
                     break;
                 }
             } else {
@@ -164,6 +170,7 @@ public class EnemyController {
                         break;
                 }
                 App.getLoggedInUser().getLastGame().getEnemies().add(new Tentacle(x, y));
+                if (App.isEnableSFX()) GameAsset.monsterSpawn.play(1f);
                 App.getLoggedInUser().getLastGame().setLastSpawnTentacle(now);
             }
         }
@@ -203,6 +210,7 @@ public class EnemyController {
                             break;
                     }
                     App.getLoggedInUser().getLastGame().getEnemies().add(new EyeBat(x, y));
+                    if (App.isEnableSFX()) GameAsset.monsterSpawn.play(1f);
                     App.getLoggedInUser().getLastGame().setLastSpawnEyeBat(now);
                 }
             }

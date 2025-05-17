@@ -28,9 +28,11 @@ public class AfterGameView implements Screen {
         this.win = win;
         Texture backgroundTexture;
         if (!win){
+            if (App.isEnableSFX()) GameAsset.lose.play(1f);
             backgroundTexture = new Texture(Gdx.files.internal("download.jpeg"));
         }
         else {
+            if (App.isEnableSFX()) GameAsset.win.play(1f);
             backgroundTexture = new Texture(Gdx.files.internal("download (1).jpeg"));
         }
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -67,6 +69,7 @@ public class AfterGameView implements Screen {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 controller.afterGme(score);
             }
         });

@@ -11,12 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.controller.ProfileMenuController;
+import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.GameAsset;
 
 import java.util.ArrayList;
@@ -78,6 +77,7 @@ public class ProfileMenu extends Menu {
             avatar.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                     controller.changeAvatar(GameAsset.getAvatars().get(avatars.indexOf(avatar)));
                     changeAvatarDialog.hide();
                 }
@@ -92,6 +92,7 @@ public class ProfileMenu extends Menu {
         chooseFileButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 openFileChooser();
             }
         });
@@ -99,6 +100,7 @@ public class ProfileMenu extends Menu {
         cancelButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 changeAvatarDialog.hide();
             }
         });
@@ -123,12 +125,14 @@ public class ProfileMenu extends Menu {
         submitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 controller.deleteAccount();
             }
         });
         cancelButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 deleteAccountDialog.hide();
             }
         });
@@ -150,12 +154,14 @@ public class ProfileMenu extends Menu {
         submitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 controller.changeUsername(newUsername.getText());
             }
         });
         cancelButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 changeUsernameDialog.hide();
             }
         });
@@ -177,12 +183,14 @@ public class ProfileMenu extends Menu {
         submitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 controller.changePassword(newPassword.getText());
             }
         });
         cancelButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 changePasswordDialog.hide();
             }
         });
@@ -198,6 +206,7 @@ public class ProfileMenu extends Menu {
         changeAvatarButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 changeAvatarDialog.show(stage);
             }
         });
@@ -205,6 +214,7 @@ public class ProfileMenu extends Menu {
         changeUsernameButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 changeUsernameDialog.show(stage);
             }
         });
@@ -212,6 +222,7 @@ public class ProfileMenu extends Menu {
         changePasswordButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 changePasswordDialog.show(stage);
             }
         });
@@ -220,6 +231,7 @@ public class ProfileMenu extends Menu {
         deleteAccountButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 deleteAccountDialog.show(stage);
             }
         });
@@ -227,6 +239,7 @@ public class ProfileMenu extends Menu {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 Main.getInstance().setScreen(new MainMenu());
             }
         });

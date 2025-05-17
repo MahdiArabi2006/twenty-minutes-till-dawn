@@ -1,6 +1,9 @@
 package io.github.some_example_name.model;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -11,7 +14,9 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GameAsset {
     private static BitmapFont customFont;
@@ -113,7 +118,53 @@ public class GameAsset {
     public static final Animation<Texture> elderWalk = new Animation<>(0.1f, new Texture("enemy/elder/walk/BrainMonster_0.png"),
         new Texture("enemy/elder/walk/BrainMonster_1.png"), new Texture("enemy/elder/walk/BrainMonster_2.png")
         , new Texture("enemy/elder/walk/BrainMonster_3.png"));
+    public static final Sound win = Gdx.audio.newSound(Gdx.files.internal("SFX/AudioClip/You Win (2).wav"));
+    public static final Sound lose = Gdx.audio.newSound(Gdx.files.internal("SFX/AudioClip/You Lose (4).wav"));
+    public static final Sound UIClick = Gdx.audio.newSound(Gdx.files.internal("SFX/AudioClip/UI Click 36.wav"));
+    public static final Sound singleShoot = Gdx.audio.newSound(Gdx.files.internal("SFX/AudioClip/single_shot.wav"));
+    public static final Sound UIMusic = Gdx.audio.newSound(Gdx.files.internal("SFX/AudioClip/Pretty Dungeon LOOP.wav"));
+    public static final Sound monsterSpawn = Gdx.audio.newSound(Gdx.files.internal("SFX/AudioClip/Monster_2_RecieveAttack_HighIntensity_01.wav"));
+    public static final Sound monsterDied = Gdx.audio.newSound(Gdx.files.internal("SFX/AudioClip/Explosion_Blood_01.wav"));
+    public static final Sound levelUp = Gdx.audio.newSound(Gdx.files.internal("SFX/AudioClip/Buff_Intelligence.wav"));
+    public static final Sound batDied = Gdx.audio.newSound(Gdx.files.internal("SFX/AudioClip/Bat_Death_02.wav"));
+    public static final Sound reloadGun = Gdx.audio.newSound(Gdx.files.internal("SFX/AudioClip/gun-reloading-fx_45bpm_C_minor.wav"));
+    public static final Music requiemForADream = Gdx.audio.newMusic(Gdx.files.internal("Requiem for a dream - Lux Aeterna.mp3"));
+    public static final Music heathens = Gdx.audio.newMusic(Gdx.files.internal("Heathens - Twenty One Pilots .mp3"));
+    public static final Music betweenTheBars = Gdx.audio.newMusic(Gdx.files.internal("Elliot Smith – Between The Bars.mp3"));
+    public static final Map<String, Integer> keyMap = new HashMap<>();
 
+    static {
+        keyMap.put("A",Input.Keys.A);
+        keyMap.put("B",Input.Keys.B);
+        keyMap.put("C",Input.Keys.C);
+        keyMap.put("D",Input.Keys.D);
+        keyMap.put("E",Input.Keys.E);
+        keyMap.put("F",Input.Keys.F);
+        keyMap.put("G",Input.Keys.G);
+        keyMap.put("H",Input.Keys.H);
+        keyMap.put("I",Input.Keys.I);
+        keyMap.put("J",Input.Keys.J);
+        keyMap.put("K",Input.Keys.K);
+        keyMap.put("L",Input.Keys.L);
+        keyMap.put("M",Input.Keys.M);
+        keyMap.put("N",Input.Keys.N);
+        keyMap.put("O",Input.Keys.O);
+        keyMap.put("P",Input.Keys.P);
+        keyMap.put("Q",Input.Keys.Q);
+        keyMap.put("R",Input.Keys.R);
+        keyMap.put("S",Input.Keys.S);
+        keyMap.put("T",Input.Keys.T);
+        keyMap.put("U",Input.Keys.U);
+        keyMap.put("V",Input.Keys.V);
+        keyMap.put("W",Input.Keys.W);
+        keyMap.put("X",Input.Keys.X);
+        keyMap.put("Y",Input.Keys.Y);
+        keyMap.put("Z",Input.Keys.Z);
+        keyMap.put("Up", Input.Keys.UP);
+        keyMap.put("Down", Input.Keys.DOWN);
+        keyMap.put("Left", Input.Keys.LEFT);
+        keyMap.put("Right", Input.Keys.RIGHT);
+    }
     public static Skin getMenuSkin() {
         return menuSkin;
     }

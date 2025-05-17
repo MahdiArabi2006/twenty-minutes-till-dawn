@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.controller.LoginMenuController;
+import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.GameAsset;
 
 public class LoginMenu extends Menu {
@@ -83,12 +84,14 @@ public class LoginMenu extends Menu {
         submitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 controller.forgetPassword();
             }
         });
         cancelButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 forgetPasswordDialog.hide();
             }
         });
@@ -110,6 +113,7 @@ public class LoginMenu extends Menu {
         loginButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 controller.login(username.getText(), password.getText());
             }
         });
@@ -117,6 +121,7 @@ public class LoginMenu extends Menu {
         forgetPasswordButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 forgetPasswordDialog.show(stage);
             }
         });
@@ -124,6 +129,7 @@ public class LoginMenu extends Menu {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 Main.getInstance().setScreen(new FirstMenu());
             }
         });

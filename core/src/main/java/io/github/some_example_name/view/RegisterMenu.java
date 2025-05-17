@@ -11,9 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.controller.RegisterMenuController;
+import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.GameAsset;
 
 public class RegisterMenu extends Menu {
@@ -68,6 +68,7 @@ public class RegisterMenu extends Menu {
         registerButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 controller.register(username.getText(), password.getText(), answerSecurityQuestion.getText());
             }
         });
@@ -75,6 +76,7 @@ public class RegisterMenu extends Menu {
         guestButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 controller.startGameAsGuest();
             }
         });
@@ -82,6 +84,7 @@ public class RegisterMenu extends Menu {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 Main.getInstance().setScreen(new FirstMenu());
             }
         });

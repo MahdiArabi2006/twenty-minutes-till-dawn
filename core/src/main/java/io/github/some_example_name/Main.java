@@ -1,18 +1,13 @@
 package io.github.some_example_name;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import io.github.some_example_name.model.App;
 import io.github.some_example_name.view.FirstMenu;
-import io.github.some_example_name.view.GameView;
-import io.github.some_example_name.view.RegisterMenu;
 
 /**
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
@@ -41,9 +36,12 @@ public class Main extends Game {
     public void create() {
         instance = this;
         camera = new OrthographicCamera();
-        viewport = new FitViewport(1920, 1080, camera); // اندازه مناسب برای بازی
-        viewport.apply(); // فعال‌سازی ویوپورت
+        viewport = new FitViewport(1920, 1080, camera);
+        viewport.apply();
         batch = new SpriteBatch();
+        if (App.isEnableMusic()){
+            if (App.getPlayedMusic() != null) App.getPlayedMusic().play();
+        }
         instance.setScreen(new FirstMenu());
     }
 

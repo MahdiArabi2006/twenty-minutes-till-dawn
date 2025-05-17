@@ -1,6 +1,5 @@
 package io.github.some_example_name.model;
 
-import com.badlogic.gdx.Gdx;
 import io.github.some_example_name.Main;
 
 import java.util.ArrayList;

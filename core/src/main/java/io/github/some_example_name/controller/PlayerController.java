@@ -1,7 +1,6 @@
 package io.github.some_example_name.controller;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import io.github.some_example_name.Main;
@@ -12,10 +11,11 @@ import java.util.Random;
 
 public class PlayerController {
     public void update() {
-        boolean isMoving = Gdx.input.isKeyPressed(Input.Keys.W) ||
-            Gdx.input.isKeyPressed(Input.Keys.A) ||
-            Gdx.input.isKeyPressed(Input.Keys.S) ||
-            Gdx.input.isKeyPressed(Input.Keys.D);
+        GameKey gameKey = App.getLoggedInUser().getGameKey();
+        boolean isMoving = Gdx.input.isKeyPressed(gameKey.getMOVE_UP()) ||
+            Gdx.input.isKeyPressed(gameKey.getMOVE_DOWN()) ||
+            Gdx.input.isKeyPressed(gameKey.getMOVE_LEFT()) ||
+            Gdx.input.isKeyPressed(gameKey.getMOVE_RIGHT());
         Player player = App.getLoggedInUser().getLastGame().getPlayer();
         player.getPlayerSprite().setPosition(player.getX(), player.getY());
         if (player.isDamaged()) {
@@ -58,40 +58,41 @@ public class PlayerController {
         handlePlayerAbility();
     }
 
-
     public void handlePlayerInput() {
         Player player = App.getLoggedInUser().getLastGame().getPlayer();
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+        GameKey gameKey = App.getLoggedInUser().getGameKey();
+        if (Gdx.input.isKeyPressed(gameKey.getMOVE_UP())) {
             player.setY(player.getY() + player.getSpeed());
             player.getPlayerCollisionRectangle().move(player.getX(), player.getY());
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (Gdx.input.isKeyPressed(gameKey.getMOVE_RIGHT())) {
             player.setX(player.getX() + player.getSpeed());
             player.getPlayerCollisionRectangle().move(player.getX(), player.getY());
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (Gdx.input.isKeyPressed(gameKey.getMOVE_DOWN())) {
             player.setY(player.getY() - player.getSpeed());
             player.getPlayerCollisionRectangle().move(player.getX(), player.getY());
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(gameKey.getMOVE_LEFT())) {
             player.setX(player.getX() - player.getSpeed());
             player.getPlayerCollisionRectangle().move(player.getX(), player.getY());
             player.getPlayerSprite().flip(true, false);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.R)) {
+        if (Gdx.input.isKeyPressed(gameKey.getRELOAD())) {
             player.setLastReloadWeapon(App.getLoggedInUser().getLastGame().getGameTimer().getRemainingTime());
             player.resetAmmo();
+            if (App.isEnableSFX()) GameAsset.reloadGun.play(1f);
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+        if (Gdx.input.isKeyJustPressed(gameKey.getCHEAT_REDUCE_TIME())) {
             reduceTime();
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.L)) {
+        if (Gdx.input.isKeyJustPressed(gameKey.getCHEAT_INCREASE_LEVEL())) {
             increaseLevel();
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.O)) {
+        if (Gdx.input.isKeyJustPressed(gameKey.getCHEAT_INCREASE_HEALTH())) {
             increaseHealth();
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+        if (Gdx.input.isKeyPressed(gameKey.getPAUSE())) {
             Main.getInstance().setScreen(new PauseMenu());
         }
     }
@@ -152,6 +153,7 @@ public class PlayerController {
         Player player = App.getLoggedInUser().getLastGame().getPlayer();
         Random random = new Random();
         player.changeAbility(Ability.values()[random.nextInt(0, 4)]);
+        if (App.isEnableSFX()) GameAsset.levelUp.play(1f);
     }
 
     private void idleAnimation() {

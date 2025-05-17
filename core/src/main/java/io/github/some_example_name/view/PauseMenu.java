@@ -74,6 +74,7 @@ public class PauseMenu extends Menu {
         resumeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 Main.getInstance().setScreen(new GameView());
             }
         });
@@ -81,6 +82,7 @@ public class PauseMenu extends Menu {
         giveUpButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 controller.giveUp();
             }
         });
@@ -88,7 +90,7 @@ public class PauseMenu extends Menu {
         makeScreenWhiteAndBlackButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
             }
         });
         table2.row();
@@ -97,7 +99,7 @@ public class PauseMenu extends Menu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (!App.getLoggedInUser().getLastGame().isPlayAsGuest()){
-
+                    if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 }
             }
         });

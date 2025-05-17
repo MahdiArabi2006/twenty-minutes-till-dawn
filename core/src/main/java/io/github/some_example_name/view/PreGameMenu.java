@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.controller.PreGameController;
+import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.Character;
 import io.github.some_example_name.model.GameAsset;
 import io.github.some_example_name.model.WeaponType;
@@ -76,6 +77,7 @@ public class PreGameMenu extends Menu {
             avatar.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                     weaponType = value;
                     weaponSelectionDialog.hide();
                 }
@@ -91,6 +93,7 @@ public class PreGameMenu extends Menu {
         cancelButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 weaponSelectionDialog.hide();
             }
         });
@@ -112,6 +115,7 @@ public class PreGameMenu extends Menu {
             avatar.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                     character = value;
                     heroSelectionDialog.hide();
                 }
@@ -127,6 +131,7 @@ public class PreGameMenu extends Menu {
         cancelButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 heroSelectionDialog.hide();
             }
         });
@@ -146,6 +151,7 @@ public class PreGameMenu extends Menu {
         heroSelectionButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 heroSelectionDialog.show(stage);
             }
         });
@@ -153,6 +159,7 @@ public class PreGameMenu extends Menu {
         weaponSelectionButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 weaponSelectionDialog.show(stage);
             }
         });
@@ -168,6 +175,7 @@ public class PreGameMenu extends Menu {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (!selectBoxTime.getSelected().equals("time")){
+                    if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                     time = Integer.parseInt((String) selectBoxTime.getSelected());
                 }
             }
@@ -177,6 +185,7 @@ public class PreGameMenu extends Menu {
         startGameButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 if (!playAsGuest){
                     controller.startGame();
                 }
@@ -189,6 +198,7 @@ public class PreGameMenu extends Menu {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                 if (!playAsGuest){
                     Main.getInstance().setScreen(new MainMenu());
                 }

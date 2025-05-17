@@ -8,11 +8,10 @@ import io.github.some_example_name.Main;
 import io.github.some_example_name.model.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class WeaponController {
-    private List<Bullet> bullets = new ArrayList<>();
+    private final List<Bullet> bullets = new ArrayList<>();
 
     public WeaponController() {
     }
@@ -50,6 +49,7 @@ public class WeaponController {
             bullets.add(new Bullet((int) worldCoords.x, (int) worldCoords.y, (int) weapon.getWeaponSprite().getX(), (int) weapon.getWeaponSprite().getY(), weapon, player, false));
         }
         weapon.setAmmo(weapon.getAmmo() - 1);
+        if (App.isEnableSFX()) GameAsset.singleShoot.play(1f);
     }
 
     public void updateBullets() {

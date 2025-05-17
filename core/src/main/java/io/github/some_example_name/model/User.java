@@ -6,6 +6,8 @@ public class User {
     private String username;
     private String password;
     private final String answerSecurityQuestion;
+    private final GameKey gameKey = new GameKey();
+    private boolean autoReloadingEnable;
     private Image avatar;
     private int score;
     private Game lastGame;
@@ -59,5 +61,17 @@ public class User {
 
     public void setLastGame(Game lastGame) {
         this.lastGame = lastGame;
+    }
+
+    public GameKey getGameKey() {
+        return gameKey;
+    }
+
+    public boolean isAutoReloadingEnable() {
+        return autoReloadingEnable;
+    }
+
+    public void setAutoReloadingEnable(boolean autoReloadingEnable) {
+        this.autoReloadingEnable = autoReloadingEnable;
     }
 }
