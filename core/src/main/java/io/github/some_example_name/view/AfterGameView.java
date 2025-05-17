@@ -70,7 +70,7 @@ public class AfterGameView implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
-                controller.afterGme(score);
+                controller.afterGme(score,surviveTime,kill);
             }
         });
 

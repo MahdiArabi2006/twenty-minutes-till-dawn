@@ -10,6 +10,8 @@ public class User {
     private boolean autoReloadingEnable;
     private Image avatar;
     private int score;
+    private int MostSurvivalTime;
+    private int killNumber;
     private Game lastGame;
 
     public User(String username, String password, String answerSecurityQuestion, Image avatar) {
@@ -73,5 +75,21 @@ public class User {
 
     public void setAutoReloadingEnable(boolean autoReloadingEnable) {
         this.autoReloadingEnable = autoReloadingEnable;
+    }
+
+    public int getKillNumber() {
+        return killNumber;
+    }
+
+    public void setKillNumber(int killNumber) {
+        this.killNumber = killNumber;
+    }
+
+    public int getMostSurvivalTime() {
+        return MostSurvivalTime;
+    }
+
+    public void setMostSurvivalTime(int mostSurvivalTime) {
+        MostSurvivalTime = mostSurvivalTime;
     }
 }

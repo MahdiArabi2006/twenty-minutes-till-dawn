@@ -6,14 +6,15 @@ import io.github.some_example_name.view.FirstMenu;
 import io.github.some_example_name.view.MainMenu;
 
 public class AfterGameController {
-    public void afterGme(int score){
+    public void afterGme(int score, int survivalTime, int kill) {
         App.getLoggedInUser().setScore(score + App.getLoggedInUser().getScore());
-        if (App.getLoggedInUser().getLastGame().isPlayAsGuest()){
+        App.getLoggedInUser().setMostSurvivalTime(Math.max(survivalTime, App.getLoggedInUser().getMostSurvivalTime()));
+        App.getLoggedInUser().setKillNumber(kill + App.getLoggedInUser().getKillNumber());
+        if (App.getLoggedInUser().getLastGame().isPlayAsGuest()) {
             App.getLoggedInUser().setLastGame(null);
             App.setLoggedInUser(null);
             Main.getInstance().setScreen(new FirstMenu());
-        }
-        else {
+        } else {
             App.getLoggedInUser().setLastGame(null);
             Main.getInstance().setScreen(new MainMenu());
         }
