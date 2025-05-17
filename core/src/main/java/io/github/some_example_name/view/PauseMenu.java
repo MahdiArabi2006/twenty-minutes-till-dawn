@@ -96,7 +96,9 @@ public class PauseMenu extends Menu {
         saveAndQuitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (!App.getLoggedInUser().getLastGame().isPlayAsGuest()){
 
+                }
             }
         });
 

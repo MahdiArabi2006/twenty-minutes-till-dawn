@@ -12,6 +12,7 @@ public class Game {
     private final Player player;
     private final List<Enemy> enemies = new ArrayList<>();
     private final List<Seed> seeds = new ArrayList<>();
+    private boolean playAsGuest;
     private float lastSpawnTentacle = 0;
     private float lastSpawnEyeBat = 0;
 
@@ -89,5 +90,13 @@ public class Game {
 
     public List<Seed> getSeeds() {
         return seeds;
+    }
+
+    public boolean isPlayAsGuest() {
+        return playAsGuest;
+    }
+
+    public void setPlayAsGuest(boolean playAsGuest) {
+        this.playAsGuest = playAsGuest;
     }
 }

@@ -28,6 +28,7 @@ public class PreGameMenu extends Menu {
     private final TextButton heroSelectionButton, weaponSelectionButton, startGameButton, backButton;
     private final SelectBox selectBoxTime;
     private final Dialog heroSelectionDialog, weaponSelectionDialog;
+    private boolean playAsGuest;
     private Label errorLabel;
     private final Table table;
     private final Image background;
@@ -35,7 +36,8 @@ public class PreGameMenu extends Menu {
     private WeaponType weaponType;
     private Integer time;
 
-    public PreGameMenu() {
+    public PreGameMenu(boolean playAsGuest) {
+        this.playAsGuest = playAsGuest;
         this.stage = new Stage(Main.getInstance().getViewport(), Main.getInstance().getBatch());
         this.table = new Table();
         Texture backgroundTexture = new Texture(Gdx.files.internal("background5.png"));
@@ -175,14 +177,24 @@ public class PreGameMenu extends Menu {
         startGameButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                controller.startGame();
+                if (!playAsGuest){
+                    controller.startGame();
+                }
+                else {
+                    controller.startGameAsGuest();
+                }
             }
         });
         table.add(backButton).align(Align.right).width(250).height(100);
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Main.getInstance().setScreen(new MainMenu());
+                if (!playAsGuest){
+                    Main.getInstance().setScreen(new MainMenu());
+                }
+                else {
+                    Main.getInstance().setScreen(new FirstMenu());
+                }
             }
         });
 

@@ -1,10 +1,7 @@
 package io.github.some_example_name.controller;
 
 import io.github.some_example_name.Main;
-import io.github.some_example_name.model.App;
-import io.github.some_example_name.model.Game;
-import io.github.some_example_name.model.GameTimer;
-import io.github.some_example_name.model.Player;
+import io.github.some_example_name.model.*;
 import io.github.some_example_name.view.GameView;
 import io.github.some_example_name.view.PreGameMenu;
 
@@ -29,9 +26,21 @@ public class PreGameController {
             return;
         }
         Player player = new Player(App.getLoggedInUser(), view.getCharacter(), view.getWeaponType());
-        GameTimer gameTimer = new GameTimer(view.getTime() * 60)  ;
+        GameTimer gameTimer = new GameTimer(view.getTime() * 60);
         gameTimer.start();
         Game game = new Game(gameTimer, player);
+        App.getLoggedInUser().setLastGame(game);
+        Main.getInstance().setScreen(new GameView());
+    }
+
+    public void startGameAsGuest(){
+        User user = new User("guest","1234","asd",GameAsset.getAvatars().get(0));
+        App.setLoggedInUser(user);
+        Player player = new Player(App.getLoggedInUser(), view.getCharacter(), view.getWeaponType());
+        GameTimer gameTimer = new GameTimer(view.getTime() * 60);
+        gameTimer.start();
+        Game game = new Game(gameTimer, player);
+        game.setPlayAsGuest(true);
         App.getLoggedInUser().setLastGame(game);
         Main.getInstance().setScreen(new GameView());
     }

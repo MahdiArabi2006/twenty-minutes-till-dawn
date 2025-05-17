@@ -75,6 +75,7 @@ public class RegisterMenu extends Menu {
         guestButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                controller.startGameAsGuest();
             }
         });
         table.add(backButton).align(Align.right).width(250).height(100);

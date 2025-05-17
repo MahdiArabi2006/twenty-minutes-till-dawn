@@ -70,7 +70,7 @@ public class MainMenu extends Menu {
         preGameButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Main.getInstance().setScreen(new PreGameMenu());
+                Main.getInstance().setScreen(new PreGameMenu(false));
             }
         });
         table1.add(talentButton).align(Align.right).width(450).height(100);
