@@ -62,7 +62,7 @@ public class EnemyController {
                 player.setDamaged(true);
                 player.setDamageTimer(3f);
                 if (player.getHealth() <= 0) {
-                    GameController.handleGameOver();
+                    GameController.handleGameOver(false);
                 }
                 break;
             }
@@ -122,7 +122,7 @@ public class EnemyController {
             player.setDamageTimer(3f);
             bullet.setDestroyed(true);
             if (player.getHealth() <= 0) {
-                GameController.handleGameOver();
+                GameController.handleGameOver(false);
             }
         }
     }

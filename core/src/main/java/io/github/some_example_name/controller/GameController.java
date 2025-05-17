@@ -1,7 +1,9 @@
 package io.github.some_example_name.controller;
 
+import io.github.some_example_name.Main;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.GameTimer;
+import io.github.some_example_name.view.AfterGameView;
 import io.github.some_example_name.view.GameView;
 
 public class GameController {
@@ -37,12 +39,14 @@ public class GameController {
             if (gameTimer.getRemainingTime() <= 0) {
                 gameTimer.setRemainingTime(0);
                 gameTimer.setRunning(false);
-                handleGameOver();
+                handleGameOver(true);
             }
         }
     }
 
-    public static void handleGameOver(){}
+    public static void handleGameOver(boolean win){
+        Main.getInstance().setScreen(new AfterGameView(win));
+    }
 
     public WeaponController getWeaponController() {
         return weaponController;

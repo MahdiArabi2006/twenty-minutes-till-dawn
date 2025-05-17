@@ -73,7 +73,7 @@ public class WeaponController {
             if (bullet.getCollisionRectangle().collidesWith(enemy.getCollisionRectangle())) {
                 enemy.setHealth(enemy.getHealth() - bullet.getDamage());
                 bullet.setDestroyed(true);
-                if (enemy.getHealth() <= 0) {
+                if (enemy.getHealth() <= 0 && !enemy.isDying()) {
                     enemy.setDying(true);
                     enemy.setDeathTimer(enemy.getDeathDuration());
                     App.getLoggedInUser().getLastGame().getPlayer().setKillNumber(App.getLoggedInUser().getLastGame().getPlayer().getKillNumber() + 1);
