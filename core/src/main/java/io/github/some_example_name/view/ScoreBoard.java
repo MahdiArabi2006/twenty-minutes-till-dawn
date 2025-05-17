@@ -40,7 +40,7 @@ public class ScoreBoard extends Menu {
         table.setFillParent(true);
         table.align(Align.top);
 
-        Label title = new Label("Scoreboard", GameAsset.getMenuSkin(), "title");
+        Label title = new Label("Score Board", GameAsset.getMenuSkin(), "title");
         title.setAlignment(Align.center);
         table.add(title).padTop(20).row();
 
