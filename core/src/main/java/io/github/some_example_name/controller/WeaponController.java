@@ -19,8 +19,14 @@ public class WeaponController {
     public void update() {
         Weapon weapon = App.getLoggedInUser().getLastGame().getPlayer().getWeapon();
         Player player = App.getLoggedInUser().getLastGame().getPlayer();
+        User user = App.getLoggedInUser();
         weapon.getWeaponSprite().setPosition(player.getX(), player.getY());
         weapon.getWeaponSprite().draw(Main.getInstance().getBatch());
+        if (weapon.getAmmo() <= 0 && user.isAutoReloadingEnable()){
+            player.setLastReloadWeapon(App.getLoggedInUser().getLastGame().getGameTimer().getRemainingTime());
+            player.resetAmmo();
+            if (App.isEnableSFX()) GameAsset.reloadGun.play(1f);
+        }
         updateBullets();
     }
 
