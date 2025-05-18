@@ -83,6 +83,9 @@ public class PlayerController {
             player.resetAmmo();
             if (App.isEnableSFX()) GameAsset.reloadGun.play(1f);
         }
+        if (Gdx.input.isKeyJustPressed((gameKey.getAUTO_AIM()))){
+            App.getLoggedInUser().getLastGame().setAutoAimEnable(!App.getLoggedInUser().getLastGame().isAutoAimEnable());
+        }
         if (Gdx.input.isKeyJustPressed(gameKey.getCHEAT_REDUCE_TIME())) {
             reduceTime();
         }

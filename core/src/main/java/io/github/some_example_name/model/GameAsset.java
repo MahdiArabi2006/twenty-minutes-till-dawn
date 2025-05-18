@@ -132,6 +132,7 @@ public class GameAsset {
     public static final Music heathens = Gdx.audio.newMusic(Gdx.files.internal("Heathens - Twenty One Pilots .mp3"));
     public static final Music betweenTheBars = Gdx.audio.newMusic(Gdx.files.internal("Elliot Smith – Between The Bars.mp3"));
     public static final Map<String, Integer> keyMap = new HashMap<>();
+    public static final Texture cursor = new Texture(Gdx.files.internal("T_Cursor.png"));
 
     static {
         keyMap.put("A", Input.Keys.A);

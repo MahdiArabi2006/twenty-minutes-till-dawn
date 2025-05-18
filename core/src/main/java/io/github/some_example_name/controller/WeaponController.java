@@ -1,11 +1,16 @@
 package io.github.some_example_name.controller;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Window;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.model.*;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +31,16 @@ public class WeaponController {
             player.setLastReloadWeapon(App.getLoggedInUser().getLastGame().getGameTimer().getRemainingTime());
             player.resetAmmo();
             if (App.isEnableSFX()) GameAsset.reloadGun.play(1f);
+        }
+        Gdx.input.setCursorCatched(App.getLoggedInUser().getLastGame().isAutoAimEnable());
+        if (weapon.getAmmo() > 0 && App.getLoggedInUser().getLastGame().isAutoAimEnable()){
+            if (App.getLoggedInUser().getLastGame().getLastAutoShoot() <= 0){
+                autoAim();
+                App.getLoggedInUser().getLastGame().setLastAutoShoot(1f);
+            }
+            else {
+                App.getLoggedInUser().getLastGame().setLastAutoShoot(App.getLoggedInUser().getLastGame().getLastAutoShoot() - Gdx.graphics.getDeltaTime());
+            }
         }
         updateBullets();
     }
@@ -72,6 +87,39 @@ public class WeaponController {
             handleCollision(b);
         }
         bullets.removeIf(Bullet::isDestroyed);
+    }
+
+    private void autoAim(){
+        Enemy enemy = nearestEnemy();
+        if (enemy == null) return;
+        Main.getInstance().getBatch().draw(GameAsset.cursor,enemy.getX(),enemy.getY());
+        Player player = App.getLoggedInUser().getLastGame().getPlayer();
+        Weapon weapon = player.getWeapon();
+        for (int i = 0; i < player.getProjectile(); i++) {
+            bullets.add(new Bullet(enemy.getX(), enemy.getY(), (int) weapon.getWeaponSprite().getX(), (int) weapon.getWeaponSprite().getY(), weapon, player, false));
+        }
+        weapon.setAmmo(weapon.getAmmo() - 1);
+        if (App.isEnableSFX()) GameAsset.singleShoot.play(1f);
+    }
+
+    private Enemy nearestEnemy(){
+        Player player = App.getLoggedInUser().getLastGame().getPlayer();
+        int minDistance;
+        Enemy enemyFirst = App.getLoggedInUser().getLastGame().getEnemies().get(0);
+        if (enemyFirst!=null){
+            minDistance = (int) Math.sqrt(Math.pow(player.getX() - enemyFirst.getX(),2) + Math.pow(player.getY() - enemyFirst.getY(),2));
+        }
+        else {
+            return null;
+        }
+        for (Enemy enemy : App.getLoggedInUser().getLastGame().getEnemies()) {
+            int distance = (int) Math.sqrt(Math.pow(player.getX() - enemy.getX(),2) + Math.pow(player.getY() - enemy.getY(),2));
+            if (distance < minDistance){
+                enemyFirst = enemy;
+                minDistance = distance;
+            }
+        }
+        return enemyFirst;
     }
 
     private void handleCollision(Bullet bullet) {

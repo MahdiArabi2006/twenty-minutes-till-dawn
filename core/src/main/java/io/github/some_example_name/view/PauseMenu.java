@@ -19,7 +19,7 @@ public class PauseMenu extends Menu {
     private final TextButton resumeButton;
     private final TextButton giveUpButton;
     private final TextButton saveAndQuitButton;
-    private final TextButton makeScreenWhiteAndBlackButton;
+    private final CheckBox bwToggle;
     private final Table table;
     private final Table table1;
     private final Table table2;
@@ -30,13 +30,13 @@ public class PauseMenu extends Menu {
         this.table = new Table();
         this.table1 = new Table();
         this.table2 = new Table();
+        this.bwToggle = new CheckBox("Black & White Mode On/Off", GameAsset.getMenuSkin());
         Texture backgroundTexture = new Texture(Gdx.files.internal("background2.jpg"));
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.background = new Image(backgroundTexture);
         this.resumeButton = new TextButton("resume", GameAsset.getMenuSkin());
         this.giveUpButton = new TextButton("give up", GameAsset.getMenuSkin());
         this.saveAndQuitButton = new TextButton("save and quit", GameAsset.getMenuSkin());
-        this.makeScreenWhiteAndBlackButton = new TextButton("white and black screen", GameAsset.getMenuSkin());
     }
 
     @Override
@@ -73,7 +73,13 @@ public class PauseMenu extends Menu {
         table2.setFillParent(true);
         table2.defaults().pad(10).width(300).height(40);
         table2.align(Align.bottom);
-        table2.add(resumeButton).align(Align.left).width(350).height(100);
+        bwToggle.setChecked(App.isBlackWhiteMode());
+        bwToggle.addListener(e -> {
+            App.setBlackWhiteMode(bwToggle.isChecked());
+            return false;
+        });
+        table2.add(bwToggle).align(Align.center).row();
+        table2.add(resumeButton).align(Align.left).width(350).height(100).padBottom(150);
         resumeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -81,7 +87,7 @@ public class PauseMenu extends Menu {
                 Main.getInstance().setScreen(new GameView());
             }
         });
-        table2.add(giveUpButton).align(Align.center).width(350).height(100);
+        table2.add(giveUpButton).align(Align.center).width(350).height(100).padBottom(150);
         giveUpButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -89,15 +95,7 @@ public class PauseMenu extends Menu {
                 controller.giveUp();
             }
         });
-        table2.add(makeScreenWhiteAndBlackButton).align(Align.right).width(550).height(100);
-        makeScreenWhiteAndBlackButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
-            }
-        });
-        table2.row();
-        table2.add(saveAndQuitButton).align(Align.center).width(350).height(100);
+        table2.add(saveAndQuitButton).align(Align.right).width(350).height(100).padBottom(150);
         saveAndQuitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

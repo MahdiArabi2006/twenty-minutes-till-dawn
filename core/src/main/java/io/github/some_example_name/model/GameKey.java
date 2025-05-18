@@ -9,6 +9,7 @@ public class GameKey {
     private int MOVE_LEFT = Input.Keys.A;
     private int RELOAD = Input.Keys.R;
     private int PAUSE = Input.Keys.P;
+    private int AUTO_AIM = Input.Keys.SPACE;
 
     public int getMOVE_UP() {
         return MOVE_UP;
@@ -68,5 +69,13 @@ public class GameKey {
 
     public void setPAUSE(int PAUSE) {
         this.PAUSE = PAUSE;
+    }
+
+    public int getAUTO_AIM() {
+        return AUTO_AIM;
+    }
+
+    public void setAUTO_AIM(int AUTO_AIM) {
+        this.AUTO_AIM = AUTO_AIM;
     }
 }

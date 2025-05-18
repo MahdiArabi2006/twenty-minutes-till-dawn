@@ -11,6 +11,8 @@ public class Game {
     private final Player player;
     private final List<Enemy> enemies = new ArrayList<>();
     private final List<Seed> seeds = new ArrayList<>();
+    private boolean autoAimEnable;
+    private float lastAutoShoot;
     private boolean playAsGuest;
     private float lastSpawnTentacle = 0;
     private float lastSpawnEyeBat = 0;
@@ -97,5 +99,21 @@ public class Game {
 
     public void setPlayAsGuest(boolean playAsGuest) {
         this.playAsGuest = playAsGuest;
+    }
+
+    public boolean isAutoAimEnable() {
+        return autoAimEnable;
+    }
+
+    public void setAutoAimEnable(boolean autoAimEnable) {
+        this.autoAimEnable = autoAimEnable;
+    }
+
+    public float getLastAutoShoot() {
+        return lastAutoShoot;
+    }
+
+    public void setLastAutoShoot(float lastAutoShoot) {
+        this.lastAutoShoot = lastAutoShoot;
     }
 }
