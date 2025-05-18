@@ -12,6 +12,8 @@ public class Game {
     private final List<Enemy> enemies = new ArrayList<>();
     private final List<Seed> seeds = new ArrayList<>();
     private boolean autoAimEnable;
+    private boolean isElderSpawn;
+    private float lastDashedElder = 5f;
     private float lastAutoShoot;
     private boolean playAsGuest;
     private float lastSpawnTentacle = 0;
@@ -115,5 +117,21 @@ public class Game {
 
     public void setLastAutoShoot(float lastAutoShoot) {
         this.lastAutoShoot = lastAutoShoot;
+    }
+
+    public boolean isElderSpawn() {
+        return isElderSpawn;
+    }
+
+    public void setElderSpawn(boolean elderSpawn) {
+        isElderSpawn = elderSpawn;
+    }
+
+    public float getLastDashedElder() {
+        return lastDashedElder;
+    }
+
+    public void setLastDashedElder(float lastDashedElder) {
+        this.lastDashedElder = lastDashedElder;
     }
 }

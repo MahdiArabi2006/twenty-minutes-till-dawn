@@ -29,10 +29,9 @@ public class EnemyController {
                 if (enemy.getDeathTimer() <= 0f) {
                     App.getLoggedInUser().getLastGame().getEnemies().remove(enemy);
                     App.getLoggedInUser().getLastGame().getSeeds().add(new Seed(enemy.getSprite().getX(), enemy.getSprite().getY()));
-                    if (enemy instanceof EyeBat){
+                    if (enemy instanceof EyeBat) {
                         if (App.isEnableSFX()) GameAsset.batDied.play(1f);
-                    }
-                    else {
+                    } else {
                         if (App.isEnableSFX()) GameAsset.monsterDied.play(1f);
                     }
                     break;
@@ -46,8 +45,11 @@ public class EnemyController {
         }
         spawnEnemy();
         for (Enemy enemy : App.getLoggedInUser().getLastGame().getEnemies()) {
-            if (!(enemy instanceof Tree)) {
+            if (!(enemy instanceof Tree) && !(enemy instanceof Elder)) {
                 moveEnemy(enemy);
+            }
+            if (enemy instanceof Elder){
+                moveElder((Elder)enemy);
             }
             if (enemy instanceof EyeBat) {
                 shootEyeBat((EyeBat) enemy);
@@ -101,6 +103,23 @@ public class EnemyController {
         walkAnimation(enemy, enemy.getWalk());
     }
 
+    private void moveElder(Elder elder){
+        Player player = App.getLoggedInUser().getLastGame().getPlayer();
+
+        if (App.getLoggedInUser().getLastGame().getLastDashedElder() <= 0){
+            elder.getSprite().setX(player.getPlayerSprite().getX() + 70);
+            elder.getSprite().setY(player.getPlayerSprite().getY());
+            elder.setX((int) (player.getPlayerSprite().getX()) + 70);
+            elder.setY((int) (player.getPlayerSprite().getY()));
+            elder.getCollisionRectangle().move(elder.getSprite().getX(), elder.getSprite().getY());
+            walkAnimation(elder, elder.getWalk());
+            App.getLoggedInUser().getLastGame().setLastDashedElder(5f);
+        }
+        else {
+            App.getLoggedInUser().getLastGame().setLastDashedElder(App.getLoggedInUser().getLastGame().getLastDashedElder() - Gdx.graphics.getDeltaTime());
+        }
+    }
+
     private void updateBullets(EyeBat eyeBat) {
         for (Bullet b : eyeBat.getBullets()) {
             b.getSprite().draw(Main.getInstance().getBatch());
@@ -136,6 +155,7 @@ public class EnemyController {
     private void spawnEnemy() {
         spawnTentacle();
         spawnEyeBat();
+        spawnElder();
     }
 
     private void spawnTentacle() {
@@ -214,6 +234,42 @@ public class EnemyController {
                     App.getLoggedInUser().getLastGame().setLastSpawnEyeBat(now);
                 }
             }
+        }
+    }
+
+    private void spawnElder() {
+        float now = App.getLoggedInUser().getLastGame().getGameTimer().getCountdownDuration() - App.getLoggedInUser().getLastGame().getGameTimer().getRemainingTime();
+        if (now >= App.getLoggedInUser().getLastGame().getGameTimer().getCountdownDuration() / 2 &&
+            !App.getLoggedInUser().getLastGame().isElderSpawn()) {
+            Random random = new Random();
+            int side = random.nextInt(4);
+            float camX = Main.getInstance().getCamera().position.x;
+            float camY = Main.getInstance().getCamera().position.y;
+            float viewportWidth = Main.getInstance().getCamera().viewportWidth;
+            float viewportHeight = Main.getInstance().getCamera().viewportHeight;
+            int x = 0;
+            int y = 0;
+            switch (side) {
+                case 0:
+                    x = (int) (camX - viewportWidth / 2 + random.nextFloat() * viewportWidth);
+                    y = (int) (camY + viewportHeight / 2);
+                    break;
+                case 1:
+                    x = (int) (camX - viewportWidth / 2 + random.nextFloat() * viewportWidth);
+                    y = (int) (camY - viewportHeight / 2);
+                    break;
+                case 2:
+                    x = (int) (camX - viewportWidth / 2);
+                    y = (int) (camY - viewportHeight / 2 + random.nextFloat() * viewportHeight);
+                    break;
+                case 3:
+                    x = (int) (camX + viewportWidth / 2);
+                    y = (int) (camY - viewportHeight / 2 + random.nextFloat() * viewportHeight);
+                    break;
+            }
+            App.getLoggedInUser().getLastGame().getEnemies().add(new Elder(x,y));
+            if (App.isEnableSFX()) GameAsset.monsterSpawn.play(0.5f);
+            App.getLoggedInUser().getLastGame().setElderSpawn(true);
         }
     }
 

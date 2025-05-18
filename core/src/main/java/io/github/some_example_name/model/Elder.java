@@ -23,6 +23,7 @@ public class Elder implements Enemy {
         this.elderWalk = GameAsset.elderWalk;
         this.sprite = new Sprite(new Texture("enemy/elder/walk/BrainMonster_0.png"));
         this.sprite.setPosition(x, y);
+        this.sprite.setSize(this.sprite.getWidth() * 2,this.sprite.getHeight() * 2);
         this.collisionRectangle = new CollisionRectangle(this.x, this.y, this.sprite.getWidth(), this.sprite.getHeight());
         this.HP = 400;
         this.health = this.HP;
@@ -121,6 +122,7 @@ public class Elder implements Enemy {
     public void initialAfterLoad(){
         this.sprite = new Sprite(new Texture("enemy/elder/walk/BrainMonster_0.png"));
         this.sprite.setPosition(this.x, this.y);
+        this.sprite.setSize(this.sprite.getWidth() * 2,this.sprite.getHeight() * 2);
         this.elderWalk = GameAsset.elderWalk;
         this.collisionRectangle = new CollisionRectangle(this.x, this.y,
             sprite.getWidth(), sprite.getHeight());
