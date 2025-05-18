@@ -22,6 +22,7 @@ public class ProfileMenuController {
             view.showError("use strong password");
         } else {
             App.getLoggedInUser().setPassword(password);
+            userRepository.updateUser(App.getLoggedInUser());
             view.getChangePasswordDialog().hide();
         }
     }
@@ -32,12 +33,12 @@ public class ProfileMenuController {
             view.showError("this username already taken");
         } else {
             App.getLoggedInUser().setUsername(username);
+            userRepository.updateUser(App.getLoggedInUser());
             view.getChangeUsernameDialog().hide();
         }
     }
 
     public void deleteAccount() {
-//        App.getUsers().remove(App.getLoggedInUser());
         userRepository.deleteUser(App.getLoggedInUser().getUsername());
         App.setLoggedInUser(null);
         view.getDeleteAccountDialog().hide();
@@ -46,6 +47,7 @@ public class ProfileMenuController {
 
     public void changeAvatar(Image avatar) {
         App.getLoggedInUser().setAvatar(avatar);
+        userRepository.updateUser(App.getLoggedInUser());
     }
 
     private boolean isPasswordStrong(String password) {
