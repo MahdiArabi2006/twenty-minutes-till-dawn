@@ -20,7 +20,8 @@ public class SettingMenu extends Menu {
     private final Slider musicVolumeSlider;
     private final SelectBox<String> musicSelector;
     private final SelectBox<String> upKeySelector, downKeySelector,
-        leftKeySelector, rightKeySelector, reloadKeySelector, pauseKeySelector;
+        leftKeySelector, rightKeySelector, reloadKeySelector,
+        pauseKeySelector,autoAimSelector;
     private final TextButton backButton;
     private final Image background;
 
@@ -42,6 +43,7 @@ public class SettingMenu extends Menu {
         this.rightKeySelector = new SelectBox<>(GameAsset.getMenuSkin());
         this.reloadKeySelector = new SelectBox<>(GameAsset.getMenuSkin());
         this.pauseKeySelector = new SelectBox<>(GameAsset.getMenuSkin());
+        this.autoAimSelector = new SelectBox<>(GameAsset.getMenuSkin());
         this.backButton = new TextButton("Back", GameAsset.getMenuSkin());
     }
 
@@ -114,6 +116,8 @@ public class SettingMenu extends Menu {
         pauseKeySelector.setSelected("P");
         reloadKeySelector.setItems(GameAsset.keyMap.keySet().toArray(new String[0]));
         reloadKeySelector.setSelected("R");
+        autoAimSelector.setItems(GameAsset.keyMap.keySet().toArray(new String[0]));
+        autoAimSelector.setSelected("Space");
 
         upKeySelector.addListener(e -> {
             App.getLoggedInUser().getGameKey().setMOVE_UP(GameAsset.keyMap.get(upKeySelector.getSelected()));
@@ -133,6 +137,10 @@ public class SettingMenu extends Menu {
         });
         reloadKeySelector.addListener(e -> {
             App.getLoggedInUser().getGameKey().setRELOAD(GameAsset.keyMap.get(reloadKeySelector.getSelected()));
+            return false;
+        });
+        autoAimSelector.addListener(e -> {
+            App.getLoggedInUser().getGameKey().setAUTO_AIM(GameAsset.keyMap.get(autoAimSelector.getSelected()));
             return false;
         });
         pauseKeySelector.addListener(e -> {
@@ -156,25 +164,29 @@ public class SettingMenu extends Menu {
         table.add(musicSelector).row();
         table.add(sfxToggle).row();
         table.add(autoReloadToggle).row();
-        table.add(bwToggle).row();
+        table.add(bwToggle).padBottom(50).row();
         Table keyTable = new Table(GameAsset.getMenuSkin());
         keyTable.defaults().pad(10).width(300).height(50);
-        keyTable.add(new Label("Move Up", GameAsset.getMenuSkin()));
-        keyTable.add(new Label("Move Down", GameAsset.getMenuSkin()));
-        keyTable.add(new Label("Move Right", GameAsset.getMenuSkin()));
-        keyTable.add(new Label("Move Left", GameAsset.getMenuSkin()));
-        keyTable.add(new Label("Reload", GameAsset.getMenuSkin()));
-        keyTable.add(new Label("Pause", GameAsset.getMenuSkin())).colspan(3);
+        keyTable.add(new Label("Move Up", GameAsset.getMenuSkin())).padTop(100);
+        keyTable.add(new Label("Move Down", GameAsset.getMenuSkin())).padTop(100);
+        keyTable.add(new Label("Move Right", GameAsset.getMenuSkin())).padTop(100);
+        keyTable.add(new Label("Move Left", GameAsset.getMenuSkin())).padTop(100);
+        keyTable.add(new Label("Reload", GameAsset.getMenuSkin())).padTop(100).colspan(3);
         keyTable.row();
         keyTable.add(upKeySelector);
         keyTable.add(downKeySelector);
         keyTable.add(rightKeySelector);
         keyTable.add(leftKeySelector);
-        keyTable.add(reloadKeySelector);
-        keyTable.add(pauseKeySelector).colspan(3);
+        keyTable.add(reloadKeySelector).colspan(3);
+        keyTable.row();
+        keyTable.add(new Label("Auto Aim",GameAsset.getMenuSkin()));
+        keyTable.add(new Label("Pause", GameAsset.getMenuSkin())).colspan(3);
+        keyTable.row();
+        keyTable.add(autoAimSelector);
+        keyTable.add(pauseKeySelector).padBottom(100).colspan(3);
         keyTable.row();
         table.add(keyTable).colspan(1).bottom().row();
-        table.add(backButton).padTop(30);
+        table.add(backButton).padTop(100);
 
         background.setFillParent(true);
         stage.addActor(background);

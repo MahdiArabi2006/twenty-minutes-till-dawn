@@ -63,6 +63,14 @@ public class GameKey {
         return Input.Keys.H;
     }
 
+    public int getPASS_BOSS(){
+        return Input.Keys.B;
+    }
+
+    public int getKILL_ALL(){
+        return Input.Keys.K;
+    }
+
     public int getPAUSE() {
         return PAUSE;
     }

@@ -58,6 +58,9 @@ public class PauseMenu extends Menu {
         table.add(new Label("reduce time a minute :     p",GameAsset.getMenuSkin())).row();
         table.add(new Label("increase player level :    l",GameAsset.getMenuSkin())).row();
         table.add(new Label("make player health full:   o",GameAsset.getMenuSkin())).row();
+        table.add(new Label("Pass Boss Fight :    b",GameAsset.getMenuSkin())).row();
+        table.add(new Label("kill all enemies:   k",GameAsset.getMenuSkin())).row();
+
 
         table1.clear();
         table1.setFillParent(true);

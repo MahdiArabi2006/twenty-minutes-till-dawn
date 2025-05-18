@@ -59,7 +59,7 @@ public class TalentMenu extends Menu {
         cheatTable.add(new Label("Increase player level", GameAsset.getMenuSkin())).left().row();
         cheatTable.add(new Label("Add HP only if player is not at max HP", GameAsset.getMenuSkin())).left().row();
         cheatTable.add(new Label("Boss pass", GameAsset.getMenuSkin())).left().row();
-        cheatTable.add(new Label("Implement one custom cheat", GameAsset.getMenuSkin())).left().row();
+        cheatTable.add(new Label("Kill all enemies", GameAsset.getMenuSkin())).left().row();
 
         Table rowTable = new Table();
         rowTable.defaults().pad(20);

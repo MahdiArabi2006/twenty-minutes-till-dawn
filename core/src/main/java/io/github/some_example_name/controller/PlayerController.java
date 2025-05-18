@@ -84,7 +84,7 @@ public class PlayerController {
             player.resetAmmo();
             if (App.isEnableSFX()) GameAsset.reloadGun.play(1f);
         }
-        if (Gdx.input.isKeyJustPressed((gameKey.getAUTO_AIM()))){
+        if (Gdx.input.isKeyJustPressed((gameKey.getAUTO_AIM()))) {
             App.getLoggedInUser().getLastGame().setAutoAimEnable(!App.getLoggedInUser().getLastGame().isAutoAimEnable());
         }
         if (Gdx.input.isKeyJustPressed(gameKey.getCHEAT_REDUCE_TIME())) {
@@ -95,6 +95,12 @@ public class PlayerController {
         }
         if (Gdx.input.isKeyJustPressed(gameKey.getCHEAT_INCREASE_HEALTH())) {
             increaseHealth();
+        }
+        if (Gdx.input.isKeyJustPressed(gameKey.getPASS_BOSS())) {
+            spawnElder();
+        }
+        if (Gdx.input.isKeyJustPressed(gameKey.getKILL_ALL())){
+            App.getLoggedInUser().getLastGame().getEnemies().clear();
         }
         if (Gdx.input.isKeyPressed(gameKey.getPAUSE())) {
             Main.getInstance().setScreen(new PauseMenu());
@@ -118,6 +124,38 @@ public class PlayerController {
         if (player.getHealth() < player.getMaxHP()) {
             player.resetHealth();
         }
+    }
+
+    private void spawnElder() {
+        Random random = new Random();
+        int side = random.nextInt(4);
+        float camX = Main.getInstance().getCamera().position.x;
+        float camY = Main.getInstance().getCamera().position.y;
+        float viewportWidth = Main.getInstance().getCamera().viewportWidth;
+        float viewportHeight = Main.getInstance().getCamera().viewportHeight;
+        int x = 0;
+        int y = 0;
+        switch (side) {
+            case 0:
+                x = (int) (camX - viewportWidth / 2 + random.nextFloat() * viewportWidth);
+                y = (int) (camY + viewportHeight / 2);
+                break;
+            case 1:
+                x = (int) (camX - viewportWidth / 2 + random.nextFloat() * viewportWidth);
+                y = (int) (camY - viewportHeight / 2);
+                break;
+            case 2:
+                x = (int) (camX - viewportWidth / 2);
+                y = (int) (camY - viewportHeight / 2 + random.nextFloat() * viewportHeight);
+                break;
+            case 3:
+                x = (int) (camX + viewportWidth / 2);
+                y = (int) (camY - viewportHeight / 2 + random.nextFloat() * viewportHeight);
+                break;
+        }
+        App.getLoggedInUser().getLastGame().getEnemies().add(new Elder(x, y));
+        if (App.isEnableSFX()) GameAsset.monsterSpawn.play(0.5f);
+        App.getLoggedInUser().getLastGame().setElderSpawn(true);
     }
 
     private void handlePlayerAbility() {

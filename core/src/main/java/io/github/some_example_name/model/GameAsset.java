@@ -165,6 +165,7 @@ public class GameAsset {
         keyMap.put("Down", Input.Keys.DOWN);
         keyMap.put("Left", Input.Keys.LEFT);
         keyMap.put("Right", Input.Keys.RIGHT);
+        keyMap.put("Space",Input.Keys.SPACE);
     }
 
     public static final ShaderProgram grayscaleShader = new ShaderProgram(
