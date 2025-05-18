@@ -24,14 +24,18 @@ public class GameTimer {
     }
 
     public String getFormattedTime() {
-        int minutes = (int)(remainingTime / 60);
-        int seconds = (int)(remainingTime % 60);
+        int minutes = (int) (remainingTime / 60);
+        int seconds = (int) (remainingTime % 60);
         return String.format("%02d:%02d", minutes, seconds);
     }
 
-    public float getRemainingTime() { return remainingTime; }
+    public float getRemainingTime() {
+        return remainingTime;
+    }
 
-    public boolean isRunning() { return isRunning; }
+    public boolean isRunning() {
+        return isRunning;
+    }
 
     public void setRemainingTime(float remainingTime) {
         this.remainingTime = remainingTime;

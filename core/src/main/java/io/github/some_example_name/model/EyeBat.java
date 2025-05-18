@@ -8,11 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EyeBat implements Enemy {
-    private final Animation<Texture> eyeBatWalk;
-    private final Sprite sprite;
-    private final CollisionRectangle collisionRectangle;
+    private transient Animation<Texture> eyeBatWalk;
+    private transient Sprite sprite;
+    private transient CollisionRectangle collisionRectangle;
     private float shootTimer = 0;
-    ;
     private final List<Bullet> bullets = new ArrayList<>();
     private boolean isDying = false;
     private float deathTimer = 0f;
@@ -129,5 +128,13 @@ public class EyeBat implements Enemy {
 
     public float getDeathDuration() {
         return deathDuration;
+    }
+
+    public void initialAfterLoad(){
+        this.sprite = new Sprite(new Texture("enemy/eyebat/walk/T_EyeBat_0.png"));
+        this.sprite.setPosition(this.x, this.y);
+        this.eyeBatWalk = GameAsset.eyeBatWalk;
+        this.collisionRectangle = new CollisionRectangle(this.x, this.y,
+            sprite.getWidth(), sprite.getHeight());
     }
 }

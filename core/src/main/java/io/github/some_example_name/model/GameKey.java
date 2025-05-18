@@ -8,9 +8,6 @@ public class GameKey {
     private int MOVE_RIGHT = Input.Keys.D;
     private int MOVE_LEFT = Input.Keys.A;
     private int RELOAD = Input.Keys.R;
-    private final int CHEAT_REDUCE_TIME = Input.Keys.T;
-    private final int CHEAT_INCREASE_LEVEL = Input.Keys.L;
-    private final int CHEAT_INCREASE_HEALTH = Input.Keys.H;
     private int PAUSE = Input.Keys.P;
 
     public int getMOVE_UP() {
@@ -54,16 +51,15 @@ public class GameKey {
     }
 
     public int getCHEAT_REDUCE_TIME() {
-        return CHEAT_REDUCE_TIME;
+        return Input.Keys.T;
     }
 
     public int getCHEAT_INCREASE_LEVEL() {
-        return CHEAT_INCREASE_LEVEL;
+        return Input.Keys.L;
     }
 
-
     public int getCHEAT_INCREASE_HEALTH() {
-        return CHEAT_INCREASE_HEALTH;
+        return Input.Keys.H;
     }
 
     public int getPAUSE() {

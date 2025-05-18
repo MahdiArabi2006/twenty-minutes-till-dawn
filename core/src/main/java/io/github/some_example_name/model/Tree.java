@@ -12,22 +12,16 @@ public class Tree implements Enemy {
     private boolean isDying = false;
     private float deathTimer = 0f;
     private final float deathDuration = 0.5f;
-    private final Texture treeTexture;
-    private final CollisionRectangle collisionRectangle;
-    private final Sprite Sprite;
+    private transient CollisionRectangle collisionRectangle;
+    private transient Sprite sprite;
 
     public Tree(int x, int y) {
         this.x = x;
         this.y = y;
         this.health = 5;
-        this.treeTexture = GameAsset.treeTexture;
-        this.Sprite = new Sprite(treeTexture);
-        this.Sprite.setPosition(x, y);
-        this.collisionRectangle = new CollisionRectangle(this.x, this.y, this.Sprite.getWidth(), this.Sprite.getHeight());
-    }
-
-    public Texture getTreeTexture() {
-        return treeTexture;
+        this.sprite = new Sprite(GameAsset.treeTexture);
+        this.sprite.setPosition(x, y);
+        this.collisionRectangle = new CollisionRectangle(this.x, this.y, this.sprite.getWidth(), this.sprite.getHeight());
     }
 
     public int getX() {
@@ -47,15 +41,15 @@ public class Tree implements Enemy {
     }
 
     public int getWidth() {
-        return this.treeTexture.getWidth();
+        return (int) this.sprite.getWidth();
     }
 
     public int getHeight() {
-        return this.treeTexture.getHeight();
+        return (int) this.sprite.getHeight();
     }
 
     public Sprite getSprite() {
-        return Sprite;
+        return sprite;
     }
 
     public float getTime() {
@@ -101,5 +95,12 @@ public class Tree implements Enemy {
 
     public float getDeathDuration() {
         return deathDuration;
+    }
+
+    public void initialAfterLoad(){
+        this.sprite = new Sprite(GameAsset.treeTexture);
+        this.sprite.setPosition(this.x, this.y);
+        this.collisionRectangle = new CollisionRectangle(this.x, this.y,
+            sprite.getWidth(), sprite.getHeight());
     }
 }

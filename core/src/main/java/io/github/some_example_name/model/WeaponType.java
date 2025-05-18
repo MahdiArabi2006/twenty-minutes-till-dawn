@@ -12,8 +12,8 @@ public enum WeaponType {
     private final int projectile;
     private final int timeReload;
     private final int ammoMax;
-    private final Texture weaponTexture;
-    private final Texture bulletTexture;
+    private transient final Texture weaponTexture;
+    private transient final Texture bulletTexture;
 
     WeaponType(String name, int damage, int projectile, int timeReload, int ammoMax, Texture weaponTexture, Texture bulletTexture) {
         this.name = name;

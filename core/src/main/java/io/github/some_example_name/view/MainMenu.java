@@ -98,6 +98,7 @@ public class MainMenu extends Menu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
+                controller.startSavedGame();
             }
         });
         table1.row();

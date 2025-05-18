@@ -6,7 +6,7 @@ public enum Music {
     HEATHENS("heathens", GameAsset.heathens);
 
     private final String name;
-    private final com.badlogic.gdx.audio.Music music;
+    private transient final com.badlogic.gdx.audio.Music music;
 
     Music(String name, com.badlogic.gdx.audio.Music music) {
         this.name = name;
@@ -17,17 +17,17 @@ public enum Music {
         return name;
     }
 
-    public void play(){
+    public void play() {
         this.music.setLooping(true);
         this.music.setVolume(1f);
         this.music.play();
     }
 
-    public void pause(){
+    public void pause() {
         this.music.pause();
     }
 
-    public void changeVolume(float volume){
+    public void changeVolume(float volume) {
         this.music.setVolume(volume);
     }
 }

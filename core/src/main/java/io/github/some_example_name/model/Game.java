@@ -63,7 +63,7 @@ public class Game {
             int randY = random.nextInt(0, viewportHeight);
 
             if (isTreeCanBeInPosition(randX, randY)) {
-                Tree tree = new Tree(randX,randY);
+                Tree tree = new Tree(randX, randY);
                 enemies.add(tree);
                 placed++;
             }

@@ -137,7 +137,9 @@ public class UserRepository {
     private byte[] saveAvatar(Image avatar) {
         if (avatar == null) return null;
         Texture texture = ((TextureRegionDrawable) avatar.getDrawable()).getRegion().getTexture();
-        texture.getTextureData().prepare();
+        if (!texture.getTextureData().isPrepared()) {
+            texture.getTextureData().prepare();
+        }
         Pixmap pixmap = texture.getTextureData().consumePixmap();
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

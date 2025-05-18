@@ -5,8 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.some_example_name.controller.PlayerController;
 
 public class Player {
-    private final User user;
-    private Sprite playerSprite;
+    private transient Sprite playerSprite;
     private final Character character;
     private final Weapon weapon;
     private int projectile;
@@ -26,10 +25,9 @@ public class Player {
     private float maxHP;
     private float XP;
     private float lastReloadWeapon;
-    private final CollisionRectangle playerCollisionRectangle;
+    private transient CollisionRectangle playerCollisionRectangle;
 
-    public Player(User user, Character character, WeaponType weaponType) {
-        this.user = user;
+    public Player(Character character, WeaponType weaponType) {
         this.character = character;
         this.speed = this.character.getSpeed();
         this.maxHP = character.getHP();
@@ -38,7 +36,7 @@ public class Player {
         this.damage = this.weapon.getWeaponType().getDamage();
         this.projectile = this.weapon.getWeaponType().getProjectile();
         this.maxAmmo = this.weapon.getWeaponType().getAmmoMax();
-        this.playerSprite = character.getSprite();
+        this.playerSprite = new Sprite(character.getSprite());
         this.x = Gdx.graphics.getWidth() / 2f;
         this.y = Gdx.graphics.getHeight() / 2f;
         playerSprite.setPosition(this.x, this.y);
@@ -47,20 +45,12 @@ public class Player {
             playerSprite.getWidth() * 0.5f, playerSprite.getHeight() * 0.5f);
     }
 
-    public User getUser() {
-        return user;
-    }
-
     public CollisionRectangle getPlayerCollisionRectangle() {
         return playerCollisionRectangle;
     }
 
     public Sprite getPlayerSprite() {
         return playerSprite;
-    }
-
-    public void setPlayerSprite(Sprite playerSprite) {
-        this.playerSprite = playerSprite;
     }
 
     public float getX() {
@@ -92,7 +82,7 @@ public class Player {
     }
 
     public void resetHealth() {
-        this.health = this.character.getHP();
+        this.health = this.maxHP;
     }
 
     public float getHealth() {
@@ -232,5 +222,14 @@ public class Player {
 
     public void setDamaged(boolean damaged) {
         isDamaged = damaged;
+    }
+
+    public void initialAfterLoad() {
+        this.playerSprite = new Sprite(character.getSprite());
+        this.playerSprite.setPosition(this.x, this.y);
+        this.playerSprite.setSize(playerSprite.getWidth() * 3, playerSprite.getHeight() * 3);
+        this.playerCollisionRectangle = new CollisionRectangle(this.x, this.y,
+            playerSprite.getWidth() * 0.5f, playerSprite.getHeight() * 0.5f);
+        this.weapon.initialAfterLoad();
     }
 }

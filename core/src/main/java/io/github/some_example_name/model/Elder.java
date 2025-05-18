@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Elder implements Enemy {
-    private final Animation<Texture> elderWalk;
-    private final Sprite sprite;
-    private final CollisionRectangle collisionRectangle;
+    private transient Animation<Texture> elderWalk;
+    private transient Sprite sprite;
+    private transient CollisionRectangle collisionRectangle;
     private boolean isDying = false;
     private float deathTimer = 0f;
     private final float deathDuration = 0.5f;
@@ -116,5 +116,13 @@ public class Elder implements Enemy {
 
     public float getDeathDuration() {
         return deathDuration;
+    }
+
+    public void initialAfterLoad(){
+        this.sprite = new Sprite(new Texture("enemy/elder/walk/BrainMonster_0.png"));
+        this.sprite.setPosition(this.x, this.y);
+        this.elderWalk = GameAsset.elderWalk;
+        this.collisionRectangle = new CollisionRectangle(this.x, this.y,
+            sprite.getWidth(), sprite.getHeight());
     }
 }

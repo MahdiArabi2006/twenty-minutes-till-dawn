@@ -103,6 +103,7 @@ public class PauseMenu extends Menu {
             public void clicked(InputEvent event, float x, float y) {
                 if (!App.getLoggedInUser().getLastGame().isPlayAsGuest()){
                     if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
+                    controller.saveAndQuit();
                 }
             }
         });

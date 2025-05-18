@@ -122,7 +122,6 @@ public class GameAsset {
     public static final Sound lose = Gdx.audio.newSound(Gdx.files.internal("SFX/AudioClip/You Lose (4).wav"));
     public static final Sound UIClick = Gdx.audio.newSound(Gdx.files.internal("SFX/AudioClip/UI Click 36.wav"));
     public static final Sound singleShoot = Gdx.audio.newSound(Gdx.files.internal("SFX/AudioClip/single_shot.wav"));
-    public static final Sound UIMusic = Gdx.audio.newSound(Gdx.files.internal("SFX/AudioClip/Pretty Dungeon LOOP.wav"));
     public static final Sound monsterSpawn = Gdx.audio.newSound(Gdx.files.internal("SFX/AudioClip/Monster_2_RecieveAttack_HighIntensity_01.wav"));
     public static final Sound monsterDied = Gdx.audio.newSound(Gdx.files.internal("SFX/AudioClip/Explosion_Blood_01.wav"));
     public static final Sound levelUp = Gdx.audio.newSound(Gdx.files.internal("SFX/AudioClip/Buff_Intelligence.wav"));

@@ -40,4 +40,6 @@ public interface Enemy {
     void setDying(boolean dying);
 
     float getDeathDuration();
+
+    void initialAfterLoad();
 }

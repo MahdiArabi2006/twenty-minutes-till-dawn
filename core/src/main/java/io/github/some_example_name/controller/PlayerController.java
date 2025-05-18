@@ -112,7 +112,7 @@ public class PlayerController {
     private void increaseHealth() {
         Player player = App.getLoggedInUser().getLastGame().getPlayer();
         if (player.getHealth() < player.getMaxHP()) {
-            player.setHealth(player.getMaxHP());
+            player.resetHealth();
         }
     }
 
