@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 
 import java.util.ArrayList;
@@ -164,6 +165,10 @@ public class GameAsset {
         keyMap.put("Left", Input.Keys.LEFT);
         keyMap.put("Right", Input.Keys.RIGHT);
     }
+
+    public static final ShaderProgram grayscaleShader = new ShaderProgram(
+        Gdx.files.internal("shaders/grayscale.vert"),
+        Gdx.files.internal("shaders/grayscale.frag"));
 
     public static Skin getMenuSkin() {
         return menuSkin;
