@@ -1,20 +1,12 @@
 package io.github.some_example_name.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class App {
-    private static final List<User> users = new ArrayList<>();
     private static User loggedInUser = null;
     private static boolean enableSFX = true;
     private static boolean enableMusic = false;
     private static boolean blackWhiteMode = false;
     private static float musicVolume;
     private static Music playedMusic;
-
-    public static List<User> getUsers() {
-        return users;
-    }
 
     public static User getLoggedInUser() {
         return loggedInUser;

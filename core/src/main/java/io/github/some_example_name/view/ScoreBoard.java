@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.some_example_name.Main;
+import io.github.some_example_name.controller.ScoreBoardController;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.GameAsset;
 import io.github.some_example_name.model.User;
@@ -25,6 +26,7 @@ public class ScoreBoard extends Menu {
     private final TextButton backButton;
     private final SelectBox<String> sortBySelector;
     private final Table userTable;
+    private final ScoreBoardController controller = new ScoreBoardController(this);
 
     public ScoreBoard() {
         this.stage = new Stage(Main.getInstance().getViewport(), Main.getInstance().getBatch());
@@ -47,7 +49,7 @@ public class ScoreBoard extends Menu {
         sortBySelector.setItems("Username", "Score", "Kill", "Survival Time");
         sortBySelector.setSelected("Score");
         sortBySelector.addListener(e -> {
-            refreshUserTable();
+            controller.refreshUserTable();
             return false;
         });
 
@@ -66,66 +68,7 @@ public class ScoreBoard extends Menu {
         table.add(backButton).padTop(30);
         stage.addActor(table);
 
-        refreshUserTable();
-    }
-
-    private void refreshUserTable() {
-        userTable.clear();
-        userTable.defaults().pad(5).width(300);
-        userTable.add("Username").left();
-        userTable.add("Score").center();
-        userTable.add("Kill").center();
-        userTable.add("Survival Time").center().row();
-
-        List<User> sortedUsers = App.getUsers();
-        switch (sortBySelector.getSelected()) {
-            case "Username":
-                sortedUsers = sortedUsers.stream()
-                    .sorted(Comparator.comparing(User::getUsername))
-                    .collect(Collectors.toList());
-                break;
-            case "Kill":
-                sortedUsers = sortedUsers.stream()
-                    .sorted(Comparator.comparingInt(User::getKillNumber).reversed())
-                    .collect(Collectors.toList());
-                break;
-            case "Survival Time":
-                sortedUsers = sortedUsers.stream()
-                    .sorted(Comparator.comparingInt(User::getMostSurvivalTime).reversed())
-                    .collect(Collectors.toList());
-                break;
-            default:
-                sortedUsers = sortedUsers.stream()
-                    .sorted(Comparator.comparingInt(User::getScore).reversed())
-                    .collect(Collectors.toList());
-        }
-
-        for (int i = 0; i < sortedUsers.size(); i++) {
-            User user = sortedUsers.get(i);
-            Label usernameLabel = new Label(user.getUsername(), GameAsset.getMenuSkin());
-            Label scoreLabel = new Label(String.valueOf(user.getScore()), GameAsset.getMenuSkin());
-            Label killLabel = new Label(String.valueOf(user.getKillNumber()), GameAsset.getMenuSkin());
-            Label survivalLabel = new Label(user.getMostSurvivalTime() + " second", GameAsset.getMenuSkin());
-
-            if (i < 3) {
-                usernameLabel.setColor(1, 0.85f, 0.1f, 1);
-                scoreLabel.setColor(1, 0.85f, 0.1f, 1);
-                killLabel.setColor(1, 0.85f, 0.1f, 1);
-                survivalLabel.setColor(1, 0.85f, 0.1f, 1);
-            }
-
-            if (user.getUsername().equals(App.getLoggedInUser().getUsername())) {
-                usernameLabel.setColor(0.1f, 0.8f, 1f, 1);
-                scoreLabel.setColor(0.1f, 0.8f, 1f, 1);
-                killLabel.setColor(0.1f, 0.8f, 1f, 1);
-                survivalLabel.setColor(0.1f, 0.8f, 1f, 1);
-            }
-
-            userTable.add(usernameLabel).left();
-            userTable.add(scoreLabel).center();
-            userTable.add(killLabel).center();
-            userTable.add(survivalLabel).center().row();
-        }
+        controller.refreshUserTable();
     }
 
     @Override
@@ -156,5 +99,13 @@ public class ScoreBoard extends Menu {
     @Override
     public void dispose() {
         stage.dispose();
+    }
+
+    public Table getUserTable() {
+        return userTable;
+    }
+
+    public SelectBox<String> getSortBySelector() {
+        return sortBySelector;
     }
 }

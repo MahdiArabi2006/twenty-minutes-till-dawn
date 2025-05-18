@@ -4,11 +4,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.User;
+import io.github.some_example_name.save.UserRepository;
 import io.github.some_example_name.view.FirstMenu;
 import io.github.some_example_name.view.ProfileMenu;
 
 public class ProfileMenuController {
     private final ProfileMenu view;
+    private final UserRepository userRepository = new UserRepository();
 
     public ProfileMenuController(ProfileMenu view) {
         this.view = view;
@@ -35,7 +37,8 @@ public class ProfileMenuController {
     }
 
     public void deleteAccount() {
-        App.getUsers().remove(App.getLoggedInUser());
+//        App.getUsers().remove(App.getLoggedInUser());
+        userRepository.deleteUser(App.getLoggedInUser().getUsername());
         App.setLoggedInUser(null);
         view.getDeleteAccountDialog().hide();
         Main.getInstance().setScreen(new FirstMenu());
@@ -50,11 +53,7 @@ public class ProfileMenuController {
     }
 
     private boolean isUsernameUnique(String username) {
-        for (User user : App.getUsers()) {
-            if (username.equals(user.getUsername())) {
-                return false;
-            }
-        }
-        return true;
+        User user = userRepository.getUser(username);
+        return user == null;
     }
 }

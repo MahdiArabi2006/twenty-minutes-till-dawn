@@ -3,11 +3,13 @@ package io.github.some_example_name.controller;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.User;
+import io.github.some_example_name.save.UserRepository;
 import io.github.some_example_name.view.LoginMenu;
 import io.github.some_example_name.view.MainMenu;
 
 public class LoginMenuController {
     private final LoginMenu view;
+    private final UserRepository userRepository = new UserRepository();
 
     public LoginMenuController(LoginMenu view) {
         this.view = view;
@@ -58,12 +60,7 @@ public class LoginMenuController {
     }
 
     private User getUser(String username) {
-        for (User user : App.getUsers()) {
-            if (username.equals(user.getUsername())) {
-                return user;
-            }
-        }
-        return null;
+        return userRepository.getUser(username);
     }
 
     private boolean isPasswordCorrect(User user, String password) {

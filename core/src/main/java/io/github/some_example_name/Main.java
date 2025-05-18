@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import io.github.some_example_name.model.App;
+import io.github.some_example_name.save.SQLiteDB;
 import io.github.some_example_name.view.FirstMenu;
 
 /**
@@ -35,6 +36,7 @@ public class Main extends Game {
     @Override
     public void create() {
         instance = this;
+        SQLiteDB.initialize();
         camera = new OrthographicCamera();
         viewport = new FitViewport(1920, 1080, camera);
         viewport.apply();
@@ -48,7 +50,7 @@ public class Main extends Game {
     @Override
     public void render() {
         camera.update();
-        viewport.apply(); // حتماً اعمال بشه
+        viewport.apply();
         batch.setProjectionMatrix(camera.combined);
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         super.render();

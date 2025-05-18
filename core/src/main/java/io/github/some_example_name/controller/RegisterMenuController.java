@@ -1,16 +1,16 @@
 package io.github.some_example_name.controller;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.model.*;
+import io.github.some_example_name.save.UserRepository;
 import io.github.some_example_name.view.*;
 
 import java.util.Random;
 
 public class RegisterMenuController {
     private final RegisterMenu view;
+    private final UserRepository userRepository = new UserRepository();
 
     public RegisterMenuController(RegisterMenu menu) {
         this.view = menu;
@@ -26,13 +26,14 @@ public class RegisterMenuController {
         } else {
             Image image = getRandomAvatar();
             User user = new User(username.trim(), password.trim(), answer.trim(), image);
-            App.getUsers().add(user);
+            userRepository.saveUser(user);
+            // App.getUsers().add(user);
             view.showSuccessMessage("you sign up successfully");
             Main.getInstance().setScreen(new FirstMenu());
         }
     }
 
-    public void startGameAsGuest(){
+    public void startGameAsGuest() {
         Main.getInstance().setScreen(new PreGameMenu(true));
     }
 
@@ -41,12 +42,8 @@ public class RegisterMenuController {
     }
 
     private boolean isUsernameUnique(String username) {
-        for (User user : App.getUsers()) {
-            if (username.equals(user.getUsername())) {
-                return false;
-            }
-        }
-        return true;
+        User user = userRepository.getUser(username);
+        return user==null;
     }
 
     private boolean isPasswordStrong(String password) {
@@ -55,7 +52,7 @@ public class RegisterMenuController {
 
     private Image getRandomAvatar() {
         Random random = new Random();
-        int index = random.nextInt(Math.abs(random.nextInt(1,100)) % GameAsset.getAvatars().size());
+        int index = random.nextInt(Math.abs(random.nextInt(1, 100)) % GameAsset.getAvatars().size());
         return GameAsset.getAvatars().get(index);
     }
 }

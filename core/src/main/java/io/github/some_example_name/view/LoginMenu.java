@@ -103,7 +103,7 @@ public class LoginMenu extends Menu {
         table.defaults().pad(10).width(300).height(40);
         table.align(Align.topLeft);
 
-        table.add(new Label("Login Menu", GameAsset.getMenuSkin(),"title")).colspan(2).padBottom(30).padTop(30).row();
+        table.add(new Label("Login Menu", GameAsset.getMenuSkin(), "title")).colspan(2).padBottom(30).padTop(30).row();
         table.add(new Label("username: ", GameAsset.getMenuSkin())).right();
         table.add(username).width(400).height(70).pad(5).row();
         table.add(new Label("password: ", GameAsset.getMenuSkin())).right();

@@ -134,37 +134,38 @@ public class GameAsset {
     public static final Map<String, Integer> keyMap = new HashMap<>();
 
     static {
-        keyMap.put("A",Input.Keys.A);
-        keyMap.put("B",Input.Keys.B);
-        keyMap.put("C",Input.Keys.C);
-        keyMap.put("D",Input.Keys.D);
-        keyMap.put("E",Input.Keys.E);
-        keyMap.put("F",Input.Keys.F);
-        keyMap.put("G",Input.Keys.G);
-        keyMap.put("H",Input.Keys.H);
-        keyMap.put("I",Input.Keys.I);
-        keyMap.put("J",Input.Keys.J);
-        keyMap.put("K",Input.Keys.K);
-        keyMap.put("L",Input.Keys.L);
-        keyMap.put("M",Input.Keys.M);
-        keyMap.put("N",Input.Keys.N);
-        keyMap.put("O",Input.Keys.O);
-        keyMap.put("P",Input.Keys.P);
-        keyMap.put("Q",Input.Keys.Q);
-        keyMap.put("R",Input.Keys.R);
-        keyMap.put("S",Input.Keys.S);
-        keyMap.put("T",Input.Keys.T);
-        keyMap.put("U",Input.Keys.U);
-        keyMap.put("V",Input.Keys.V);
-        keyMap.put("W",Input.Keys.W);
-        keyMap.put("X",Input.Keys.X);
-        keyMap.put("Y",Input.Keys.Y);
-        keyMap.put("Z",Input.Keys.Z);
+        keyMap.put("A", Input.Keys.A);
+        keyMap.put("B", Input.Keys.B);
+        keyMap.put("C", Input.Keys.C);
+        keyMap.put("D", Input.Keys.D);
+        keyMap.put("E", Input.Keys.E);
+        keyMap.put("F", Input.Keys.F);
+        keyMap.put("G", Input.Keys.G);
+        keyMap.put("H", Input.Keys.H);
+        keyMap.put("I", Input.Keys.I);
+        keyMap.put("J", Input.Keys.J);
+        keyMap.put("K", Input.Keys.K);
+        keyMap.put("L", Input.Keys.L);
+        keyMap.put("M", Input.Keys.M);
+        keyMap.put("N", Input.Keys.N);
+        keyMap.put("O", Input.Keys.O);
+        keyMap.put("P", Input.Keys.P);
+        keyMap.put("Q", Input.Keys.Q);
+        keyMap.put("R", Input.Keys.R);
+        keyMap.put("S", Input.Keys.S);
+        keyMap.put("T", Input.Keys.T);
+        keyMap.put("U", Input.Keys.U);
+        keyMap.put("V", Input.Keys.V);
+        keyMap.put("W", Input.Keys.W);
+        keyMap.put("X", Input.Keys.X);
+        keyMap.put("Y", Input.Keys.Y);
+        keyMap.put("Z", Input.Keys.Z);
         keyMap.put("Up", Input.Keys.UP);
         keyMap.put("Down", Input.Keys.DOWN);
         keyMap.put("Left", Input.Keys.LEFT);
         keyMap.put("Right", Input.Keys.RIGHT);
     }
+
     public static Skin getMenuSkin() {
         return menuSkin;
     }
