@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.model.*;
+import io.github.some_example_name.view.LevelUpView;
 import io.github.some_example_name.view.PauseMenu;
 
 import java.util.Random;
@@ -153,10 +154,7 @@ public class PlayerController {
     }
 
     public static void handleUpdateLevel() {
-        Player player = App.getLoggedInUser().getLastGame().getPlayer();
-        Random random = new Random();
-        player.changeAbility(Ability.values()[random.nextInt(0, 4)]);
-        if (App.isEnableSFX()) GameAsset.levelUp.play(1f);
+        Main.getInstance().setScreen(new LevelUpView());
     }
 
     private void idleAnimation() {
