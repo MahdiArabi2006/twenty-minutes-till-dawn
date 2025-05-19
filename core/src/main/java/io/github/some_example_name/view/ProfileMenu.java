@@ -22,6 +22,8 @@ import io.github.some_example_name.Main;
 import io.github.some_example_name.controller.ProfileMenuController;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.GameAsset;
+import io.github.some_example_name.model.LanguageManager;
+import io.github.some_example_name.model.TextKey;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -45,17 +47,17 @@ public class ProfileMenu extends Menu {
         Texture backgroundTexture = new Texture(Gdx.files.internal("background2.jpg"));
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.background = new Image(backgroundTexture);
-        this.newPassword = new TextField("password", GameAsset.getMenuSkin());
-        this.newUsername = new TextField("new username", GameAsset.getMenuSkin());
-        this.changeAvatarButton = new TextButton("change avatar", GameAsset.getMenuSkin());
-        this.deleteAccountButton = new TextButton("delete account", GameAsset.getMenuSkin());
-        this.changePasswordButton = new TextButton("change password", GameAsset.getMenuSkin());
-        this.changeUsernameButton = new TextButton("change username", GameAsset.getMenuSkin());
-        this.backButton = new TextButton("back", GameAsset.getMenuSkin());
-        this.changeAvatarDialog = new Dialog("change avatar", GameAsset.getMenuSkin());
-        this.deleteAccountDialog = new Dialog("delete account", GameAsset.getMenuSkin());
-        this.changeUsernameDialog = new Dialog("change username", GameAsset.getMenuSkin());
-        this.changePasswordDialog = new Dialog("change password", GameAsset.getMenuSkin());
+        this.newPassword = new TextField(LanguageManager.get(TextKey.MENU_PASSWORD_TEXT_FILED), GameAsset.getMenuSkin());
+        this.newUsername = new TextField(LanguageManager.get(TextKey.MENU_NEW_USERNAME_TEXT_FIELD), GameAsset.getMenuSkin());
+        this.changeAvatarButton = new TextButton(LanguageManager.get(TextKey.MENU_CHANGE_AVATAR_BUTTON), GameAsset.getMenuSkin());
+        this.deleteAccountButton = new TextButton(LanguageManager.get(TextKey.MENU_DELETE_ACCOUNT_BUTTON), GameAsset.getMenuSkin());
+        this.changePasswordButton = new TextButton(LanguageManager.get(TextKey.MENU_CHANGE_PASSWORD_BUTTON), GameAsset.getMenuSkin());
+        this.changeUsernameButton = new TextButton(LanguageManager.get(TextKey.MENU_CHANGE_USERNAME_BUTTON), GameAsset.getMenuSkin());
+        this.backButton = new TextButton(LanguageManager.get(TextKey.MENU_BACK_TEXT_BUTTON), GameAsset.getMenuSkin());
+        this.changeAvatarDialog = new Dialog(LanguageManager.get(TextKey.MENU_CHANGE_AVATAR_BUTTON), GameAsset.getMenuSkin());
+        this.deleteAccountDialog = new Dialog(LanguageManager.get(TextKey.MENU_DELETE_ACCOUNT_BUTTON), GameAsset.getMenuSkin());
+        this.changeUsernameDialog = new Dialog(LanguageManager.get(TextKey.MENU_CHANGE_USERNAME_BUTTON), GameAsset.getMenuSkin());
+        this.changePasswordDialog = new Dialog(LanguageManager.get(TextKey.MENU_CHANGE_PASSWORD_BUTTON), GameAsset.getMenuSkin());
         errorLabel = new Label("", GameAsset.getMenuSkin());
         errorLabel.setColor(Color.RED);
     }
@@ -94,7 +96,7 @@ public class ProfileMenu extends Menu {
             }
             count++;
         }
-        TextButton chooseFileButton = new TextButton("Select File From System", GameAsset.getMenuSkin());
+        TextButton chooseFileButton = new TextButton(LanguageManager.get(TextKey.MENU_SELECT_FILE_FROM_SYSTEM_BUTTON), GameAsset.getMenuSkin());
         chooseFileButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -102,7 +104,7 @@ public class ProfileMenu extends Menu {
                 openFileChooser();
             }
         });
-        TextButton cancelButton = new TextButton("Cancel", GameAsset.getMenuSkin());
+        TextButton cancelButton = new TextButton(LanguageManager.get(TextKey.MENU_CANCEL_TEXT_BUTTON), GameAsset.getMenuSkin());
         cancelButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -119,8 +121,8 @@ public class ProfileMenu extends Menu {
     private void setupDeleteAccountDialog() {
         deleteAccountDialog.getContentTable().clearChildren();
         deleteAccountDialog.getButtonTable().clearChildren();
-        TextButton submitButton = new TextButton("confirm", GameAsset.getMenuSkin());
-        TextButton cancelButton = new TextButton("cancel", GameAsset.getMenuSkin());
+        TextButton submitButton = new TextButton(LanguageManager.get(TextKey.MENU_CONFIRM_TEXT_BUTTON), GameAsset.getMenuSkin());
+        TextButton cancelButton = new TextButton(LanguageManager.get(TextKey.MENU_CANCEL_TEXT_BUTTON), GameAsset.getMenuSkin());
 
         Table contentTable = deleteAccountDialog.getContentTable();
         contentTable.add(new Label("Are you sure?", GameAsset.getMenuSkin())).padRight(10);
@@ -147,11 +149,11 @@ public class ProfileMenu extends Menu {
     private void setupChangeUsernameDialog() {
         changeUsernameDialog.getContentTable().clearChildren();
         changeUsernameDialog.getButtonTable().clearChildren();
-        TextButton submitButton = new TextButton("confirm", GameAsset.getMenuSkin());
-        TextButton cancelButton = new TextButton("cancel", GameAsset.getMenuSkin());
+        TextButton submitButton = new TextButton(LanguageManager.get(TextKey.MENU_CONFIRM_TEXT_BUTTON), GameAsset.getMenuSkin());
+        TextButton cancelButton = new TextButton(LanguageManager.get(TextKey.MENU_CANCEL_TEXT_BUTTON), GameAsset.getMenuSkin());
 
         Table contentTable = changeUsernameDialog.getContentTable();
-        contentTable.add(new Label("new password ", GameAsset.getMenuSkin())).padRight(10);
+        contentTable.add(new Label(LanguageManager.get(TextKey.MENU_NEW_PASSWORD_LABEL), GameAsset.getMenuSkin())).padRight(10);
         contentTable.add(newUsername).width(300).row();
         changeUsernameDialog.getButtonTable().defaults().pad(10);
         changeUsernameDialog.button(submitButton, true);
@@ -176,11 +178,11 @@ public class ProfileMenu extends Menu {
     private void setupChangePasswordDialog() {
         changePasswordDialog.getContentTable().clearChildren();
         changePasswordDialog.getButtonTable().clearChildren();
-        TextButton submitButton = new TextButton("confirm", GameAsset.getMenuSkin());
-        TextButton cancelButton = new TextButton("cancel", GameAsset.getMenuSkin());
+        TextButton submitButton = new TextButton(LanguageManager.get(TextKey.MENU_CONFIRM_TEXT_BUTTON), GameAsset.getMenuSkin());
+        TextButton cancelButton = new TextButton(LanguageManager.get(TextKey.MENU_CANCEL_TEXT_BUTTON), GameAsset.getMenuSkin());
 
         Table contentTable = changePasswordDialog.getContentTable();
-        contentTable.add(new Label("new password ", GameAsset.getMenuSkin())).padRight(10);
+        contentTable.add(new Label(LanguageManager.get(TextKey.MENU_NEW_PASSWORD_LABEL), GameAsset.getMenuSkin())).padRight(10);
         contentTable.add(newPassword).width(300).row();
         changePasswordDialog.getButtonTable().defaults().pad(10);
         changePasswordDialog.button(submitButton, true);
@@ -208,7 +210,7 @@ public class ProfileMenu extends Menu {
         table.defaults().pad(10).width(600).height(40);
         table.align(Align.center);
 
-        Label title = new Label("Profile", GameAsset.getMenuSkin(), "title");
+        Label title = new Label(LanguageManager.get(TextKey.MENU_PROFILE_LABEL), GameAsset.getMenuSkin(), "title");
         title.setAlignment(Align.center);
         table.add(title).colspan(2).center().padTop(40).padBottom(50).row();
 
@@ -261,14 +263,14 @@ public class ProfileMenu extends Menu {
     }
 
     private void openFileChooser() {
-        if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
+        if (Gdx.app.getType()==Application.ApplicationType.Desktop) {
             FileDialog dialog = new FileDialog((Frame) null, "Choose Avatar");
             dialog.setMode(FileDialog.LOAD);
             dialog.setVisible(true);
             String selectedFile = dialog.getFile();
             String selectedDir = dialog.getDirectory();
 
-            if (selectedFile != null && selectedDir != null) {
+            if (selectedFile!=null && selectedDir!=null) {
                 FileHandle file = Gdx.files.absolute(selectedDir + selectedFile);
                 handleSelectedFile(file);
             }

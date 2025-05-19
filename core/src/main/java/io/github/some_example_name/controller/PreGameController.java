@@ -15,15 +15,15 @@ public class PreGameController {
 
     public void startGame() {
         if (view.getCharacter()==null) {
-            view.showError("choose your character first");
+            view.showError(LanguageManager.get(TextKey.MENU_START_GAME_ERROR1));
             return;
         }
         if (view.getWeaponType()==null) {
-            view.showError("choose your weapon first");
+            view.showError(LanguageManager.get(TextKey.MENU_START_GAME_ERROR2));
             return;
         }
         if (view.getTime()==null) {
-            view.showError("choose your time first");
+            view.showError(LanguageManager.get(TextKey.MENU_START_GAME_ERROR3));
             return;
         }
         String path = App.getLoggedInUser().getUsername() + ".json";
@@ -36,8 +36,8 @@ public class PreGameController {
         Main.getInstance().setScreen(new GameView());
     }
 
-    public void startGameAsGuest(){
-        User user = new User("guest","1234","asd",GameAsset.getAvatars().get(0));
+    public void startGameAsGuest() {
+        User user = new User("guest", "1234", "asd", GameAsset.getAvatars().get(0));
         App.setLoggedInUser(user);
         Player player = new Player(view.getCharacter(), view.getWeaponType());
         GameTimer gameTimer = new GameTimer(view.getTime() * 60);

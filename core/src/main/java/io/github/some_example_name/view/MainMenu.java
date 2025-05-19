@@ -12,6 +12,8 @@ import io.github.some_example_name.Main;
 import io.github.some_example_name.controller.MainMenuController;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.GameAsset;
+import io.github.some_example_name.model.LanguageManager;
+import io.github.some_example_name.model.TextKey;
 
 public class MainMenu extends Menu {
     private final MainMenuController controller = new MainMenuController(this);
@@ -29,13 +31,13 @@ public class MainMenu extends Menu {
         Texture backgroundTexture = new Texture(Gdx.files.internal("background2.jpg"));
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.background = new Image(backgroundTexture);
-        this.settingButton = new TextButton("setting menu", GameAsset.getMenuSkin());
-        this.preGameButton = new TextButton("pre-game menu", GameAsset.getMenuSkin());
-        this.scoreBoardButton = new TextButton("score board menu", GameAsset.getMenuSkin());
-        this.talentButton = new TextButton("talent menu", GameAsset.getMenuSkin());
-        this.profileButton = new TextButton("profile menu", GameAsset.getMenuSkin());
-        this.continueLastGameButton = new TextButton("continue last game", GameAsset.getMenuSkin());
-        this.logoutButton = new TextButton("logout", GameAsset.getMenuSkin());
+        this.settingButton = new TextButton(LanguageManager.get(TextKey.MENU_SETTING_MENU_BUTTON), GameAsset.getMenuSkin());
+        this.preGameButton = new TextButton(LanguageManager.get(TextKey.MENU_PREGAME_BUTTON), GameAsset.getMenuSkin());
+        this.scoreBoardButton = new TextButton(LanguageManager.get(TextKey.MENU_SCOREBOARD_BUTTON), GameAsset.getMenuSkin());
+        this.talentButton = new TextButton(LanguageManager.get(TextKey.MENU_TALENT_MENU_BUTTON), GameAsset.getMenuSkin());
+        this.profileButton = new TextButton(LanguageManager.get(TextKey.MENU_PROFILE_MENU_BUTTON), GameAsset.getMenuSkin());
+        this.continueLastGameButton = new TextButton(LanguageManager.get(TextKey.MENU_LAST_GAME_BUTTON), GameAsset.getMenuSkin());
+        this.logoutButton = new TextButton(LanguageManager.get(TextKey.MENU_LOGOUT_BUTTON), GameAsset.getMenuSkin());
     }
 
     @Override

@@ -15,6 +15,8 @@ import io.github.some_example_name.Main;
 import io.github.some_example_name.controller.RegisterMenuController;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.GameAsset;
+import io.github.some_example_name.model.LanguageManager;
+import io.github.some_example_name.model.TextKey;
 
 public class RegisterMenu extends Menu {
     private final RegisterMenuController controller = new RegisterMenuController(this);
@@ -34,12 +36,12 @@ public class RegisterMenu extends Menu {
         Texture backgroundTexture = new Texture(Gdx.files.internal("background2.jpg"));
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.background = new Image(backgroundTexture);
-        this.registerButton = new TextButton("Sign Up", GameAsset.getMenuSkin());
-        this.guestButton = new TextButton("Guest", GameAsset.getMenuSkin());
-        this.backButton = new TextButton("back", GameAsset.getMenuSkin());
-        username = createTextField("username");
-        answerSecurityQuestion = createPasswordField("answer");
-        password = createPasswordField("password");
+        this.registerButton = new TextButton(LanguageManager.get(TextKey.MENU_SIGNUP_TEXT_BUTTON), GameAsset.getMenuSkin());
+        this.guestButton = new TextButton(LanguageManager.get(TextKey.MENU_GUEST_TEXT_BUTTON), GameAsset.getMenuSkin());
+        this.backButton = new TextButton(LanguageManager.get(TextKey.MENU_BACK_TEXT_BUTTON), GameAsset.getMenuSkin());
+        username = createTextField(LanguageManager.get(TextKey.MENU_USERNAME_LABEL));
+        answerSecurityQuestion = createPasswordField(LanguageManager.get(TextKey.MENU_SECURITY_TEXT_FIELD));
+        password = createPasswordField(LanguageManager.get(TextKey.MENU_PASSWORD_TEXT_FILED));
         errorLabel = new Label("", GameAsset.getMenuSkin());
         errorLabel.setColor(Color.RED);
     }
@@ -56,15 +58,15 @@ public class RegisterMenu extends Menu {
         table.defaults().pad(10).width(300).height(40);
         table.align(Align.topLeft);
 
-        Label title = new Label("Sign Up", GameAsset.getMenuSkin(), "title");
+        Label title = new Label(LanguageManager.get(TextKey.MENU_SIGNUP_TEXT_BUTTON), GameAsset.getMenuSkin(), "title");
         title.setAlignment(Align.right);
         table.add(title).colspan(2).center().padTop(40).padBottom(30).row();
 
-        table.add(new Label("username: ", GameAsset.getMenuSkin())).right();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_USERNAME_LABEL) + ": ", GameAsset.getMenuSkin())).right();
         table.add(username).width(400).height(70).pad(5).row();
-        table.add(new Label("password: ", GameAsset.getMenuSkin())).right();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_PASSWORD_TEXT_FILED) + " : ", GameAsset.getMenuSkin())).right();
         table.add(password).width(400).height(70).pad(5).row();
-        table.add(new Label("Your favorite movie: ", GameAsset.getMenuSkin()));
+        table.add(new Label(LanguageManager.get(TextKey.MENU_SECURITY_LABEL) + " : ", GameAsset.getMenuSkin()));
         table.add(answerSecurityQuestion).width(400).height(70).pad(5).row();
         table.add(errorLabel).colspan(2).height(20).row();
         table.add(registerButton).align(Align.left).width(250).height(100);

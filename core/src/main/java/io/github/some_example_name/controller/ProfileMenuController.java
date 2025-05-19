@@ -3,6 +3,8 @@ package io.github.some_example_name.controller;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.model.App;
+import io.github.some_example_name.model.LanguageManager;
+import io.github.some_example_name.model.TextKey;
 import io.github.some_example_name.model.User;
 import io.github.some_example_name.save.UserRepository;
 import io.github.some_example_name.view.FirstMenu;
@@ -19,7 +21,7 @@ public class ProfileMenuController {
     public void changePassword(String password) {
         if (!isPasswordStrong(password)) {
             view.getChangePasswordDialog().hide();
-            view.showError("use strong password");
+            view.showError(LanguageManager.get(TextKey.MENU_CHANGE_PASSWORD_ERROR));
         } else {
             App.getLoggedInUser().setPassword(password);
             userRepository.updateUser(App.getLoggedInUser());
@@ -30,7 +32,7 @@ public class ProfileMenuController {
     public void changeUsername(String username) {
         if (!isUsernameUnique(username)) {
             view.getChangeUsernameDialog().hide();
-            view.showError("this username already taken");
+            view.showError(LanguageManager.get(TextKey.MENU_CHANGE_USERNAME_ERROR));
         } else {
             App.getLoggedInUser().setUsername(username);
             userRepository.updateUser(App.getLoggedInUser());
@@ -56,6 +58,6 @@ public class ProfileMenuController {
 
     private boolean isUsernameUnique(String username) {
         User user = userRepository.getUser(username);
-        return user == null;
+        return user==null;
     }
 }

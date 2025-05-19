@@ -14,6 +14,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.GameAsset;
+import io.github.some_example_name.model.LanguageManager;
+import io.github.some_example_name.model.TextKey;
 
 public class TalentMenu extends Menu {
     private final Stage stage;
@@ -27,7 +29,7 @@ public class TalentMenu extends Menu {
         Texture backgroundTexture = new Texture(Gdx.files.internal("background2.jpg"));
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.background = new Image(backgroundTexture);
-        this.backButton = new TextButton("Back", GameAsset.getMenuSkin());
+        this.backButton = new TextButton(LanguageManager.get(TextKey.MENU_BACK_TEXT_BUTTON), GameAsset.getMenuSkin());
     }
 
     @Override
@@ -37,29 +39,39 @@ public class TalentMenu extends Menu {
         table.defaults().pad(10);
         table.align(Align.top);
 
-        Label title = new Label("Talent Menu", GameAsset.getMenuSkin(), "title");
+        Label title = new Label(LanguageManager.get(TextKey.MENU_TALENT_MENU_LABEL), GameAsset.getMenuSkin(), "title");
         title.setAlignment(Align.center);
         table.add(title).padTop(20).row();
 
         Table charTable = new Table(GameAsset.getMenuSkin());
         charTable.defaults().pad(5);
-        charTable.add("Character").left();
+        charTable.add(LanguageManager.get(TextKey.MENU_CHARACTER_LABEL)).left();
         charTable.add("HP").center();
         charTable.add("Speed").center().row();
-        charTable.add("Shana").left(); charTable.add("4").center(); charTable.add("4").center().row();
-        charTable.add("Diamond").left(); charTable.add("7").center(); charTable.add("1").center().row();
-        charTable.add("Scarlet").left(); charTable.add("3").center(); charTable.add("5").center().row();
-        charTable.add("Lilith").left(); charTable.add("5").center(); charTable.add("3").center().row();
-        charTable.add("Dasher").left(); charTable.add("2").center(); charTable.add("10").center().row();
+        charTable.add("Shana").left();
+        charTable.add("4").center();
+        charTable.add("4").center().row();
+        charTable.add("Diamond").left();
+        charTable.add("7").center();
+        charTable.add("1").center().row();
+        charTable.add("Scarlet").left();
+        charTable.add("3").center();
+        charTable.add("5").center().row();
+        charTable.add("Lilith").left();
+        charTable.add("5").center();
+        charTable.add("3").center().row();
+        charTable.add("Dasher").left();
+        charTable.add("2").center();
+        charTable.add("10").center().row();
 
         Table cheatTable = new Table(GameAsset.getMenuSkin());
         cheatTable.defaults().pad(5).left();
-        cheatTable.add(new Label("Cheat Codes :", GameAsset.getMenuSkin())).left().row();
-        cheatTable.add(new Label("Reduce remaining time by 1 minute", GameAsset.getMenuSkin())).left().row();
-        cheatTable.add(new Label("Increase player level", GameAsset.getMenuSkin())).left().row();
-        cheatTable.add(new Label("Add HP only if player is not at max HP", GameAsset.getMenuSkin())).left().row();
-        cheatTable.add(new Label("Boss pass", GameAsset.getMenuSkin())).left().row();
-        cheatTable.add(new Label("Kill all enemies", GameAsset.getMenuSkin())).left().row();
+        cheatTable.add(new Label(LanguageManager.get(TextKey.MENU_CHEAT_CODES_LABEL) + " :", GameAsset.getMenuSkin())).left().row();
+        cheatTable.add(new Label(LanguageManager.get(TextKey.MENU_CHEAT1TALENT), GameAsset.getMenuSkin())).left().row();
+        cheatTable.add(new Label(LanguageManager.get(TextKey.MENU_CHEAT2TALENT), GameAsset.getMenuSkin())).left().row();
+        cheatTable.add(new Label(LanguageManager.get(TextKey.MENU_CHEAT3TALENT), GameAsset.getMenuSkin())).left().row();
+        cheatTable.add(new Label(LanguageManager.get(TextKey.MENU_CHEAT4TALENT), GameAsset.getMenuSkin())).left().row();
+        cheatTable.add(new Label(LanguageManager.get(TextKey.MENU_CHEAT5TALENT), GameAsset.getMenuSkin())).left().row();
 
         Table rowTable = new Table();
         rowTable.defaults().pad(20);
@@ -69,13 +81,18 @@ public class TalentMenu extends Menu {
         table.add(rowTable).expandX().fillX().padTop(30).row();
         Table abilityTable = new Table(GameAsset.getMenuSkin());
         abilityTable.defaults().pad(5);
-        abilityTable.add("Ability").left();
-        abilityTable.add("Description").left().row();
-        abilityTable.add("VITALITY").left(); abilityTable.add("Increase max HP by 1").left().row();
-        abilityTable.add("DAMAGER").left(); abilityTable.add("+25% weapon damage for 10s").left().row();
-        abilityTable.add("PROCREASE").left(); abilityTable.add("+1 weapon projectile").left().row();
-        abilityTable.add("AMOCREASE").left(); abilityTable.add("+1 weapon max ammo").left().row();
-        abilityTable.add("SPEEDY").left(); abilityTable.add("2x player speed for 10s").left().row();
+        abilityTable.add(LanguageManager.get(TextKey.MENU_ABILITY_DIALOG)).left();
+        abilityTable.add(LanguageManager.get(TextKey.MENU_DESCRIPTION_LAEBEL)).left().row();
+        abilityTable.add("VITALITY").left();
+        abilityTable.add(LanguageManager.get(TextKey.MENU_VATALITY_DES)).left().row();
+        abilityTable.add("DAMAGER").left();
+        abilityTable.add(LanguageManager.get(TextKey.MENU_DAMAGER_DES)).left().row();
+        abilityTable.add("PROCREASE").left();
+        abilityTable.add(LanguageManager.get(TextKey.MENU_PROCREASE_DES)).left().row();
+        abilityTable.add("AMOCREASE").left();
+        abilityTable.add(LanguageManager.get(TextKey.MENU_AMMOCREASE_DES)).left().row();
+        abilityTable.add("SPEEDY").left();
+        abilityTable.add(LanguageManager.get(TextKey.MENU_SPEEDY_DES)).left().row();
         table.add(abilityTable).expandX().fillX().center().row();
 
         table.add(backButton).padTop(30);

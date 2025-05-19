@@ -12,6 +12,8 @@ import io.github.some_example_name.Main;
 import io.github.some_example_name.controller.PauseMenuController;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.GameAsset;
+import io.github.some_example_name.model.LanguageManager;
+import io.github.some_example_name.model.TextKey;
 
 public class PauseMenu extends Menu {
     private final PauseMenuController controller = new PauseMenuController(this);
@@ -30,13 +32,13 @@ public class PauseMenu extends Menu {
         this.table = new Table();
         this.table1 = new Table();
         this.table2 = new Table();
-        this.bwToggle = new CheckBox("Black & White Mode On/Off", GameAsset.getMenuSkin());
+        this.bwToggle = new CheckBox(LanguageManager.get(TextKey.MENU_BW_TOGGLE), GameAsset.getMenuSkin());
         Texture backgroundTexture = new Texture(Gdx.files.internal("background2.jpg"));
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.background = new Image(backgroundTexture);
-        this.resumeButton = new TextButton("resume", GameAsset.getMenuSkin());
-        this.giveUpButton = new TextButton("give up", GameAsset.getMenuSkin());
-        this.saveAndQuitButton = new TextButton("save and quit", GameAsset.getMenuSkin());
+        this.resumeButton = new TextButton(LanguageManager.get(TextKey.MENU_RESUME_BUTTON), GameAsset.getMenuSkin());
+        this.giveUpButton = new TextButton(LanguageManager.get(TextKey.MENU_GIVE_UP_BUTTON), GameAsset.getMenuSkin());
+        this.saveAndQuitButton = new TextButton(LanguageManager.get(TextKey.MENU_SAVE_AND_QUIT_BUTTON), GameAsset.getMenuSkin());
     }
 
     @Override
@@ -45,31 +47,31 @@ public class PauseMenu extends Menu {
         setupUI();
     }
 
-    private void setupUI(){
+    private void setupUI() {
         table.clear();
         table.setFillParent(true);
         table.defaults().pad(10).width(300).height(40);
         table.align(Align.topLeft);
-        Label title = new Label("Pause Menu", GameAsset.getMenuSkin(), "title");
+        Label title = new Label(LanguageManager.get(TextKey.MENU_PAUSE_MENU_BUTTON), GameAsset.getMenuSkin(), "title");
         title.setAlignment(Align.center);
         table.add(title).colspan(2).right().padTop(40).padLeft(300).padBottom(50).row();
 
-        table.add(new Label("cheat codes: ",GameAsset.getMenuSkin())).row();
-        table.add(new Label("reduce time a minute :     p",GameAsset.getMenuSkin())).row();
-        table.add(new Label("increase player level :    l",GameAsset.getMenuSkin())).row();
-        table.add(new Label("make player health full:   o",GameAsset.getMenuSkin())).row();
-        table.add(new Label("Pass Boss Fight :    b",GameAsset.getMenuSkin())).row();
-        table.add(new Label("kill all enemies:   k",GameAsset.getMenuSkin())).row();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_CHEAT_CODES_LABEL) + ": ", GameAsset.getMenuSkin())).row();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_CHEAT1) + " :     p", GameAsset.getMenuSkin())).row();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_CHEAT2) + " :    l", GameAsset.getMenuSkin())).row();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_CHEAT3) + " :   o", GameAsset.getMenuSkin())).row();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_CHEAT4) + " :    b", GameAsset.getMenuSkin())).row();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_CHEAT5) + " :   k", GameAsset.getMenuSkin())).row();
 
 
         table1.clear();
         table1.setFillParent(true);
         table1.defaults().pad(10).width(300).height(40);
         table1.align(Align.topRight);
-        table1.add(new Label("player ability: ",GameAsset.getMenuSkin())).row();
-        if (App.getLoggedInUser().getLastGame().getPlayer().getAbility()!=null){
-            table1.add(new Image(App.getLoggedInUser().getLastGame().getPlayer().getAbility().getTexture())).size(270,313).padBottom(20).row();
-            table1.add(new Label(App.getLoggedInUser().getLastGame().getPlayer().getAbility().getName(),GameAsset.getMenuSkin()));
+        table1.add(new Label(LanguageManager.get(TextKey.MENU_PLAYER_ABILITY_LABEL) + ": ", GameAsset.getMenuSkin())).row();
+        if (App.getLoggedInUser().getLastGame().getPlayer().getAbility()!=null) {
+            table1.add(new Image(App.getLoggedInUser().getLastGame().getPlayer().getAbility().getTexture())).size(270, 313).padBottom(20).row();
+            table1.add(new Label(App.getLoggedInUser().getLastGame().getPlayer().getAbility().getName(), GameAsset.getMenuSkin()));
         }
 
         table2.clear();
@@ -102,7 +104,7 @@ public class PauseMenu extends Menu {
         saveAndQuitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (!App.getLoggedInUser().getLastGame().isPlayAsGuest()){
+                if (!App.getLoggedInUser().getLastGame().isPlayAsGuest()) {
                     if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                     controller.saveAndQuit();
                 }

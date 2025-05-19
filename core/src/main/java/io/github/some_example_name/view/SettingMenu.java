@@ -9,9 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.some_example_name.Main;
-import io.github.some_example_name.model.App;
-import io.github.some_example_name.model.GameAsset;
-import io.github.some_example_name.model.Music;
+import io.github.some_example_name.model.*;
+
+import java.util.Locale;
 
 public class SettingMenu extends Menu {
     private final Stage stage;
@@ -19,9 +19,10 @@ public class SettingMenu extends Menu {
     private final CheckBox musicToggle, sfxToggle, autoReloadToggle, bwToggle;
     private final Slider musicVolumeSlider;
     private final SelectBox<String> musicSelector;
+    private final SelectBox<String> languageSelector;
     private final SelectBox<String> upKeySelector, downKeySelector,
         leftKeySelector, rightKeySelector, reloadKeySelector,
-        pauseKeySelector,autoAimSelector;
+        pauseKeySelector, autoAimSelector;
     private final TextButton backButton;
     private final Image background;
 
@@ -31,12 +32,13 @@ public class SettingMenu extends Menu {
         Texture backgroundTexture = new Texture(Gdx.files.internal("background2.jpg"));
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.background = new Image(backgroundTexture);
-        this.musicToggle = new CheckBox("Music On/Off", GameAsset.getMenuSkin());
-        this.sfxToggle = new CheckBox("SFX On/Off", GameAsset.getMenuSkin());
-        this.autoReloadToggle = new CheckBox("Auto Reload On/Off", GameAsset.getMenuSkin());
-        this.bwToggle = new CheckBox("Black & White Mode On/Off", GameAsset.getMenuSkin());
+        this.musicToggle = new CheckBox(LanguageManager.get(TextKey.MENU_MUSIC_TOGGLE), GameAsset.getMenuSkin());
+        this.sfxToggle = new CheckBox(LanguageManager.get(TextKey.MENU_SFX_TOGGLE), GameAsset.getMenuSkin());
+        this.autoReloadToggle = new CheckBox(LanguageManager.get(TextKey.MENU_AUTO_RELOAD_TOGGLE), GameAsset.getMenuSkin());
+        this.bwToggle = new CheckBox(LanguageManager.get(TextKey.MENU_BW_TOGGLE), GameAsset.getMenuSkin());
         this.musicVolumeSlider = new Slider(0f, 1f, 0.01f, false, GameAsset.getMenuSkin());
         this.musicSelector = new SelectBox<>(GameAsset.getMenuSkin());
+        this.languageSelector = new SelectBox<>(GameAsset.getMenuSkin());
         this.upKeySelector = new SelectBox<>(GameAsset.getMenuSkin());
         this.downKeySelector = new SelectBox<>(GameAsset.getMenuSkin());
         this.leftKeySelector = new SelectBox<>(GameAsset.getMenuSkin());
@@ -44,7 +46,7 @@ public class SettingMenu extends Menu {
         this.reloadKeySelector = new SelectBox<>(GameAsset.getMenuSkin());
         this.pauseKeySelector = new SelectBox<>(GameAsset.getMenuSkin());
         this.autoAimSelector = new SelectBox<>(GameAsset.getMenuSkin());
-        this.backButton = new TextButton("Back", GameAsset.getMenuSkin());
+        this.backButton = new TextButton(LanguageManager.get(TextKey.MENU_BACK_TEXT_BUTTON), GameAsset.getMenuSkin());
     }
 
     @Override
@@ -83,6 +85,15 @@ public class SettingMenu extends Menu {
             io.github.some_example_name.model.Music.values()[index].changeVolume(App.getMusicVolume());
             App.setPlayedMusic(Music.values()[index]);
             if (App.isEnableMusic()) App.getPlayedMusic().play();
+            return false;
+        });
+
+        languageSelector.setItems(Language.ENGLISH.getName(), Language.FRENCH.getName());
+        languageSelector.setSelected(Language.ENGLISH.getName());
+        languageSelector.addListener(e -> {
+            if (languageSelector.getSelected().equals(Language.ENGLISH.getName())) App.setLocale(Locale.ENGLISH);
+            else if (languageSelector.getSelected().equals(Language.FRENCH.getName())) App.setLocale(Locale.FRENCH);
+            LanguageManager.setLocale(App.getLocale());
             return false;
         });
 
@@ -156,22 +167,22 @@ public class SettingMenu extends Menu {
             }
         });
 
-        table.add(new Label("Setting Menu",GameAsset.getMenuSkin(),"title")).padRight(150).row();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_SETTING_MENU_LABEL), GameAsset.getMenuSkin(), "title")).padRight(150).row();
         table.add(musicToggle).row();
-        table.add(new Label("Music Volume", GameAsset.getMenuSkin())).row();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_MUSIC_VOLUME_LABEL), GameAsset.getMenuSkin())).row();
         table.add(musicVolumeSlider).row();
-        table.add(new Label("Choose Music", GameAsset.getMenuSkin())).row();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_CHOOSE_MUSIC_LABEL), GameAsset.getMenuSkin())).row();
         table.add(musicSelector).row();
         table.add(sfxToggle).row();
         table.add(autoReloadToggle).row();
         table.add(bwToggle).padBottom(50).row();
         Table keyTable = new Table(GameAsset.getMenuSkin());
         keyTable.defaults().pad(10).width(300).height(50);
-        keyTable.add(new Label("Move Up", GameAsset.getMenuSkin())).padTop(100);
-        keyTable.add(new Label("Move Down", GameAsset.getMenuSkin())).padTop(100);
-        keyTable.add(new Label("Move Right", GameAsset.getMenuSkin())).padTop(100);
-        keyTable.add(new Label("Move Left", GameAsset.getMenuSkin())).padTop(100);
-        keyTable.add(new Label("Reload", GameAsset.getMenuSkin())).padTop(100).colspan(3);
+        keyTable.add(new Label(LanguageManager.get(TextKey.MENU_MOVE_UP_LABEL), GameAsset.getMenuSkin())).padTop(100);
+        keyTable.add(new Label(LanguageManager.get(TextKey.MENU_MOVE_DOWN_LABEL), GameAsset.getMenuSkin())).padTop(100);
+        keyTable.add(new Label(LanguageManager.get(TextKey.MENU_MOVE_RIGHT_LABEL), GameAsset.getMenuSkin())).padTop(100);
+        keyTable.add(new Label(LanguageManager.get(TextKey.MENU_MOVE_LEFT_LABEL), GameAsset.getMenuSkin())).padTop(100);
+        keyTable.add(new Label(LanguageManager.get(TextKey.MENU_RELOAD_LABEL), GameAsset.getMenuSkin())).padTop(100).colspan(3);
         keyTable.row();
         keyTable.add(upKeySelector);
         keyTable.add(downKeySelector);
@@ -179,14 +190,15 @@ public class SettingMenu extends Menu {
         keyTable.add(leftKeySelector);
         keyTable.add(reloadKeySelector).colspan(3);
         keyTable.row();
-        keyTable.add(new Label("Auto Aim",GameAsset.getMenuSkin()));
-        keyTable.add(new Label("Pause", GameAsset.getMenuSkin())).colspan(3);
+        keyTable.add(new Label(LanguageManager.get(TextKey.MENU_AUTO_AIM_LABEL), GameAsset.getMenuSkin()));
+        keyTable.add(new Label(LanguageManager.get(TextKey.MENU_PAUSE_LABEL), GameAsset.getMenuSkin())).colspan(3);
         keyTable.row();
         keyTable.add(autoAimSelector);
         keyTable.add(pauseKeySelector).padBottom(100).colspan(3);
         keyTable.row();
         table.add(keyTable).colspan(1).bottom().row();
-        table.add(backButton).padTop(100);
+        table.add(backButton).padTop(100).row();
+        table.add(languageSelector);
 
         background.setFillParent(true);
         stage.addActor(background);

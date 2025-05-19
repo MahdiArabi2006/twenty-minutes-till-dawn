@@ -13,6 +13,8 @@ import io.github.some_example_name.Main;
 import io.github.some_example_name.controller.AfterGameController;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.GameAsset;
+import io.github.some_example_name.model.LanguageManager;
+import io.github.some_example_name.model.TextKey;
 
 public class AfterGameView implements Screen {
     private final AfterGameController controller = new AfterGameController();
@@ -22,22 +24,21 @@ public class AfterGameView implements Screen {
     private final Image background;
     private final boolean win;
 
-    public AfterGameView(boolean win){
+    public AfterGameView(boolean win) {
         this.stage = new Stage(Main.getInstance().getViewport(), Main.getInstance().getBatch());
         this.table = new Table();
         this.win = win;
         Texture backgroundTexture;
-        if (!win){
+        if (!win) {
             if (App.isEnableSFX()) GameAsset.lose.play(1f);
             backgroundTexture = new Texture(Gdx.files.internal("download.jpeg"));
-        }
-        else {
+        } else {
             if (App.isEnableSFX()) GameAsset.win.play(1f);
             backgroundTexture = new Texture(Gdx.files.internal("download (1).jpeg"));
         }
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.background = new Image(backgroundTexture);
-        this.backButton = new TextButton("back", GameAsset.getMenuSkin());
+        this.backButton = new TextButton(LanguageManager.get(TextKey.MENU_BACK_TEXT_BUTTON), GameAsset.getMenuSkin());
     }
 
     @Override
@@ -46,31 +47,30 @@ public class AfterGameView implements Screen {
         setupUI();
     }
 
-    private void setupUI(){
+    private void setupUI() {
         table.clear();
         table.setFillParent(true);
         table.defaults().pad(10).width(300).height(40);
         table.align(Align.topLeft);
-        if (win){
-            table.add(new Label("you win",GameAsset.getMenuSkin())).row();
+        if (win) {
+            table.add(new Label(LanguageManager.get(TextKey.MENU_WIN_LABEL), GameAsset.getMenuSkin())).row();
+        } else {
+            table.add(new Label(LanguageManager.get(TextKey.MENU_LOSE_LABEL), GameAsset.getMenuSkin())).row();
         }
-        else {
-            table.add(new Label("you lose",GameAsset.getMenuSkin())).row();
-        }
-        table.add(new Label("username: " + App.getLoggedInUser().getUsername(),GameAsset.getMenuSkin())).row();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_USERNAME_LABEL) + ": " + App.getLoggedInUser().getUsername(), GameAsset.getMenuSkin())).row();
         int surviveTime = (int) (App.getLoggedInUser().getLastGame().getGameTimer().getCountdownDuration() - App.getLoggedInUser().getLastGame().getGameTimer().getRemainingTime());
-        table.add(new Label("survive time: " + surviveTime / 60 + ":" + surviveTime % 60,GameAsset.getMenuSkin())).row();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_SURVIVAL_LABEL) + ": " + surviveTime / 60 + ":" + surviveTime % 60, GameAsset.getMenuSkin())).row();
         int kill = App.getLoggedInUser().getLastGame().getPlayer().getKillNumber();
-        table.add(new Label("kill: " + kill,GameAsset.getMenuSkin())).row();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_KILL_LABEL) + ": " + kill, GameAsset.getMenuSkin())).row();
         int score = surviveTime * kill;
-        table.add(new Label("score: " + score,GameAsset.getMenuSkin())).row();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_SCORE_LABEL) + ": " + score, GameAsset.getMenuSkin())).row();
 
         table.add(backButton).align(Align.center).width(250).height(100);
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
-                controller.afterGme(score,surviveTime,kill);
+                controller.afterGme(score, surviveTime, kill);
             }
         });
 

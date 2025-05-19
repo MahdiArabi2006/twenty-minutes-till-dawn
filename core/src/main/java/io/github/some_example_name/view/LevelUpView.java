@@ -12,9 +12,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.some_example_name.Main;
-import io.github.some_example_name.model.Ability;
-import io.github.some_example_name.model.App;
-import io.github.some_example_name.model.GameAsset;
+import io.github.some_example_name.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +32,9 @@ public class LevelUpView implements Screen {
         Texture backgroundTexture = new Texture(Gdx.files.internal("background2.jpg"));
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.background = new Image(backgroundTexture);
-        this.continueTheGame = new TextButton("Continue", GameAsset.getMenuSkin());
-        this.chooseAbility = new TextButton("Choose Ability", GameAsset.getMenuSkin());
-        this.abilityDialog = new Dialog("forget password", GameAsset.getMenuSkin());
+        this.continueTheGame = new TextButton(LanguageManager.get(TextKey.MENU_CONTINUE_TEXT_BUTTON), GameAsset.getMenuSkin());
+        this.chooseAbility = new TextButton(LanguageManager.get(TextKey.MENU_CHOOSE_ABILITY_TEXT_BUTTON), GameAsset.getMenuSkin());
+        this.abilityDialog = new Dialog("Ability", GameAsset.getMenuSkin());
     }
 
     @Override
@@ -88,7 +86,7 @@ public class LevelUpView implements Screen {
         table.setFillParent(true);
         table.defaults().pad(10).width(300).height(40);
         table.align(Align.center);
-        table.add(new Label("Level " + App.getLoggedInUser().getLastGame().getPlayer().getLevel(), GameAsset.getMenuSkin(), "title")).align(Align.center).padBottom(100).row();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_LEVEL_LABEL) + " " + App.getLoggedInUser().getLastGame().getPlayer().getLevel(), GameAsset.getMenuSkin(), "title")).align(Align.center).padBottom(100).row();
 
         chooseAbility.addListener(new ClickListener() {
             @Override

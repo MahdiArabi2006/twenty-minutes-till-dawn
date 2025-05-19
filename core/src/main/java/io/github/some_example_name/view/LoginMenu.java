@@ -14,6 +14,8 @@ import io.github.some_example_name.Main;
 import io.github.some_example_name.controller.LoginMenuController;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.GameAsset;
+import io.github.some_example_name.model.LanguageManager;
+import io.github.some_example_name.model.TextKey;
 
 public class LoginMenu extends Menu {
     private final LoginMenuController controller = new LoginMenuController(this);
@@ -35,12 +37,12 @@ public class LoginMenu extends Menu {
         Texture backgroundTexture = new Texture(Gdx.files.internal("background2.jpg"));
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.background = new Image(backgroundTexture);
-        this.loginButton = new TextButton("login", GameAsset.getMenuSkin());
-        this.backButton = new TextButton("back", GameAsset.getMenuSkin());
-        this.forgetPasswordButton = new TextButton("forget password", GameAsset.getMenuSkin());
-        this.forgetPasswordDialog = new Dialog("forget password", GameAsset.getMenuSkin());
-        username = createTextField("username");
-        password = createPasswordField("password");
+        this.loginButton = new TextButton(LanguageManager.get(TextKey.MENU_LOGIN_TEXT_BUTTON), GameAsset.getMenuSkin());
+        this.backButton = new TextButton(LanguageManager.get(TextKey.MENU_BACK_TEXT_BUTTON), GameAsset.getMenuSkin());
+        this.forgetPasswordButton = new TextButton(LanguageManager.get(TextKey.MENU_FORGET_PASSWORD_DIALOG), GameAsset.getMenuSkin());
+        this.forgetPasswordDialog = new Dialog(LanguageManager.get(TextKey.MENU_FORGET_PASSWORD_DIALOG), GameAsset.getMenuSkin());
+        username = createTextField(LanguageManager.get(TextKey.MENU_USERNAME_LABEL));
+        password = createPasswordField(LanguageManager.get(TextKey.MENU_PASSWORD_TEXT_FILED));
         errorLabel = new Label("", GameAsset.getMenuSkin());
         errorLabel.setColor(Color.RED);
     }
@@ -67,15 +69,15 @@ public class LoginMenu extends Menu {
     }
 
     private void setupForgetPasswordDialog() {
-        answer = new TextField("your favorite movie", GameAsset.getMenuSkin());
-        newPassword = new TextField("new password", GameAsset.getMenuSkin());
-        TextButton submitButton = new TextButton("confirm", GameAsset.getMenuSkin());
-        TextButton cancelButton = new TextButton("cancel", GameAsset.getMenuSkin());
+        answer = new TextField(LanguageManager.get(TextKey.MENU_SECURITY_LABEL), GameAsset.getMenuSkin());
+        newPassword = new TextField(LanguageManager.get(TextKey.MENU_NEW_PASSWORD_LABEL), GameAsset.getMenuSkin());
+        TextButton submitButton = new TextButton(LanguageManager.get(TextKey.MENU_CONFIRM_TEXT_BUTTON), GameAsset.getMenuSkin());
+        TextButton cancelButton = new TextButton(LanguageManager.get(TextKey.MENU_CANCEL_TEXT_BUTTON), GameAsset.getMenuSkin());
 
         Table contentTable = forgetPasswordDialog.getContentTable();
-        contentTable.add(new Label("security question: ", GameAsset.getMenuSkin())).padRight(10);
+        contentTable.add(new Label(LanguageManager.get(TextKey.MENU_SECURITY_QUESTION_LABEL) + ": ", GameAsset.getMenuSkin())).padRight(10);
         contentTable.add(answer).width(300).row();
-        contentTable.add(new Label("new password ", GameAsset.getMenuSkin())).padRight(10);
+        contentTable.add(new Label(LanguageManager.get(TextKey.MENU_NEW_PASSWORD_LABEL), GameAsset.getMenuSkin())).padRight(10);
         contentTable.add(newPassword).width(300).row();
         forgetPasswordDialog.getButtonTable().defaults().pad(10);
         forgetPasswordDialog.button(submitButton, true);
@@ -104,9 +106,9 @@ public class LoginMenu extends Menu {
         table.align(Align.topLeft);
 
         table.add(new Label("Login Menu", GameAsset.getMenuSkin(), "title")).colspan(2).padBottom(30).padTop(30).row();
-        table.add(new Label("username: ", GameAsset.getMenuSkin())).right();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_USERNAME_LABEL) + ": ", GameAsset.getMenuSkin())).right();
         table.add(username).width(400).height(70).pad(5).row();
-        table.add(new Label("password: ", GameAsset.getMenuSkin())).right();
+        table.add(new Label(LanguageManager.get(TextKey.MENU_PASSWORD_TEXT_FILED) + " : ", GameAsset.getMenuSkin())).right();
         table.add(password).width(400).height(70).pad(5).row();
         table.add(errorLabel).colspan(2).height(20).row();
         table.add(loginButton).align(Align.left).width(250).height(100);

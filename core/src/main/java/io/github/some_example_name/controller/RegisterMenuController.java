@@ -18,17 +18,15 @@ public class RegisterMenuController {
 
     public void register(String username, String password, String answer) {
         if (username.isEmpty() || password.isEmpty()) {
-            view.showError("you have to fill all fields");
+            view.showError(LanguageManager.get(TextKey.MENU_REGISTER_ERROR1));
         } else if (!isUsernameUnique(username)) {
-            view.showError("this username is already taken");
+            view.showError(LanguageManager.get(TextKey.MENU_REGISTER_ERROR2));
         } else if (!isPasswordStrong(password)) {
-            view.showError("use a strong password");
+            view.showError(LanguageManager.get(TextKey.MENU_REGISTER_ERROR3));
         } else {
             Image image = getRandomAvatar();
             User user = new User(username.trim(), password.trim(), answer.trim(), image);
             userRepository.saveUser(user);
-            // App.getUsers().add(user);
-            view.showSuccessMessage("you sign up successfully");
             Main.getInstance().setScreen(new FirstMenu());
         }
     }

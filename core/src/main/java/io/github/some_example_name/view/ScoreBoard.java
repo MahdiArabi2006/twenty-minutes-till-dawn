@@ -14,11 +14,8 @@ import io.github.some_example_name.Main;
 import io.github.some_example_name.controller.ScoreBoardController;
 import io.github.some_example_name.model.App;
 import io.github.some_example_name.model.GameAsset;
-import io.github.some_example_name.model.User;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
+import io.github.some_example_name.model.LanguageManager;
+import io.github.some_example_name.model.TextKey;
 
 public class ScoreBoard extends Menu {
     private final Stage stage;
@@ -31,7 +28,7 @@ public class ScoreBoard extends Menu {
     public ScoreBoard() {
         this.stage = new Stage(Main.getInstance().getViewport(), Main.getInstance().getBatch());
         this.table = new Table();
-        this.backButton = new TextButton("Back", GameAsset.getMenuSkin());
+        this.backButton = new TextButton(LanguageManager.get(TextKey.MENU_BACK_TEXT_BUTTON), GameAsset.getMenuSkin());
         this.sortBySelector = new SelectBox<>(GameAsset.getMenuSkin());
         this.userTable = new Table(GameAsset.getMenuSkin());
     }
@@ -42,7 +39,7 @@ public class ScoreBoard extends Menu {
         table.setFillParent(true);
         table.align(Align.top);
 
-        Label title = new Label("Score Board", GameAsset.getMenuSkin(), "title");
+        Label title = new Label(LanguageManager.get(TextKey.MENU_SCOREBOARD_LABEL), GameAsset.getMenuSkin(), "title");
         title.setAlignment(Align.center);
         table.add(title).padTop(20).row();
 
@@ -53,7 +50,7 @@ public class ScoreBoard extends Menu {
             return false;
         });
 
-        table.add(new Label("Sort by:", GameAsset.getMenuSkin()));
+        table.add(new Label(LanguageManager.get(TextKey.MENU_SORT_BY_LABEL) + ":", GameAsset.getMenuSkin()));
         table.add(sortBySelector).pad(10).row();
         table.add(userTable).padTop(20).row();
 

@@ -11,6 +11,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.controller.FirstMenuController;
 import io.github.some_example_name.model.GameAsset;
+import io.github.some_example_name.model.LanguageManager;
+import io.github.some_example_name.model.TextKey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +30,9 @@ public class FirstMenu extends Menu {
         Texture backgroundTexture = new Texture(Gdx.files.internal("background.png"));
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.background = new Image(backgroundTexture);
-        textButtonList.add(new TextButton("Login", GameAsset.getMenuSkin()));
-        textButtonList.add(new TextButton("Sign up", GameAsset.getMenuSkin()));
-        textButtonList.add(new TextButton("Exit Game", GameAsset.getMenuSkin()));
+        textButtonList.add(new TextButton(LanguageManager.get(TextKey.MENU_LOGIN_TEXT_BUTTON), GameAsset.getMenuSkin()));
+        textButtonList.add(new TextButton(LanguageManager.get(TextKey.MENU_SIGNUP_TEXT_BUTTON), GameAsset.getMenuSkin()));
+        textButtonList.add(new TextButton(LanguageManager.get(TextKey.MENU_EXIT_GAME_TEXT_BUTTON), GameAsset.getMenuSkin()));
     }
 
     @Override

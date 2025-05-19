@@ -15,13 +15,10 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.some_example_name.Main;
 import io.github.some_example_name.controller.PreGameController;
-import io.github.some_example_name.model.App;
+import io.github.some_example_name.model.*;
 import io.github.some_example_name.model.Character;
-import io.github.some_example_name.model.GameAsset;
-import io.github.some_example_name.model.WeaponType;
 
 public class PreGameMenu extends Menu {
     private final PreGameController controller = new PreGameController(this);
@@ -44,12 +41,12 @@ public class PreGameMenu extends Menu {
         Texture backgroundTexture = new Texture(Gdx.files.internal("background5.png"));
         backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.background = new Image(backgroundTexture);
-        this.heroSelectionButton = new TextButton("hero selection", GameAsset.getMenuSkin());
-        this.weaponSelectionButton = new TextButton("weapon selection", GameAsset.getMenuSkin());
-        this.startGameButton = new TextButton("start game", GameAsset.getMenuSkin());
-        this.backButton = new TextButton("back", GameAsset.getMenuSkin());
-        this.heroSelectionDialog = new Dialog("hero selection", GameAsset.getMenuSkin());
-        this.weaponSelectionDialog = new Dialog("weapon selection", GameAsset.getMenuSkin());
+        this.heroSelectionButton = new TextButton(LanguageManager.get(TextKey.MENU_HERO_SELECTION_BUTTON), GameAsset.getMenuSkin());
+        this.weaponSelectionButton = new TextButton(LanguageManager.get(TextKey.MENU_WEAPON_SELECTION_BUTTON), GameAsset.getMenuSkin());
+        this.startGameButton = new TextButton(LanguageManager.get(TextKey.MENU_START_GAME_BUTTON), GameAsset.getMenuSkin());
+        this.backButton = new TextButton(LanguageManager.get(TextKey.MENU_BACK_TEXT_BUTTON), GameAsset.getMenuSkin());
+        this.heroSelectionDialog = new Dialog(LanguageManager.get(TextKey.MENU_HERO_SELECTION_BUTTON), GameAsset.getMenuSkin());
+        this.weaponSelectionDialog = new Dialog(LanguageManager.get(TextKey.MENU_WEAPON_SELECTION_BUTTON), GameAsset.getMenuSkin());
         errorLabel = new Label("", GameAsset.getMenuSkin());
         errorLabel.setColor(Color.RED);
         this.selectBoxTime = new SelectBox<>(GameAsset.getMenuSkin());
@@ -89,7 +86,7 @@ public class PreGameMenu extends Menu {
             itemTable.add(label).padTop(5).width(100).center();
             avatarTable.add(itemTable).pad(10);
         }
-        TextButton cancelButton = new TextButton("Cancel", GameAsset.getMenuSkin());
+        TextButton cancelButton = new TextButton(LanguageManager.get(TextKey.MENU_CANCEL_TEXT_BUTTON), GameAsset.getMenuSkin());
         cancelButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -127,7 +124,7 @@ public class PreGameMenu extends Menu {
             itemTable.add(label).padTop(5).width(100).center();
             avatarTable.add(itemTable).pad(10);
         }
-        TextButton cancelButton = new TextButton("Cancel", GameAsset.getMenuSkin());
+        TextButton cancelButton = new TextButton(LanguageManager.get(TextKey.MENU_CANCEL_TEXT_BUTTON), GameAsset.getMenuSkin());
         cancelButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -164,7 +161,7 @@ public class PreGameMenu extends Menu {
             }
         });
         Array<String> timeItems = new Array<>();
-        timeItems.add("time");
+        timeItems.add(LanguageManager.get(TextKey.MENU_TIME_LABEL));
         timeItems.add("20");
         timeItems.add("10");
         timeItems.add("5");
@@ -174,7 +171,7 @@ public class PreGameMenu extends Menu {
         selectBoxTime.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (!selectBoxTime.getSelected().equals("time")){
+                if (!selectBoxTime.getSelected().equals("time")) {
                     if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
                     time = Integer.parseInt((String) selectBoxTime.getSelected());
                 }
@@ -186,10 +183,9 @@ public class PreGameMenu extends Menu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
-                if (!playAsGuest){
+                if (!playAsGuest) {
                     controller.startGame();
-                }
-                else {
+                } else {
                     controller.startGameAsGuest();
                 }
             }
@@ -199,10 +195,9 @@ public class PreGameMenu extends Menu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (App.isEnableSFX()) GameAsset.UIClick.play(1f);
-                if (!playAsGuest){
+                if (!playAsGuest) {
                     Main.getInstance().setScreen(new MainMenu());
-                }
-                else {
+                } else {
                     Main.getInstance().setScreen(new FirstMenu());
                 }
             }
